@@ -4,12 +4,19 @@ import "./index.css"
 import App from "./App"
 import reportWebVitals from "./reportWebVitals"
 import { ThemeProvider } from "@material-tailwind/react"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
+const router = createBrowserRouter([
+    {
+        path: "/",
+        element: <App />,
+    },
+])
 root.render(
     <React.StrictMode>
         <ThemeProvider>
-            <App />
+            <RouterProvider router={router} />
         </ThemeProvider>
     </React.StrictMode>
 )
