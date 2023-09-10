@@ -1,15 +1,12 @@
 import React from "react"
 import { Card, Input, Button } from "@material-tailwind/react"
 import { Controller, useForm } from "react-hook-form"
-
 import { useAppDispatch, useAppSelector } from "../../hooks/useStore"
 import { logInUser } from "../../api/authApi"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { authSchema } from "./validation"
-interface ILoginFormData {
-    email: string
-    password: string
-}
+import logo from "../../assets/img/logo-large-1x.png"
+
 const AuthForm: React.FC = () => {
     const defaultValues: ILoginFormData = {
         email: "",
@@ -32,21 +29,44 @@ const AuthForm: React.FC = () => {
     }
 
     return (
-        <Card color="transparent" shadow={false}>
-            <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+        <Card
+            color="transparent"
+            shadow={false}
+            className="w-[350px] px-[58px] pt-[58px] pb-[98px] bg-customGrayLight shadow-2xl"
+        >
+            <figure className="flex justify-center mb-[48px]">
+                <img src={logo} alt="Delivery Book" />
+            </figure>
+            <form className="min-w-full">
                 <div className="mb-4 flex flex-col gap-6">
                     <Controller
                         name="email"
                         control={control}
                         render={({ field: { onChange, onBlur, value } }) => (
-                            <Input size="lg" label="Email" value={value} />
+                            <Input
+                                label="Email"
+                                value={value}
+                                className="w-full"
+                                containerProps={{ className: "!min-w-full" }}
+                                labelProps={{
+                                    className: "hidden",
+                                }}
+                            />
                         )}
                     />
                     <Controller
                         name="password"
                         control={control}
                         render={({ field: { onChange, onBlur, value } }) => (
-                            <Input size="lg" label="Password" value={value} />
+                            <Input
+                                size="lg"
+                                label="Password"
+                                value={value}
+                                containerProps={{ className: "!min-w-full" }}
+                                labelProps={{
+                                    className: "hidden",
+                                }}
+                            />
                         )}
                     />
                 </div>

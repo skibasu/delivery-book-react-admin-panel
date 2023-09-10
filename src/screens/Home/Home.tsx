@@ -1,10 +1,11 @@
 import React from "react"
-import AuthForm from "../../components/AuthForm/AuthForm"
+//import { useAppSelector } from "../../hooks/useStore"
 
 const Home: React.FC = () => {
+    // const { token } = useAppSelector((state) => state.auth)
     return (
         <section>
-            <AuthForm />
+            <h1>Welcome Home</h1>
         </section>
     )
 }
