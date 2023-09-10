@@ -1,6 +1,7 @@
 import React from "react"
-import { Card, Input, Button } from "@material-tailwind/react"
+
 import { Controller, useForm } from "react-hook-form"
+import { Button } from "../ui/button"
 
 import { useAppDispatch, useAppSelector } from "../../hooks/useStore"
 import { logInUser } from "../../api/authApi"
@@ -32,10 +33,10 @@ const AuthForm: React.FC = () => {
     }
 
     return (
-        <Card color="transparent" shadow={false}>
-            <form className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
-                <div className="mb-4 flex flex-col gap-6">
-                    <Controller
+        <form className="">
+            <div className="mb-4 flex flex-col gap-6">
+                <Button>auth</Button>
+                {/*<Controller
                         name="email"
                         control={control}
                         render={({ field: { onChange, onBlur, value } }) => (
@@ -57,9 +58,9 @@ const AuthForm: React.FC = () => {
                     onClick={handleSubmit(onSubmit)}
                 >
                     Login
-                </Button>
-            </form>
-        </Card>
+                        </Button> */}
+            </div>
+        </form>
     )
 }
 

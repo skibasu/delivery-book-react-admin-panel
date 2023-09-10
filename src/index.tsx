@@ -1,7 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
 import reportWebVitals from "./reportWebVitals"
-import { ThemeProvider } from "@material-tailwind/react"
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Provider } from "react-redux"
 import Home from "./screens/Home/Home"
@@ -17,11 +16,9 @@ const router = createBrowserRouter([
 ])
 root.render(
     <React.StrictMode>
-        <ThemeProvider>
-            <Provider store={store}>
-                <RouterProvider router={router} />
-            </Provider>
-        </ThemeProvider>
+        <Provider store={store}>
+            <RouterProvider router={router} />
+        </Provider>
     </React.StrictMode>
 )
 

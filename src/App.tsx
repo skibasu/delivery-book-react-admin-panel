@@ -1,5 +1,4 @@
 import React from "react"
-import { Button } from "@material-tailwind/react"
 
 function App() {
     return (
@@ -8,7 +7,6 @@ function App() {
                 Simple React Typescript Tailwind Sample
             </h1>
             <p className="text-orange  uppercase font-regular">Lorem ipsum</p>
-            <Button>Button</Button>
         </div>
     )
 }
