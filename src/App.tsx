@@ -1,16 +1,24 @@
 import React from "react"
-import { Button } from "@material-tailwind/react"
+import {
+    createBrowserRouter,
+    createRoutesFromElements,
+    Route,
+    RouterProvider,
+} from "react-router-dom"
+import Layout from "./layouts/Layout"
+import { nav } from "./routes"
 
 function App() {
-    return (
-        <div className="flex flex-col justify-center items-center py-12">
-            <h1 className="text-6xl font-bold underline text-red-600">
-                Simple React Typescript Tailwind Sample
-            </h1>
-            <p className="text-orange  uppercase font-regular">Lorem ipsum</p>
-            <Button>Button</Button>
-        </div>
+    const router = createBrowserRouter(
+        createRoutesFromElements(
+            <Route path="/" element={<Layout />}>
+                {nav.map(({ element, key, path }) => (
+                    <Route key={key} path={path} element={element} />
+                ))}
+            </Route>
+        )
     )
+    return <RouterProvider router={router} />
 }
 
 export default App

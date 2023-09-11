@@ -1,27 +1,18 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
 import reportWebVitals from "./reportWebVitals"
-import { ThemeProvider } from "@material-tailwind/react"
-import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Provider } from "react-redux"
-import Home from "./screens/Home/Home"
 import { store } from "./store"
 import "./index.css"
+import App from "./App"
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
-const router = createBrowserRouter([
-    {
-        path: "/",
-        element: <Home />,
-    },
-])
+
 root.render(
     <React.StrictMode>
-        <ThemeProvider>
-            <Provider store={store}>
-                <RouterProvider router={router} />
-            </Provider>
-        </ThemeProvider>
+        <Provider store={store}>
+            <App />
+        </Provider>
     </React.StrictMode>
 )
 

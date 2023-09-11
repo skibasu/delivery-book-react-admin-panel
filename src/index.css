@@ -22,7 +22,6 @@
     font-weight: 400;
     font-style: normal;
 }
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,5 +29,25 @@
     html {
         font-family: Roboto, system-ui, sans-serif;
         font-size: 14px;
+        flex-direction: column;
+        height: 100%;
+        display: flex;
+    }
+    body {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        line-height: 1.2;
+    }
+    #root {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus {
+        /* -webkit-text-fill-color: #31b0dd; */
+        -webkit-box-shadow: 0 0 0px 40rem #eaf5e3 inset;
     }
 }
