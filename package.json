@@ -1,4 +1,5 @@
 {
+    "homepage": "skibasu.github.io/delivery-book-react-admin-panel",
     "name": "delivery-book-react-admin-panel",
     "version": "0.1.0",
     "private": true,
@@ -21,6 +22,7 @@
         "axios": "^1.5.0",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.0.0",
+        "gh-pages": "^6.0.0",
         "lucide-react": "^0.276.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
@@ -38,7 +40,9 @@
         "start": "craco start",
         "build": "craco build",
         "test": "craco test",
-        "eject": "craco eject"
+        "eject": "craco eject",
+        "predeploy": "npm run build",
+        "deploy": "gh-pages -d build"
     },
     "eslintConfig": {
         "extends": [
