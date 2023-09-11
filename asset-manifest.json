@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/skibasu.github.io/delivery-book-react-admin-panel/static/css/main.b618da88.css",
+    "main.js": "/skibasu.github.io/delivery-book-react-admin-panel/static/js/main.7f9e724b.js",
+    "static/js/787.cf29e5e5.chunk.js": "/skibasu.github.io/delivery-book-react-admin-panel/static/js/787.cf29e5e5.chunk.js",
+    "static/media/Roboto-Medium.ttf": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/Roboto-Medium.7c8d04cd831df3033c8a.ttf",
+    "static/media/Roboto-Thin.ttf": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/Roboto-Thin.a732a12eb07742232407.ttf",
+    "static/media/Roboto-Regular.ttf": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/Roboto-Regular.fc2b5060f7accec5cf74.ttf",
+    "static/media/PaytoneOne-Regular.ttf": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/PaytoneOne-Regular.49f0dd262b027f64630e.ttf",
+    "static/media/section-bg-1-tiny.png": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/section-bg-1-tiny.20a07331cf43bafc9fd4.png",
+    "static/media/logo-large-1x.png": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/logo-large-1x.20c2e86b8cfd65e47e3b.png",
+    "static/media/icon-toggle-menu.svg": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/icon-toggle-menu.614dfc673ba52e244430d8cdcd18d83f.svg",
+    "static/media/icon-statistics.svg": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/icon-statistics.465c072d69c6a1311d70d1be6b1ddaec.svg",
+    "static/media/icon-spinner.svg": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/icon-spinner.846b71b54441d2be52fa0c4a5f8e5e02.svg",
+    "static/media/icon-users.svg": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/icon-users.06f4e5b3c0c6f62f0767194b98c84315.svg",
+    "static/media/icon-error.svg": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/icon-error.30922f38f941433f136bb390f2fd4c2b.svg",
+    "index.html": "/skibasu.github.io/delivery-book-react-admin-panel/index.html",
+    "static/media/icon-home.svg": "/skibasu.github.io/delivery-book-react-admin-panel/static/media/icon-home.0072ea48450282e9a854ef7cbe8cb8e2.svg",
+    "main.b618da88.css.map": "/skibasu.github.io/delivery-book-react-admin-panel/static/css/main.b618da88.css.map",
+    "main.7f9e724b.js.map": "/skibasu.github.io/delivery-book-react-admin-panel/static/js/main.7f9e724b.js.map",
+    "787.cf29e5e5.chunk.js.map": "/skibasu.github.io/delivery-book-react-admin-panel/static/js/787.cf29e5e5.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b618da88.css",
+    "static/js/main.7f9e724b.js"
+  ]
+}
