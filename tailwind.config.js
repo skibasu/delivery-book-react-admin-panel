@@ -1,25 +1,78 @@
 /** @type {import('tailwindcss').Config} */
-
-const withMT = require("@material-tailwind/react/utils/withMT")
-
-module.exports = withMT({
-    content: ["./src/**/*.{js,jsx,ts,tsx}"],
+module.exports = {
+    darkMode: ["class"],
+    content: ["./src/**/*.{ts,tsx}"],
     theme: {
         fontFamily: {
             payton: ["Payton One", "system-ui", "sans-serif"],
         },
-        fontSize: {
-            xsm: "0.857rem",
-            sm: "1rem",
-            base: "1.143rem",
-            xl: "1.286rem",
-            "2xl": "1.429rem",
-            "3xl": "1.571rem",
-            "4xl": "1.786rem",
-            "5xl": "2.286rem",
-            "6xl": "2.857rem",
+        screens: {
+            sm: "640px",
+            // => @media (min-width: 640px) { ... }
+
+            md: "768px",
+            // => @media (min-width: 768px) { ... }
+
+            lg: "1366px",
+            // => @media (min-width: 1024px) { ... }
+
+            xl: "1440px",
+            // => @media (min-width: 1280px) { ... }
+
+            "2xl": "1920px",
+            // => @media (min-width: 1536px) { ... }
         },
+        container: {
+            center: true,
+            padding: "2rem",
+            screens: {
+                "2xl": "1400px",
+            },
+        },
+        borderRadius: {
+            none: "0",
+            sm: "4px",
+            md: "6px",
+            lg: "8px",
+            full: "100%",
+            large: "12px",
+        },
+        fontSize: {
+            mikro: "8px",
+            "3sm": "10px",
+            "2sm": "12px",
+            sm: "14px",
+            base: "16px",
+            lg: "18px",
+            xl: "20px",
+            h1: "32px",
+        },
+
         extend: {
+            height: {
+                inputSpacer: "16px",
+                element: "38px",
+            },
+            minHeight: {
+                inputSpacer: "16px",
+            },
+            spacing: {
+                "0y": "3px",
+                "1x": "4px",
+                "1y": "5px",
+                "2x": "6px",
+                "2y": "7px",
+                "3x": "8px",
+                "4x": "10px",
+                "5x": "12px",
+                "6y": "15px",
+                "6x": "16px",
+                "7x": "20px",
+                "8x": "28px",
+                "9x": "48px",
+                inputSpacer: "16px",
+                errorSpacer: "32px",
+            },
             colors: {
                 transparent: "transparent",
                 textWhite: "#FBFBFB",
@@ -32,7 +85,8 @@ module.exports = withMT({
                 orange72: "#F39D70",
                 wetGrass: "#B0DB72",
                 hellFire: "#EF2F2A",
-                success: "#7A4579",
+                successed: "#7A4579",
+                successedH: "#632062",
                 navy: "#EAF5E3",
                 customGray: "#9E9E9E",
                 customGrayLight: "#D9D9D9",
@@ -45,8 +99,25 @@ module.exports = withMT({
                 paid: "#AAB2C1",
                 sweetGrass: "#339031",
                 placeholder: "#89898A",
+                selectedInput: "#F8FAE1",
+            },
+            keyframes: {
+                "accordion-down": {
+                    from: { height: 0 },
+                    to: { height: "var(--radix-accordion-content-height)" },
+                },
+                "accordion-up": {
+                    from: {
+                        height: "var(--radix-accordion-content-height)",
+                    },
+                    to: { height: 0 },
+                },
+            },
+            animation: {
+                "accordion-down": "accordion-down 0.2s ease-out",
+                "accordion-up": "accordion-up 0.2s ease-out",
             },
         },
     },
-    plugins: [],
-})
+    plugins: [require("tailwindcss-animate")],
+}

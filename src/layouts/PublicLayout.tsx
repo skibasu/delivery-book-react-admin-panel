@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer/Footer"
 import React from "react"
 import { Outlet } from "react-router-dom"
 
@@ -7,7 +8,7 @@ const PublicLayout: React.FC = () => {
             <main className="grow flex flex-column">
                 <Outlet />
             </main>
-            <footer>footer</footer>
+            <Footer />
         </>
     )
 }
