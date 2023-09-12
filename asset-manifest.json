@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/delivery-book-react-admin-panel/static/css/main.2de1f227.css",
-    "main.js": "/delivery-book-react-admin-panel/static/js/main.45443b08.js",
+    "main.css": "/delivery-book-react-admin-panel/static/css/main.18fe3bdd.css",
+    "main.js": "/delivery-book-react-admin-panel/static/js/main.0d1355bb.js",
     "static/js/787.cf29e5e5.chunk.js": "/delivery-book-react-admin-panel/static/js/787.cf29e5e5.chunk.js",
     "static/media/Roboto-Medium.ttf": "/delivery-book-react-admin-panel/static/media/Roboto-Medium.7c8d04cd831df3033c8a.ttf",
     "static/media/Roboto-Thin.ttf": "/delivery-book-react-admin-panel/static/media/Roboto-Thin.a732a12eb07742232407.ttf",
@@ -16,12 +16,12 @@
     "static/media/icon-error.svg": "/delivery-book-react-admin-panel/static/media/icon-error.30922f38f941433f136bb390f2fd4c2b.svg",
     "index.html": "/delivery-book-react-admin-panel/index.html",
     "static/media/icon-home.svg": "/delivery-book-react-admin-panel/static/media/icon-home.0072ea48450282e9a854ef7cbe8cb8e2.svg",
-    "main.2de1f227.css.map": "/delivery-book-react-admin-panel/static/css/main.2de1f227.css.map",
-    "main.45443b08.js.map": "/delivery-book-react-admin-panel/static/js/main.45443b08.js.map",
+    "main.18fe3bdd.css.map": "/delivery-book-react-admin-panel/static/css/main.18fe3bdd.css.map",
+    "main.0d1355bb.js.map": "/delivery-book-react-admin-panel/static/js/main.0d1355bb.js.map",
     "787.cf29e5e5.chunk.js.map": "/delivery-book-react-admin-panel/static/js/787.cf29e5e5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2de1f227.css",
-    "static/js/main.45443b08.js"
+    "static/css/main.18fe3bdd.css",
+    "static/js/main.0d1355bb.js"
   ]
 }
