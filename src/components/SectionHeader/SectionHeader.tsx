@@ -6,17 +6,19 @@ import Raport from "../Raport/Raport"
 const SectionHeader: React.FC<ISectionHeader> = ({ title }) => {
     return (
         <div
-            className="h-[105px] w-full rounded-b-lg shadow-2xl p-7x relative"
+            className="w-full rounded-b-lg shadow-2xl"
             style={{
                 backgroundImage: `url(${backgroundImage})`,
                 backgroundPosition: "left",
             }}
         >
-            <h1 className="uppercase font-medium text-h1 text-textWhite tracking-[4.8px]">
-                {title}
-            </h1>
-            <div className="absolute left-0 bottom-[-42px] w-full">
-                <Raport />
+            <div className="mx-auto max-w-[1200px] p-7x relative h-[105px]">
+                <h1 className="uppercase font-medium text-h1 text-textWhite tracking-[4.8px]">
+                    {title}
+                </h1>
+                <div className="absolute left-0 bottom-[-42px] w-full">
+                    <Raport />
+                </div>
             </div>
         </div>
     )
