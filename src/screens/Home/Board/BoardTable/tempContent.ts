@@ -1,4 +1,5 @@
 export interface ITableContent {
+    id: number
     adress: {
         streetName: string
         flatNumber: string
@@ -12,6 +13,13 @@ export interface ITableContent {
     deadline: string
     price: string
     actions: { editable: boolean; deletable: boolean }
+    note: string
+    user: {
+        id: number
+        firstName: string
+        lastName: string
+        url?: string
+    }
 }
 
 export interface ITableHeaders {
@@ -23,13 +31,19 @@ export interface ITableHeaders {
 
 export const tableHeaders: ITableHeaders[] = [
     {
-        width: "flex-[1_1_282px] min-w-[282px]",
+        width: "flex-[1_1_80px] min-w-[80px]",
+        label: "Driver",
+        sort: true,
+        key: "user",
+    },
+    {
+        width: "flex-[1_1_212px] min-w-[212px]",
         label: "Adress",
         sort: true,
         key: "adress",
     },
     {
-        width: "flex-[1_1_202px] min-w-[202px]",
+        width: "flex-[1_1_192px] min-w-[192px]",
         label: "Products",
         sort: false,
         key: "products",
@@ -73,7 +87,8 @@ export const tableHeaders: ITableHeaders[] = [
 ]
 
 export const tableContent: ITableContent[] = [
-    ...[1, 2, 3, 4, 5, 6, 7, 8].map(() => ({
+    ...[1, 2, 3, 4, 5, 6, 7, 8].map((i) => ({
+        id: i,
         adress: {
             streetName: "Kosciuszki",
             flatNumber: "2",
@@ -83,9 +98,20 @@ export const tableContent: ITableContent[] = [
         products: ["Lorem ipsum", "Lorem Ipsum", "Lorem Ipsum dollor"],
         phoneNumber: "680-240-240",
         status: "ONLINE",
-        createdAt: "1694549775529",
-        deadline: "1694549775529",
-        price: "120",
+        createdAt: `${new Date(1694549775529).getHours()} : ${new Date(
+            1694549775529
+        ).getMinutes()}`,
+        deadline: `${new Date(1694549775529).getHours()} : ${new Date(
+            1694549775529
+        ).getMinutes()}`,
+        price: "120 zł",
         actions: { editable: true, deletable: true },
+        note: i === 2 ? "Kupic fajki i flaszkę." : "",
+        user: {
+            id: i,
+            firstName: "Adam",
+            lastName: "Kowalski",
+            url: "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg",
+        },
     })),
 ]

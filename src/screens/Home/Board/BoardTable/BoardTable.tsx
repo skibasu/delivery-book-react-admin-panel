@@ -4,10 +4,19 @@ import { ReactComponent as SortIcon } from "@/assets/svg/icon-sort.svg"
 import { ReactComponent as AddUserIcon } from "@/assets/svg/icon-add-user.svg"
 import { ReactComponent as EditIcon } from "@/assets/svg/icon-edit.svg"
 import { ReactComponent as DeleteIcon } from "@/assets/svg/icon-trash.svg"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui"
 
+export enum EBoardType {
+    OPEN = "OPEN",
+    DRAFTS = "DRAFTS",
+    SELECTED = "SELECTED",
+    PENDING = "PENDING",
+    DONE = "DONE",
+}
 interface IBoardTable {
     headers: ITableHeaders[]
     tableContent: ITableContent[]
+    type?: EBoardType
 }
 
 const sortByKey = (
@@ -27,7 +36,11 @@ const sortByKey = (
         }),
     ]
 }
-const BoardTable: React.FC<IBoardTable> = ({ headers, tableContent }) => {
+const BoardTable: React.FC<IBoardTable> = ({
+    headers,
+    tableContent,
+    type: boardType,
+}) => {
     const [data, setData] = useState<ITableContent[]>(tableContent)
     return (
         <div>
@@ -35,9 +48,16 @@ const BoardTable: React.FC<IBoardTable> = ({ headers, tableContent }) => {
             <div className="w-full flex bg-customGrayLight rounded-sm mt-8x mb-7x">
                 {headers.map(({ label, sort, key, width }, i) => {
                     const border = i === 0 ? "" : "border-l border-textWhite "
+                    if (
+                        key === "user" &&
+                        (boardType === EBoardType.OPEN ||
+                            boardType === EBoardType.DRAFTS)
+                    ) {
+                        return null
+                    }
                     return (
                         <div
-                            key={label}
+                            key={key}
                             className={`${border}h-[44px] px-6y py-1y flex justify-between items-center text-sm font-medium${
                                 width ? " " + width : ""
                             }`}
@@ -65,44 +85,86 @@ const BoardTable: React.FC<IBoardTable> = ({ headers, tableContent }) => {
             <div>
                 {data.map((element) => {
                     const {
+                        id,
                         adress: { streetName, flatNumber, houseNumber, city },
                         actions: { editable, deletable },
+                        user: { firstName, lastName, url },
                         products,
                         status,
+                        note,
                     } = element
                     return (
-                        <div className="flex w-full  border border-customGray rounded-sm shadow-md mb-5x">
+                        <div
+                            key={id}
+                            className="flex w-full transition-shadow ease-in-out border border-customGray rounded-sm shadow-md mb-5x hover:shadow-xl"
+                            style={{ transitionDuration: "500ms" }}
+                        >
                             {headers.map(({ key, width }, i) => {
                                 const border =
                                     i === 0 ? "" : "border-l border-customGray "
+                                if (key === "user") {
+                                    return boardType !== EBoardType.OPEN &&
+                                        boardType !== EBoardType.DRAFTS ? (
+                                        <div
+                                            className={`${border}${width} flex justify-center items-center px-4x py-7.1x`}
+                                        >
+                                            <Avatar>
+                                                <AvatarImage
+                                                    src={url}
+                                                    alt={`${firstName} ${lastName}`}
+                                                />
+                                                <AvatarFallback>{`${firstName[0].toUpperCase()} ${lastName[0].toUpperCase()}`}</AvatarFallback>
+                                            </Avatar>
+                                        </div>
+                                    ) : null
+                                }
                                 if (key === "adress") {
                                     return (
                                         <div
-                                            className={`${border}flex items-center justify-between grow px-6y py-7.1x${
+                                            className={`${border} grow px-6y py-7.1x flex flex-col justify-center${
                                                 width ? " " + width : ""
                                             }`}
                                         >
-                                            <div className={`shrink-0`}>
-                                                <p>
-                                                    ul. {streetName}{" "}
-                                                    {houseNumber} / {flatNumber}
-                                                </p>
-                                                <p>{city}</p>
+                                            <div
+                                                key={key}
+                                                className={`flex items-center justify-between w-full`}
+                                            >
+                                                <div className={`shrink-0`}>
+                                                    <p>
+                                                        ul. {streetName}{" "}
+                                                        {houseNumber} /{" "}
+                                                        {flatNumber}
+                                                    </p>
+                                                    <p>{city}</p>
+                                                </div>
+                                                {boardType ===
+                                                    EBoardType.OPEN ||
+                                                boardType ===
+                                                    EBoardType.DRAFTS ? (
+                                                    <div className="shrink-0 grow-0 cursor-pointer">
+                                                        <AddUserIcon />
+                                                    </div>
+                                                ) : null}
                                             </div>
-                                            <div className="shrink-0 grow-0">
-                                                <AddUserIcon />
-                                            </div>
+                                            {!!note ? (
+                                                <div className="border-t border-t-customGray pt-4x text-orange mt-1y">
+                                                    {note}
+                                                </div>
+                                            ) : null}
                                         </div>
                                     )
                                 }
                                 if (key === "products") {
                                     return (
                                         <div
+                                            key={key}
                                             className={`${border}${width} px-6y py-7.1x`}
                                         >
                                             <ul>
                                                 {products.map((product) => (
-                                                    <li>{product}</li>
+                                                    <li key={product}>
+                                                        {product}
+                                                    </li>
                                                 ))}
                                             </ul>
                                         </div>
@@ -111,6 +173,7 @@ const BoardTable: React.FC<IBoardTable> = ({ headers, tableContent }) => {
                                 if (key === "status") {
                                     return (
                                         <div
+                                            key={key}
                                             className={`${border}${width} flex justify-center items-center px-6y py-7.1x`}
                                         >
                                             <div
@@ -124,6 +187,7 @@ const BoardTable: React.FC<IBoardTable> = ({ headers, tableContent }) => {
                                 if (key === "actions") {
                                     return (
                                         <div
+                                            key={key}
                                             className={`${border}${width} flex justify-center items-center px-6y py-7.1x`}
                                         >
                                             {editable ? (
@@ -131,7 +195,7 @@ const BoardTable: React.FC<IBoardTable> = ({ headers, tableContent }) => {
                                                     onClick={() =>
                                                         console.log("edited")
                                                     }
-                                                    className="p-0y"
+                                                    className="p-0y cursor-pointer"
                                                 >
                                                     <EditIcon />
                                                 </div>
@@ -141,7 +205,7 @@ const BoardTable: React.FC<IBoardTable> = ({ headers, tableContent }) => {
                                                     onClick={() =>
                                                         console.log("deleted")
                                                     }
-                                                    className="p-0y"
+                                                    className="p-0y cursor-pointer"
                                                 >
                                                     <DeleteIcon />
                                                 </div>
@@ -149,8 +213,10 @@ const BoardTable: React.FC<IBoardTable> = ({ headers, tableContent }) => {
                                         </div>
                                     )
                                 }
+
                                 return (
                                     <div
+                                        key={key}
                                         className={`${border}${width} flex justify-center items-center px-6y py-7.1x`}
                                     >
                                         {element[key]}

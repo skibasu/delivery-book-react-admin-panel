@@ -1,5 +1,7 @@
 import React from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { tableContent, tableHeaders } from "../BoardTable/tempContent"
+import BoardTable, { EBoardType } from "../BoardTable/BoardTable"
 
 const BoardTabs = () => {
     return (
@@ -37,11 +39,40 @@ const BoardTabs = () => {
                         Drafts
                     </TabsTrigger>
                 </TabsList>
-                <TabsContent value="account">
-                    Make changes to your account here.
+                <TabsContent value="Open">
+                    <BoardTable
+                        headers={tableHeaders}
+                        tableContent={tableContent}
+                        type={EBoardType.OPEN}
+                    />
                 </TabsContent>
-                <TabsContent value="password">
-                    Change your password here.
+                <TabsContent value="Selected">
+                    <BoardTable
+                        headers={tableHeaders}
+                        tableContent={tableContent}
+                        type={EBoardType.SELECTED}
+                    />
+                </TabsContent>
+                <TabsContent value="Pending">
+                    <BoardTable
+                        headers={tableHeaders}
+                        tableContent={tableContent}
+                        type={EBoardType.PENDING}
+                    />
+                </TabsContent>
+                <TabsContent value="Done">
+                    <BoardTable
+                        headers={tableHeaders}
+                        tableContent={tableContent}
+                        type={EBoardType.DONE}
+                    />
+                </TabsContent>
+                <TabsContent value="Drafts">
+                    <BoardTable
+                        headers={tableHeaders}
+                        tableContent={tableContent}
+                        type={EBoardType.DRAFTS}
+                    />
                 </TabsContent>
             </Tabs>
         </section>
