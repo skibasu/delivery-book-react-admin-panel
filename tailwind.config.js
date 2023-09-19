@@ -52,6 +52,7 @@ module.exports = {
             height: {
                 inputSpacer: "16px",
                 element: "38px",
+                elementSm: "28px",
             },
             minHeight: {
                 inputSpacer: "16px",
@@ -68,6 +69,7 @@ module.exports = {
                 "6y": "15px",
                 "6x": "16px",
                 "7x": "20px",
+                "7.1x": "24px",
                 "8x": "28px",
                 "9x": "48px",
                 inputSpacer: "16px",

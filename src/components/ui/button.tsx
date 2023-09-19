@@ -10,7 +10,7 @@ const buttonVariants = cva(
         variants: {
             variant: {
                 default:
-                    "bg-successed text-textWhite hover:bg-successedH dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90",
+                    "bg-successed text-textWhite hover:bg-successedH dark:bg-gray-50 dark:text-gray-900 dark:hover:bg-gray-50/90 px-7x py-2x",
                 destructive:
                     "bg-red-500 text-gray-50 hover:bg-red-500/90 dark:bg-red-900 dark:text-gray-50 dark:hover:bg-red-900/90",
                 outline:
@@ -22,7 +22,7 @@ const buttonVariants = cva(
             },
             size: {
                 default: "h-10 px-4 py-2",
-                sm: "h-9 rounded-md px-3",
+                sm: "h-elementSm rounded-md !py-1y !px-6x text-sm font-base text-medium capitalize text-textWhite !shadow",
                 lg: "h-11 rounded-md px-8",
                 icon: "h-10 w-10",
                 full: "w-full",

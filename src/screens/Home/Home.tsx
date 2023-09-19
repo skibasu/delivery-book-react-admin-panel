@@ -5,7 +5,7 @@ import Board from "./Board/Board"
 const Home: React.FC = () => {
     // const { token } = useAppSelector((state) => state.auth)
     return (
-        <section className="pt-[113px] max-w-[1200px] w-full mx-auto px-7x">
+        <section className="pt-[113px] lg:max-w-[1200px] w-full mx-auto px-7x">
             <Board />
         </section>
     )
