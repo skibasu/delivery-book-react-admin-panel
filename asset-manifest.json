@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/delivery-book-react-admin-panel/static/css/main.18fe3bdd.css",
-    "main.js": "/delivery-book-react-admin-panel/static/js/main.0d1355bb.js",
+    "main.css": "/delivery-book-react-admin-panel/static/css/main.b1824e70.css",
+    "main.js": "/delivery-book-react-admin-panel/static/js/main.3ecc5e7f.js",
     "static/js/787.cf29e5e5.chunk.js": "/delivery-book-react-admin-panel/static/js/787.cf29e5e5.chunk.js",
     "static/media/Roboto-Medium.ttf": "/delivery-book-react-admin-panel/static/media/Roboto-Medium.7c8d04cd831df3033c8a.ttf",
     "static/media/Roboto-Thin.ttf": "/delivery-book-react-admin-panel/static/media/Roboto-Thin.a732a12eb07742232407.ttf",
@@ -9,19 +9,24 @@
     "static/media/PaytoneOne-Regular.ttf": "/delivery-book-react-admin-panel/static/media/PaytoneOne-Regular.49f0dd262b027f64630e.ttf",
     "static/media/section-bg-1-tiny.png": "/delivery-book-react-admin-panel/static/media/section-bg-1-tiny.20a07331cf43bafc9fd4.png",
     "static/media/logo-large-1x.png": "/delivery-book-react-admin-panel/static/media/logo-large-1x.20c2e86b8cfd65e47e3b.png",
+    "static/media/icon-add-user.svg": "/delivery-book-react-admin-panel/static/media/icon-add-user.fc4e3224e96448ad0df12a1397cd20be.svg",
     "static/media/icon-toggle-menu.svg": "/delivery-book-react-admin-panel/static/media/icon-toggle-menu.614dfc673ba52e244430d8cdcd18d83f.svg",
     "static/media/icon-statistics.svg": "/delivery-book-react-admin-panel/static/media/icon-statistics.465c072d69c6a1311d70d1be6b1ddaec.svg",
     "static/media/icon-spinner.svg": "/delivery-book-react-admin-panel/static/media/icon-spinner.846b71b54441d2be52fa0c4a5f8e5e02.svg",
     "static/media/icon-users.svg": "/delivery-book-react-admin-panel/static/media/icon-users.06f4e5b3c0c6f62f0767194b98c84315.svg",
     "static/media/icon-error.svg": "/delivery-book-react-admin-panel/static/media/icon-error.30922f38f941433f136bb390f2fd4c2b.svg",
+    "static/media/icon-trash.svg": "/delivery-book-react-admin-panel/static/media/icon-trash.19af3a1fd80e19b6fdfd89e89b094c21.svg",
     "index.html": "/delivery-book-react-admin-panel/index.html",
     "static/media/icon-home.svg": "/delivery-book-react-admin-panel/static/media/icon-home.0072ea48450282e9a854ef7cbe8cb8e2.svg",
-    "main.18fe3bdd.css.map": "/delivery-book-react-admin-panel/static/css/main.18fe3bdd.css.map",
-    "main.0d1355bb.js.map": "/delivery-book-react-admin-panel/static/js/main.0d1355bb.js.map",
+    "static/media/icon-edit.svg": "/delivery-book-react-admin-panel/static/media/icon-edit.0d0f7c4eedf3b1362ed67650697f27ed.svg",
+    "static/media/icon-sort.svg": "/delivery-book-react-admin-panel/static/media/icon-sort.ee72f2df566e13aac88da1992c40bb76.svg",
+    "static/media/icon-plus.svg": "/delivery-book-react-admin-panel/static/media/icon-plus.fcb74e56f7a49a0cf00fa949800ae642.svg",
+    "main.b1824e70.css.map": "/delivery-book-react-admin-panel/static/css/main.b1824e70.css.map",
+    "main.3ecc5e7f.js.map": "/delivery-book-react-admin-panel/static/js/main.3ecc5e7f.js.map",
     "787.cf29e5e5.chunk.js.map": "/delivery-book-react-admin-panel/static/js/787.cf29e5e5.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.18fe3bdd.css",
-    "static/js/main.0d1355bb.js"
+    "static/css/main.b1824e70.css",
+    "static/js/main.3ecc5e7f.js"
   ]
 }
