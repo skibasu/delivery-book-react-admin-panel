@@ -2,25 +2,16 @@ import * as React from "react"
 import { Label } from "./label"
 import { cn } from "@/lib/utils"
 
-export interface InputProps
-    extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface TextareaProps
+    extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
     label?: string
     wrapperClasses?: string
     error?: string
 }
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
+const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
     (
-        {
-            className,
-            type,
-            value,
-            name,
-            label,
-            wrapperClasses,
-            error,
-            ...props
-        },
+        { className, value, name, label, wrapperClasses, error, ...props },
         ref
     ) => {
         const errorInputClasses = error ? "!border-hellFire" : ""
@@ -37,19 +28,17 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         {label}
                     </Label>
                 )}
-
-                <input
-                    value={value}
-                    type={type}
+                <textarea
                     className={cn(
-                        `flex h-element 
+                        `flex h-element
                         w-full rounded-md 
                         border border-storm 
                         bg-textWhite 
                         px-5x py-4x 
-                        file:border-0 file:bg-transparent file:text-sm file:font-medium 
+                     
                         placeholder:text-placeholder 
                         focus-visible:outline-none 
+                     
                         autofill:bg-yellow-200 
                         focus:border-sweetGrass
                         caret-sweetGrass
@@ -67,6 +56,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         )
     }
 )
-Input.displayName = "Input"
+Textarea.displayName = "Textarea"
 
-export { Input }
+export { Textarea }

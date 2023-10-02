@@ -45,7 +45,12 @@ module.exports = {
             base: "16px",
             lg: "18px",
             xl: "20px",
-            h1: "32px",
+            h1: "40px",
+            h2: "32px",
+            h3: "25px",
+            h4: "22px",
+            h5: "20px",
+            h6: "18px",
         },
 
         extend: {
@@ -56,6 +61,8 @@ module.exports = {
             },
             minHeight: {
                 inputSpacer: "16px",
+                element: "38px",
+                elementSm: "28px",
             },
             spacing: {
                 "0y": "3px",

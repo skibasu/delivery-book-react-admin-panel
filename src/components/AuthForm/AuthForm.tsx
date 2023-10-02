@@ -11,8 +11,8 @@ import { ReactComponent as ErrorIcon } from "@/assets/svg/icon-error.svg"
 
 const AuthForm: React.FC = () => {
     const defaultValues: ILoginFormData = {
-        email: "",
-        password: "",
+        email: "admin@admin.com",
+        password: "Admin1!_",
     }
     const dispatch = useAppDispatch()
     const { error, loading } = useAppSelector((state) => state.auth)
