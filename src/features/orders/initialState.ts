@@ -4,7 +4,6 @@ export const filteredDataInitial = {
     [OrderStatus.OPEN]: [] as Order[],
     [OrderStatus.SELECTED]: [] as Order[],
     [OrderStatus.PENDING]: [] as Order[],
-    [OrderStatus.SELECTED]: [] as Order[],
     [OrderStatus.DONE]: [] as Order[],
     [OrderStatus.DRAFT]: [] as Order[],
 }

@@ -23,6 +23,7 @@ const UsersItems = ({ items }: IUsersItems) => {
                 } = item
                 return (
                     <div
+                        key={id}
                         className={
                             isHidden
                                 ? "hidden"

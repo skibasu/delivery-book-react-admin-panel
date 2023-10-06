@@ -15,8 +15,9 @@ import {
 import { OrderStatus, PaymentType } from "@/features/orders/types"
 import AppSelect from "../AppSelect/AppSelect"
 import { EDataType } from "../AppSelect/types"
+import BasketInput from "../Basket/BasketInput"
 
-const AuthForm: React.FC = () => {
+const AddOrderForm: React.FC = () => {
     const { socket } = useSocketContext()
     const { socketError: error } = useAppSelector((state) => state.orders)
     const dispatch = useAppDispatch()
@@ -38,6 +39,7 @@ const AuthForm: React.FC = () => {
         control,
         handleSubmit,
         formState: { errors },
+        watch,
     } = useForm<IAddOrderForm>({
         resolver: yupResolver(addOrderSchema),
         mode: "onTouched",
@@ -54,6 +56,9 @@ const AuthForm: React.FC = () => {
         }
     }
     const inputCss = `w-full sm:w-[230px]`
+
+    const status = watch("status")
+
     return (
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
             <Controller
@@ -68,6 +73,7 @@ const AuthForm: React.FC = () => {
                         value={value}
                         className={inputCss}
                         onChange={(value) => onChange(value)}
+                        onBlur={onBlur}
                     />
                 )}
             />
@@ -92,13 +98,14 @@ const AuthForm: React.FC = () => {
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            error={errors.phoneNumber?.message}
+                            error={errors.streetName?.message}
                             placeholder="Street name"
                             label="Street name"
                             name="streetName"
                             value={value}
                             className={inputCss}
                             onChange={(value) => onChange(value)}
+                            onBlur={onBlur}
                         />
                     )}
                 />
@@ -107,13 +114,14 @@ const AuthForm: React.FC = () => {
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            error={errors.phoneNumber?.message}
+                            error={errors.houseNumber?.message}
                             placeholder="House number"
                             label="House number"
                             name="houseNumber"
                             value={value}
                             className="w-[92px] ml-1y"
                             onChange={(value) => onChange(value)}
+                            onBlur={onBlur}
                         />
                     )}
                 />
@@ -122,13 +130,14 @@ const AuthForm: React.FC = () => {
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            error={errors.phoneNumber?.message}
+                            error={errors.flatNumber?.message}
                             placeholder="Flat number"
                             label="Flat number"
                             name="flatNumber"
                             value={value}
                             className="w-[80px] ml-1y"
                             onChange={(value) => onChange(value)}
+                            onBlur={onBlur}
                         />
                     )}
                 />
@@ -138,13 +147,14 @@ const AuthForm: React.FC = () => {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <Input
-                        error={errors.phoneNumber?.message}
+                        error={errors.city?.message}
                         placeholder="City"
                         label="City"
                         name="city"
                         value={value}
                         className={inputCss}
                         onChange={(value) => onChange(value)}
+                        onBlur={onBlur}
                     />
                 )}
             />
@@ -153,13 +163,14 @@ const AuthForm: React.FC = () => {
                 control={control}
                 render={({ field: { onChange, onBlur, value } }) => (
                     <Textarea
-                        error={errors.phoneNumber?.message}
+                        error={errors.note?.message}
                         placeholder="Note"
                         label="Note"
                         name="note"
                         value={value}
                         className="w-full"
                         onChange={(value) => onChange(value)}
+                        onBlur={onBlur}
                     />
                 )}
             />
@@ -167,48 +178,55 @@ const AuthForm: React.FC = () => {
                 <Controller
                     name="status"
                     control={control}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <AppSelect
-                            onValueChange={onChange}
-                            name="status"
-                            inputValue={value}
-                            label="Status"
-                            className="w-[133px]"
-                            wrapperClasses="grow max-w-[303px]"
-                            dataType={EDataType.STATUSES}
-                        />
-                    )}
+                    render={({ field: { onChange, onBlur, value } }) => {
+                        return (
+                            <AppSelect
+                                onValueChange={onChange}
+                                name="status"
+                                inputValue={value}
+                                label="Status"
+                                className="w-full"
+                                wrapperClasses="w-[133px]"
+                                dataType={EDataType.STATUSES}
+                                onBlur={onBlur}
+                            />
+                        )
+                    }}
                 />
-                <Controller
-                    name="selectedBy"
-                    control={control}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                        <AppSelect
-                            onValueChange={onChange}
-                            name="selectedBy"
-                            inputValue={value}
-                            label="Driver"
-                            className="w-full"
-                            wrapperClasses="grow max-w-[303px]"
-                            dataType={EDataType.USERS}
-                        />
-                    )}
-                />
+                {status === OrderStatus.SELECTED ? (
+                    <Controller
+                        name="selectedBy"
+                        control={control}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                            <AppSelect
+                                onBlur={onBlur}
+                                onValueChange={onChange}
+                                name="selectedBy"
+                                inputValue={value || ""}
+                                label="Driver"
+                                className="w-full"
+                                wrapperClasses="grow max-w-[303px]"
+                                dataType={EDataType.USERS}
+                            />
+                        )}
+                    />
+                ) : null}
             </div>
+            <BasketInput />
             <div className="flex wrap w-full justify-between">
                 <Controller
                     name="paymentType"
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
-                        <Input
-                            error={errors.paymentType?.message}
-                            placeholder="Payment"
+                        <AppSelect
+                            onBlur={onBlur}
+                            onValueChange={onChange}
+                            name="payment"
+                            inputValue={value}
                             label="Payment"
-                            name="paymentType"
-                            value={value}
                             className="w-full"
                             wrapperClasses="w-[133px]"
-                            onChange={(value) => onChange(value)}
+                            dataType={EDataType.PAYMENTS}
                         />
                     )}
                 />
@@ -217,7 +235,8 @@ const AuthForm: React.FC = () => {
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
                         <Input
-                            error={errors.phoneNumber?.message}
+                            onBlur={onBlur}
+                            error={errors.price?.message}
                             placeholder="000.00 zł"
                             label="Price"
                             name="price"
@@ -244,4 +263,4 @@ const AuthForm: React.FC = () => {
     )
 }
 
-export default AuthForm
+export default AddOrderForm

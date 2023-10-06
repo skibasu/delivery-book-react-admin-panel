@@ -19,7 +19,6 @@ const Home: React.FC = () => {
             console.log(value) // true
         })
         socket?.on("exception", (value) => {
-            console.log(value) // true
             dispatch(updateSocketError(value))
             dispatch(updateSocketLoading("failed"))
         })

@@ -26,7 +26,6 @@ const AuthForm: React.FC = () => {
         defaultValues,
     })
     const onSubmit = async (data: ILoginFormData) => {
-        console.log("Submiting", data, error, loading, errors)
         dispatch(logInUser(data))
     }
 

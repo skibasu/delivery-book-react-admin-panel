@@ -1,22 +1,23 @@
 import React from "react"
-import { BasicStatuses } from "../AppSelect/types"
-import StatusBadge from "../StatusBadge/StatusBadge"
 import { SelectItem } from "../ui"
+import { PaymentType } from "@/features/orders/types"
+import PaymentBadge from "../PaymentBadge/PaymentBadge"
 
-interface StatusItem {
-    status: BasicStatuses
+interface PaymentsItem {
+    payment: PaymentType
     isHidden: boolean
 }
-interface IStatusesItems {
-    items: StatusItem[]
+interface IPaymentsItems {
+    items: PaymentsItem[]
 }
-const StatusesItems: React.FC<IStatusesItems> = ({ items: statuses }) => {
+
+const StatusesItems: React.FC<IPaymentsItems> = ({ items: payments }) => {
     return (
         <>
-            {statuses.map(({ status, isHidden }) => {
+            {payments.map(({ payment, isHidden }) => {
                 return (
                     <div
-                        key={status}
+                        key={payment}
                         className={
                             isHidden
                                 ? "hidden"
@@ -24,11 +25,11 @@ const StatusesItems: React.FC<IStatusesItems> = ({ items: statuses }) => {
                         }
                     >
                         <SelectItem
-                            value={status as string}
-                            key={status}
+                            value={payment as string}
+                            key={payment}
                             className="cursor-pointer"
                         >
-                            <StatusBadge label={status} />
+                            <PaymentBadge variant="small" label={payment} />
                         </SelectItem>
                     </div>
                 )

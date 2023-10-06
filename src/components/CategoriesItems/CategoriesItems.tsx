@@ -1,22 +1,23 @@
 import React from "react"
-import { BasicStatuses } from "../AppSelect/types"
-import StatusBadge from "../StatusBadge/StatusBadge"
 import { SelectItem } from "../ui"
+import { MenuProductType } from "@/features/basket/types"
+import StatusBadge from "../StatusBadge/StatusBadge"
 
-interface StatusItem {
-    status: BasicStatuses
+interface CategoriesItem {
+    category: MenuProductType
     isHidden: boolean
 }
-interface IStatusesItems {
-    items: StatusItem[]
+interface ICategoriessItems {
+    items: CategoriesItem[]
 }
-const StatusesItems: React.FC<IStatusesItems> = ({ items: statuses }) => {
+
+const StatusesItems: React.FC<ICategoriessItems> = ({ items: categories }) => {
     return (
         <>
-            {statuses.map(({ status, isHidden }) => {
+            {categories.map(({ category, isHidden }) => {
                 return (
                     <div
-                        key={status}
+                        key={category}
                         className={
                             isHidden
                                 ? "hidden"
@@ -24,11 +25,11 @@ const StatusesItems: React.FC<IStatusesItems> = ({ items: statuses }) => {
                         }
                     >
                         <SelectItem
-                            value={status as string}
-                            key={status}
+                            value={category as string}
+                            key={category}
                             className="cursor-pointer"
                         >
-                            <StatusBadge label={status} />
+                            <StatusBadge label={category} />
                         </SelectItem>
                     </div>
                 )

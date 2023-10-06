@@ -6,10 +6,13 @@ import UsersItems from "../UserItems/UserItems"
 import { useAppSelector } from "@/hooks/useStore"
 import StatusesItems from "../StatusesItems/StatusesItems"
 import { EDataType } from "./types"
-import { statuses } from "./selectData"
+import { categories, payments, statuses } from "./selectData"
+import PaymentsItems from "../PaymentsItems/PaymentsItems"
+import CategoriesItems from "../CategoriesItems/CategoriesItems"
 
 interface IAppSelect {
     onValueChange: (value: string) => void
+    onBlur: (value: boolean) => void
     name: string
     inputValue: string
     dataType: EDataType
@@ -25,8 +28,10 @@ const AppSelect: React.FC<IAppSelect> = ({
     wrapperClasses,
     inputValue,
     dataType,
+    onBlur,
 }) => {
     const { data: users } = useAppSelector((state) => state.users)
+
     return (
         <div className={wrapperClasses}>
             {label ? (
@@ -34,12 +39,14 @@ const AppSelect: React.FC<IAppSelect> = ({
                     {label}
                 </Label>
             ) : null}
-            <Select onValueChange={onValueChange} name={name}>
+            <Select
+                onOpenChange={onBlur}
+                onValueChange={onValueChange}
+                name={name}
+                defaultValue={inputValue}
+            >
                 <SelectTrigger className={className}>
-                    <SelectValue
-                        placeholder={label}
-                        defaultValue={inputValue}
-                    />
+                    <SelectValue placeholder={label} />
                 </SelectTrigger>
                 <SelectContent>
                     {dataType === EDataType.USERS ? (
@@ -58,8 +65,25 @@ const AppSelect: React.FC<IAppSelect> = ({
                             }))}
                         />
                     ) : null}
+                    {dataType === EDataType.PAYMENTS ? (
+                        <PaymentsItems
+                            items={payments.map((payment) => ({
+                                payment,
+                                isHidden: payment === inputValue,
+                            }))}
+                        />
+                    ) : null}
+                    {dataType === EDataType.CATEGORY ? (
+                        <CategoriesItems
+                            items={categories.map((category) => ({
+                                category,
+                                isHidden: category === inputValue,
+                            }))}
+                        />
+                    ) : null}
                 </SelectContent>
             </Select>
+            <span className="block h-inputSpacer"></span>
         </div>
     )
 }
