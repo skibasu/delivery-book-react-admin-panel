@@ -51,4 +51,13 @@
         /* -webkit-text-fill-color: #31b0dd; */
         -webkit-box-shadow: 0 0 0px 40rem #eaf5e3 inset;
     }
+    /* ::-webkit-scrollbar {
+        width: 20px;
+    }
+    ::-webkit-scrollbar-track {
+        background: pink;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: black;
+    } */
 }

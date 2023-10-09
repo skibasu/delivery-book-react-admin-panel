@@ -58,10 +58,10 @@ const AddProductsDialog: React.FC<IAdddOrderButtonDialog> = ({ title }) => {
                             e.preventDefault()
                             console.log("Onpointer")
                         }}
-                        className={`md:w-[500px] max-w-[500px] px-7x pt-[34px] pb-[50px] max-h-full overflow-y-auto block`}
+                        className={`flex flex-col md:w-[500px] max-w-[500px] px-7x pt-[34px] max-h-full overflow-y-auto block pb-[54px]`}
                         style={{ height }}
                     >
-                        <div className="relative max-w-full w-full h-full">
+                        <div className="relative grow">
                             <BasketMenuInput className="absolute right-4 top-4" />
                             <DialogHeader className="mb-7.1x">
                                 <DialogTitle>{title}</DialogTitle>
