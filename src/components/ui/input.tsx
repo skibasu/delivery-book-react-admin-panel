@@ -29,7 +29,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             <div className={`${wrapperClasses ? " " + wrapperClasses : ""}`}>
                 {!!label && (
                     <Label
-                        className={`block mb-3x${
+                        className={`block mb-3x leading-none${
                             errorLabelClasses ? " " + errorLabelClasses : ""
                         }`}
                         htmlFor={name}

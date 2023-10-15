@@ -33,6 +33,7 @@ const Home: React.FC = () => {
             dispatch(updateSocketLoading("succeeded"))
         })
         return () => {
+            socket?.off("exception")
             socket?.off("createOrder")
             socket?.off("updateOrder")
             socket?.off("room_in")

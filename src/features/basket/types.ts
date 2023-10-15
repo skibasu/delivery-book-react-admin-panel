@@ -7,11 +7,13 @@ export enum MenuProductType {
 }
 
 export interface BasketProduct {
+    _id: string
     title: string
     price: number
     description: string
-    picture?: string
+    picture: string
     type: MenuProductType
+    counter: number
 }
 export interface BasketState {
     orders: BasketProduct[]

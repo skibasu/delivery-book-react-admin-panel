@@ -1,3 +1,4 @@
+import { BasketProduct } from "../basket/types"
 import { UserPopulate } from "../users/types"
 
 export enum PaymentType {
@@ -20,19 +21,18 @@ export interface OrderAdress {
     houseNumber: string
     flatNumber: string
     city: string
-    note: string
+    note?: string
 }
 export interface Actions {
     editable: boolean
     deletable: boolean
 }
-export type Products = string[]
 export interface Order {
     _id: string
     title: string
     adress: OrderAdress
     phoneNumber: string
-    products: Products
+    products: BasketProduct[]
     price: string
     paymentType: PaymentType
     selectedBy: UserPopulate

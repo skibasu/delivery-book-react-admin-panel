@@ -19,6 +19,8 @@ interface IAppSelect {
     className?: string
     wrapperClasses?: string
     label?: string
+    onFocus: () => void
+    error?: string
 }
 const AppSelect: React.FC<IAppSelect> = ({
     onValueChange,
@@ -29,13 +31,22 @@ const AppSelect: React.FC<IAppSelect> = ({
     inputValue,
     dataType,
     onBlur,
+    onFocus,
+    error,
 }) => {
     const { data: users } = useAppSelector((state) => state.users)
 
     return (
-        <div className={wrapperClasses}>
+        <div className={wrapperClasses} onClick={onFocus}>
             {label ? (
-                <Label className={cn("block mb-3x", className)} htmlFor={name}>
+                <Label
+                    className={cn(
+                        "text-sm block mb-3x leading-none",
+                        className,
+                        error ? "!text-hellFire" : ""
+                    )}
+                    htmlFor={name}
+                >
                     {label}
                 </Label>
             ) : null}
@@ -45,7 +56,9 @@ const AppSelect: React.FC<IAppSelect> = ({
                 name={name}
                 defaultValue={inputValue}
             >
-                <SelectTrigger className={className}>
+                <SelectTrigger
+                    className={cn(className, error ? "!border-hellFire" : "")}
+                >
                     <SelectValue placeholder={label} />
                 </SelectTrigger>
                 <SelectContent>

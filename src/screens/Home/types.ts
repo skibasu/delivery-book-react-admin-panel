@@ -16,3 +16,9 @@ export interface ITableHeaders {
         | "actions"
     >
 }
+
+export enum SocketType {
+    CREATE_ORDER = "createOrder",
+    UPDATE_ORDER = "updateOrder",
+    ROOM_IN = "room_in",
+}

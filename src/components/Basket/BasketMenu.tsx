@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { ReactComponent as BasketIcon } from "@/assets/svg/icon-basket.svg"
 import { ReactComponent as BasketBorder } from "@/assets/borders/border.svg"
 import { useAppSelector } from "@/hooks/useStore"
 import ProductCart from "../ProductCart/ProductCart"
 import { MenuProductType } from "@/features/basket/types"
-import { useDialogContext } from "@/contexts/DialogProvider"
 
 const BasketMenu = () => {
     const { orders, filteredOrders } = useAppSelector((state) => state.basket)
-    const { height } = useDialogContext()
-    //  const [sortedBasket, setSortedBasket] = useState<{
-    //      [key in keyof typeof MenuProductType]: BasketProduct[]
-    //  }>({} as { [key in keyof typeof MenuProductType]: BasketProduct[] })
 
     useEffect(() => {}, [])
     return (
@@ -25,15 +20,12 @@ const BasketMenu = () => {
                 <BasketBorder className="w-full h-full" />
             </div>
 
-            <div
-                className="w-full relative overflow-y-auto grow"
-                style={{ height: height - 100, scrollbarColor: "pink" }}
-            >
+            <div className="w-full relative overflow-y-auto grow scrollbar  scrollbar-h-0y scrollbar-thumb-textWhite scrollbar-track-transparent scrollbar-w-[2px]">
                 {Object.keys(filteredOrders).length > 0 ? (
                     <div className="px-4x pt-6x w-full">
                         {Object.keys(filteredOrders).map((type) => {
                             return (
-                                <div>
+                                <div key={type}>
                                     <h2 className="font-payton tracking-[1.2px] text-sm text-textWhite mb-4x">
                                         #{type}
                                     </h2>
@@ -41,6 +33,7 @@ const BasketMenu = () => {
                                         type as MenuProductType
                                     ].map((order) => (
                                         <ProductCart
+                                            key={order._id}
                                             {...order}
                                             addButton={false}
                                         />
@@ -54,10 +47,11 @@ const BasketMenu = () => {
             <div className="max-w-full mt-4x px-4x">
                 <div className="w-full flex items-center justify-between border-t border-t-textWhite pt-4x pb-7x">
                     <p className="px-4x text-textWhite">
-                        Items: {orders.length}
+                        Items: {orders.reduce((a, v) => a + v.counter, 0)}
                     </p>
                     <p className="px-4x text-textWhite">
-                        Total: {orders.reduce((a, v) => a + v.price, 0)} zł
+                        Total:{" "}
+                        {orders.reduce((a, v) => a + v.price * v.counter, 0)} zł
                     </p>
                 </div>
             </div>

@@ -106,6 +106,7 @@ const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
                                             editable={editable}
                                             deletable={deletable}
                                             className={borderAndWidth}
+                                            order={element}
                                         />
                                     )
                                 }

@@ -26,7 +26,13 @@ const BasketMenuInput: React.FC<IbasketInput> = ({ className }) => {
                     <span className="block w-[27px] h-[1px] bg-textWhite absolute left-[10px] top-[-1px]"></span>
                     <div>
                         {orders.map((order) => {
-                            return <ProductCart {...order} addButton={false} />
+                            return (
+                                <ProductCart
+                                    key={order._id}
+                                    {...order}
+                                    addButton={false}
+                                />
+                            )
                         })}
                     </div>
                 </div>
