@@ -29,7 +29,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             <div className={`${wrapperClasses ? " " + wrapperClasses : ""}`}>
                 {!!label && (
                     <Label
-                        className={`block mb-3x${
+                        className={`block mb-3x leading-none${
                             errorLabelClasses ? " " + errorLabelClasses : ""
                         }`}
                         htmlFor={name}
@@ -50,7 +50,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                         file:border-0 file:bg-transparent file:text-sm file:font-medium 
                         placeholder:text-placeholder 
                         focus-visible:outline-none 
-                     
                         autofill:bg-yellow-200 
                         focus:border-sweetGrass
                         caret-sweetGrass

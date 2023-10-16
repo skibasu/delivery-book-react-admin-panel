@@ -1,8 +1,9 @@
-import { AuthState } from "../auth/types"
+import { UsersState } from "./types"
 
-export const initialState: AuthState = {
-    _id: null,
-    token: null,
+export const initialState: UsersState = {
     loading: "idle",
     error: null,
+    socketLoading: "idle",
+    socketError: null,
+    data: [],
 }

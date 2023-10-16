@@ -11,8 +11,8 @@ import { ReactComponent as ErrorIcon } from "@/assets/svg/icon-error.svg"
 
 const AuthForm: React.FC = () => {
     const defaultValues: ILoginFormData = {
-        email: "",
-        password: "",
+        email: "admin@admin.com",
+        password: "Admin1!_",
     }
     const dispatch = useAppDispatch()
     const { error, loading } = useAppSelector((state) => state.auth)
@@ -26,7 +26,6 @@ const AuthForm: React.FC = () => {
         defaultValues,
     })
     const onSubmit = async (data: ILoginFormData) => {
-        console.log("Submiting", data, error, loading, errors)
         dispatch(logInUser(data))
     }
 
@@ -84,7 +83,7 @@ const AuthForm: React.FC = () => {
                     <div className="flex w-full items-center h-errorSpacer">
                         <ErrorIcon className="mr-2x w-[14px] h-[14px]" />
                         <p className="text-2sm text-hellFire">
-                            {error.message}
+                            {error.message || "Server error"}
                         </p>
                     </div>
                 ) : (

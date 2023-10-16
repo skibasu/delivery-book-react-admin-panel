@@ -1,7 +1,7 @@
-import axios from "axios"
+import axios, { AxiosInstance } from "axios"
 
-const instance: any = axios.create({
-    baseURL: "https://elskiba.com.pl:3000",
+const instance: AxiosInstance = axios.create({
+    baseURL: "http://localhost:3000",
 })
 
 export default instance
