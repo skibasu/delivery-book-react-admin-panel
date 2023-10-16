@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 import { initialState } from "./initialState"
-import { MenuProductType } from "./types"
+import { BasketProduct, MenuProductType } from "./types"
 
 const authSlice = createSlice({
     name: "basket",
@@ -99,6 +99,14 @@ const authSlice = createSlice({
                 }
             })
         },
+        updateBasket(state, payload) {
+            const { payload: items } = payload
+            state.orders = items
+
+            items.forEach((item: BasketProduct) => {
+                state.filteredOrders[item.type as MenuProductType].push(item)
+            })
+        },
     },
 })
 
@@ -108,5 +116,6 @@ export const {
     removeOneProduct,
     addOneProduct,
     removeAllProducts,
+    updateBasket,
 } = authSlice.actions
 export default authSlice.reducer

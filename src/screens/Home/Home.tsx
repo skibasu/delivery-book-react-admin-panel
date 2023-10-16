@@ -2,6 +2,7 @@ import { useSocketContext } from "@/contexts/SocketProvider"
 import {
     addOrder,
     updateOrder,
+    deleteOrder,
     updateSocketError,
     updateSocketLoading,
 } from "@/features/orders/ordersSlice"
@@ -15,7 +16,7 @@ const Home: React.FC = () => {
     const dispatch = useAppDispatch()
     const { socket } = useSocketContext()
     useEffect(() => {
-        socket?.on("room_in", (value) => {
+        socket?.on("joinRoom", (value) => {
             console.log(value) // true
         })
         socket?.on("exception", (value) => {
@@ -32,11 +33,17 @@ const Home: React.FC = () => {
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))
         })
+        socket?.on("deleteOrder", (value) => {
+            dispatch(deleteOrder(value))
+            dispatch(updateSocketError(null))
+            dispatch(updateSocketLoading("succeeded"))
+        })
         return () => {
             socket?.off("exception")
             socket?.off("createOrder")
             socket?.off("updateOrder")
-            socket?.off("room_in")
+            socket?.off("deleteOrder")
+            socket?.off("joinRoom")
         }
         //eslint-disable-next-line
     }, [])

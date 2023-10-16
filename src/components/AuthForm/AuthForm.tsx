@@ -83,7 +83,7 @@ const AuthForm: React.FC = () => {
                     <div className="flex w-full items-center h-errorSpacer">
                         <ErrorIcon className="mr-2x w-[14px] h-[14px]" />
                         <p className="text-2sm text-hellFire">
-                            {error.message}
+                            {error.message || "Server error"}
                         </p>
                     </div>
                 ) : (

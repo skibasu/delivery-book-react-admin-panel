@@ -4,7 +4,7 @@ import { ReactComponent as PlusIcon } from "@/assets/svg/icon-plus.svg"
 import { EStatus, useDialogContext } from "@/contexts/DialogProvider"
 
 const AddProductsButton = () => {
-    const { setDialogAddOrderStatus } = useDialogContext()
+    const { setDialogAddOrderStatus, setFormType } = useDialogContext()
 
     return (
         <Button
@@ -13,6 +13,7 @@ const AddProductsButton = () => {
             size="sm"
             onClick={() => {
                 setDialogAddOrderStatus(EStatus.OPEN)
+                setFormType("create")
             }}
         >
             <span className="flex w-full justify-between items-center ">

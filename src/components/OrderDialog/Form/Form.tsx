@@ -1,45 +1,36 @@
 import React, { useEffect } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { useAppDispatch, useAppSelector } from "../../../hooks/useStore"
-import { yupResolver } from "@hookform/resolvers/yup"
 import { Input, Textarea } from "@/components/ui"
-import { IAddOrderForm } from "./types"
-import { addOrderSchema } from "./validation"
+import AppSelect from "../../AppSelect/AppSelect"
+import { OrderStatus } from "@/features/orders/types"
+import { EDataType } from "../../AppSelect/types"
+import { IAddOrderForm } from "../../CustomAddOrderDialog/AddOrderForm/types"
+import { yupResolver } from "@hookform/resolvers/yup"
 import { useSocketContext } from "@/contexts/SocketProvider"
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
+import { addOrderSchema } from "./validations/createOrderSchem"
 import {
     updateSocketError,
     updateSocketLoading,
 } from "@/features/orders/ordersSlice"
-import { OrderStatus, PaymentType } from "@/features/orders/types"
-import AppSelect from "../../AppSelect/AppSelect"
-import { EDataType } from "../../AppSelect/types"
+import { removeAllProducts, updateBasket } from "@/features/basket/basketSlice"
+import AddProductsButton from "../../CustomAddOrderDialog/AddProductsButton"
 import CustomAddProductsDialog from "../../CustomAddProductsDialog/CustomAddProductsDialog"
-import AddOrderButton from "../SaveOrderButton"
-import AddProductsButton from "../AddProductsButton"
-import AddOrderFormMessage from "./AddOrderFormMessage"
-import { removeAllProducts } from "@/features/basket/basketSlice"
-import { BasketProduct } from "@/features/basket/types"
+import AddOrderButton from "../../CustomAddOrderDialog/SaveOrderButton"
+import AddOrderFormMessage from "../../CustomAddOrderDialog/AddOrderForm/AddOrderFormMessage"
 
-const AddOrderForm: React.FC = () => {
-    const defaultValues: IAddOrderForm = {
-        title: "",
-        phoneNumber: "",
-        price: "",
-        paymentType: PaymentType.CASH,
-        status: OrderStatus.OPEN,
-        selectedBy: null,
-        streetName: "",
-        houseNumber: "",
-        flatNumber: "",
-        city: "Wrocław",
-        note: "",
-        products: [] as BasketProduct[],
-    }
+interface IForm {
+    defaultValues: IAddOrderForm
+    formType: "update" | "create"
+    title: string
+    orderId?: string
+}
+
+const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
     const { socket } = useSocketContext()
     const { socketLoading } = useAppSelector((state) => state.orders)
     const { orders: basket } = useAppSelector((state) => state.basket)
     const dispatch = useAppDispatch()
-
     const {
         control,
         handleSubmit,
@@ -53,7 +44,8 @@ const AddOrderForm: React.FC = () => {
         defaultValues,
     })
     const onSubmit = async (data: IAddOrderForm) => {
-        const { city, flatNumber, streetName, houseNumber, ...rest } = data
+        const { city, flatNumber, streetName, houseNumber, note, ...rest } =
+            data
         setValue("products", basket, {
             shouldValidate: true,
             shouldDirty: false,
@@ -62,12 +54,17 @@ const AddOrderForm: React.FC = () => {
         const formatedData = {
             ...rest,
             products: basket,
-            adress: { city, flatNumber, streetName, houseNumber },
+            adress: { city, flatNumber, streetName, houseNumber, note },
         }
         try {
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("pending"))
-            socket?.emit("createOrder", formatedData)
+            if (formType === "create") {
+                socket?.emit("createOrder", formatedData)
+            }
+            if (formType === "update") {
+                socket?.emit("updateOrder", { id: orderId, ...formatedData })
+            }
         } catch (e: any) {
             console.log(e.message)
         }
@@ -84,7 +81,11 @@ const AddOrderForm: React.FC = () => {
         setValue(
             "price",
             String(basket.reduce((a, b) => a + b.price * b.counter, 0)),
-            { shouldValidate: true, shouldDirty: true, shouldTouch: false }
+            {
+                shouldValidate: true,
+                shouldDirty: true,
+                shouldTouch: false,
+            }
         )
         basket.length &&
             setValue("products", basket, {
@@ -104,9 +105,14 @@ const AddOrderForm: React.FC = () => {
         //eslint-disable-next-line
     }, [socketLoading])
 
+    useEffect(() => {
+        formType === "update" && dispatch(updateBasket(defaultValues.products))
+        //eslint-disable-next-line
+    }, [formType])
+
     return (
         <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-            <h2 className="text-h3 mb-7.1x font-medium">Add Order</h2>
+            <h2 className="text-h3 mb-7.1x font-medium">{title}</h2>
             <Controller
                 name="title"
                 control={control}
@@ -220,6 +226,7 @@ const AddOrderForm: React.FC = () => {
                         label="Note"
                         name="note"
                         value={value}
+                        defaultValue={value}
                         className="w-full"
                         onChange={(value) => onChange(value)}
                         onBlur={onBlur}
@@ -329,4 +336,4 @@ const AddOrderForm: React.FC = () => {
     )
 }
 
-export default AddOrderForm
+export default Form

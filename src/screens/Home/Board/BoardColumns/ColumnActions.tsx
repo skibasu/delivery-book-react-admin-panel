@@ -1,9 +1,14 @@
 import React from "react"
 import { ReactComponent as EditIcon } from "@/assets/svg/icon-edit.svg"
 import { ReactComponent as DeleteIcon } from "@/assets/svg/icon-trash.svg"
-import { useDialogContext } from "@/contexts/DialogProvider"
+import { EStatus, useDialogContext } from "@/contexts/DialogProvider"
 import { Order } from "@/features/orders/types"
-import CustomAddOrderDialog from "@/components/CustomAddOrderDialog/CustomAddOrderDialog"
+import { useAppDispatch } from "@/hooks/useStore"
+import {
+    updateSocketError,
+    updateSocketLoading,
+} from "@/features/orders/ordersSlice"
+import { useSocketContext } from "@/contexts/SocketProvider"
 
 interface IColumnActions {
     editable: boolean
@@ -17,7 +22,10 @@ const ColumnActions: React.FC<IColumnActions> = ({
     className,
     order,
 }) => {
-    const { setOrderForUpdate } = useDialogContext()
+    const { socket } = useSocketContext()
+    const dispatch = useAppDispatch()
+    const { setOrderForUpdate, setFormType, setDialogAddOrderStatus } =
+        useDialogContext()
     return (
         <div
             className={`${
@@ -28,16 +36,25 @@ const ColumnActions: React.FC<IColumnActions> = ({
                 <div
                     onClick={() => {
                         setOrderForUpdate(order)
+                        setFormType("update")
+                        setDialogAddOrderStatus(EStatus.OPEN)
                     }}
                     className="p-0y cursor-pointer"
                 >
                     <EditIcon />
-                    <CustomAddOrderDialog />
                 </div>
             ) : null}
             {deletable ? (
                 <div
-                    onClick={() => console.log("deleted")}
+                    onClick={() => {
+                        try {
+                            dispatch(updateSocketError(null))
+                            dispatch(updateSocketLoading("pending"))
+                            socket?.emit("deleteOrder", { id: order._id })
+                        } catch (e: any) {
+                            console.log(e.message)
+                        }
+                    }}
                     className="p-0y cursor-pointer"
                 >
                     <DeleteIcon />

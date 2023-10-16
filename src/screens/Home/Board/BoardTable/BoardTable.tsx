@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { ITableHeaders } from "../../types"
 import BoardTableHeaders from "./BoardTableHeaders"
 import BoardTableContent from "./BoardTableContent"
@@ -27,11 +27,6 @@ interface IBoardTable {
 //     ]
 // }
 const BoardTable: React.FC<IBoardTable> = ({ type: boardType }) => {
-    useEffect(() => {
-        console.log(`Table ${boardType} was mounted`)
-        return () => console.log(`Table ${boardType} was unmounted`)
-        //eslint-disable-next-line
-    }, [])
     return (
         <div>
             {/* Table Headers*/}

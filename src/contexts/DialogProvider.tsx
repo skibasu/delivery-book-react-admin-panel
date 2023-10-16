@@ -6,7 +6,6 @@ import React, {
     Dispatch,
     PropsWithChildren,
     useContext,
-    useEffect,
     useState,
 } from "react"
 export enum EStatus {
@@ -20,6 +19,8 @@ export enum EDialogType {
 
 interface IProps {
     close: (type: EDialogType, clean?: boolean) => void
+    formType: "create" | "update" | undefined
+    setFormType: Dispatch<"create" | "update">
     orderForUpdate: Order | undefined
     setOrderForUpdate: Dispatch<Order>
     dialogAddOrderStatus: EStatus
@@ -40,6 +41,7 @@ const DialogProvider: React.FC<PropsWithChildren> = ({ children }) => {
         useState<EStatus>(EStatus.CLOSE)
 
     const [orderForUpdate, setOrderForUpdate] = useState<Order>()
+    const [formType, setFormType] = useState<"create" | "update" | undefined>()
 
     const close = (type: EDialogType, clean?: boolean) => {
         clean && dispatch(removeAllProducts())
@@ -52,11 +54,12 @@ const DialogProvider: React.FC<PropsWithChildren> = ({ children }) => {
         }
     }
 
-    useEffect(() => console.log("Order status changed"), [dialogAddOrderStatus])
     return (
         <DialogContext.Provider
             value={{
                 close,
+                formType,
+                setFormType,
                 orderForUpdate,
                 setOrderForUpdate,
                 dialogAddOrderStatus,

@@ -9,6 +9,8 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { getOrders } from "@/api/ordersApi"
 import { getUsers } from "@/api/usersApi"
 
+import OrderDialog from "@/components/OrderDialog/OrderDialog"
+
 const ProtectedLayout: React.FC = () => {
     const dispatch = useAppDispatch()
     const { token } = useAppSelector((state) => state.auth)
@@ -36,6 +38,7 @@ const ProtectedLayout: React.FC = () => {
                 </div>
             </main>
             <Footer />
+            <OrderDialog />
         </>
     )
 }
