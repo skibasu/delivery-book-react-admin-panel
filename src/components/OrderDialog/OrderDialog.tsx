@@ -53,9 +53,6 @@ const OrderDialog = () => {
         }
     }, [orderForUpdate])
 
-    useEffect(() => {
-        console.log(currentOrder)
-    }, [currentOrder])
     if (dialogAddOrderStatus === EStatus.OPEN) {
         return ReactDom.createPortal(
             <>
