@@ -37,7 +37,7 @@ const AppSelect: React.FC<IAppSelect> = ({
     const { data: users } = useAppSelector((state) => state.users)
 
     return (
-        <div className={wrapperClasses} onClick={onFocus}>
+        <div className={wrapperClasses}>
             {label ? (
                 <Label
                     className={cn(
@@ -51,7 +51,10 @@ const AppSelect: React.FC<IAppSelect> = ({
                 </Label>
             ) : null}
             <Select
-                onOpenChange={onBlur}
+                onOpenChange={(v) => {
+                    onBlur(v)
+                    onFocus()
+                }}
                 onValueChange={onValueChange}
                 name={name}
                 defaultValue={inputValue}

@@ -4,7 +4,7 @@ import { Input, Textarea } from "@/components/ui"
 import AppSelect from "../../AppSelect/AppSelect"
 import { OrderStatus } from "@/features/orders/types"
 import { EDataType } from "../../AppSelect/types"
-import { IAddOrderForm } from "../../CustomAddOrderDialog/AddOrderForm/types"
+import { IAddOrderForm } from "../types"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useSocketContext } from "@/contexts/SocketProvider"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
@@ -14,10 +14,10 @@ import {
     updateSocketLoading,
 } from "@/features/orders/ordersSlice"
 import { removeAllProducts, updateBasket } from "@/features/basket/basketSlice"
-import AddProductsButton from "../../CustomAddOrderDialog/AddProductsButton"
-import CustomAddProductsDialog from "../../CustomAddProductsDialog/CustomAddProductsDialog"
-import AddOrderButton from "../../CustomAddOrderDialog/SaveOrderButton"
-import AddOrderFormMessage from "../../CustomAddOrderDialog/AddOrderForm/AddOrderFormMessage"
+import AddProductsButton from "../AddProductsButton/AddProductsButton"
+import CustomAddProductsDialog from "../AddProductsDialog/CustomAddProductsDialog"
+import AddOrderButton from "../SaveOrderButton/SaveOrderButton"
+import AddOrderFormMessage from "../AddOrderForm/AddOrderFormMessage"
 
 interface IForm {
     defaultValues: IAddOrderForm

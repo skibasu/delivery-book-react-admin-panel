@@ -6,9 +6,9 @@ import {
     useDialogContext,
 } from "@/contexts/DialogProvider"
 import AddProductsForm from "./AddProductsForm/AddProductsForm"
-import BasketDialog from "../BasketDialog/BasketDialog"
-import CloseButton from "../CloseButton/CloseButton"
-import { Button } from "../ui"
+import BasketDialog from "../../BasketDialog/BasketDialog"
+import CloseButton from "../../CloseButton/CloseButton"
+import { Button } from "../../ui"
 
 const CustomAddProductsDialog = () => {
     const { dialogAddProductsStatus, close } = useDialogContext()

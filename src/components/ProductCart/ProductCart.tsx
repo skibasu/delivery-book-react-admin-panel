@@ -6,7 +6,6 @@ import React from "react"
 import pizza from "@/assets/img/pizza.png"
 import { useDispatch } from "react-redux"
 import {
-    addOneProduct,
     addProductToBasket,
     removeOneProduct,
     removeProductfromBasket,
@@ -109,7 +108,7 @@ const ProductCart: React.FC<IProductCart> = ({
                                 height="8px"
                                 onClick={() =>
                                     dispatch(
-                                        addOneProduct({
+                                        addProductToBasket({
                                             _id,
                                             title,
                                             price,

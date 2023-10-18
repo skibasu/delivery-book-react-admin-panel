@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 
 import { MenuProductType } from "@/features/basket/types"
-import AppSelect from "../../AppSelect/AppSelect"
-import { EDataType } from "../../AppSelect/types"
+import AppSelect from "../../../AppSelect/AppSelect"
+import { EDataType } from "../../../AppSelect/types"
 import ProductCart from "@/components/ProductCart/ProductCart"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { getMenu } from "@/api/menuApi/getMenu"
