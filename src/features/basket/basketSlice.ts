@@ -40,28 +40,7 @@ const authSlice = createSlice({
                 item.type as MenuProductType
             ].filter(({ _id }) => _id !== item._id)
         },
-        addOneProduct(state, payload) {
-            const { orders, filteredOrders } = state
-            const { payload: item } = payload
 
-            state.orders = orders.map(({ counter, _id, ...rest }) => {
-                if (_id === item._id) {
-                    return { ...rest, _id, counter: counter + 1 }
-                } else {
-                    return { ...rest, _id, counter }
-                }
-            })
-
-            state.filteredOrders[item.type as MenuProductType] = filteredOrders[
-                item.type as MenuProductType
-            ].map(({ _id, counter, ...rest }) => {
-                if (_id === item._id) {
-                    return { ...rest, _id, counter: counter + 1 }
-                } else {
-                    return { ...rest, _id, counter }
-                }
-            })
-        },
         removeAllProducts(state) {
             const { filteredOrders } = state
             state.orders = []
@@ -114,7 +93,7 @@ export const {
     addProductToBasket,
     removeProductfromBasket,
     removeOneProduct,
-    addOneProduct,
+    //  addOneProduct,
     removeAllProducts,
     updateBasket,
 } = authSlice.actions

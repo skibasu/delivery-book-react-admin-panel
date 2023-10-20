@@ -2,7 +2,7 @@ import React from "react"
 import { Link } from "react-router-dom"
 import logo from "../../assets/img/logo_1x.png"
 import UserMinimalInfo from "../UserMinimalInfo/UserMinimalInfo"
-import AddOrderButton from "@/components/CustomAddOrderDialog/AddOrderButton/AddOrderButton"
+import AddOrderButton from "../OrderDialog/AddOrderButton/AddOrderButton"
 
 const Header: React.FC = () => {
     return (
