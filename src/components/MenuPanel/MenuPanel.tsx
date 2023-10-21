@@ -8,7 +8,7 @@ import { AnimationSequence, useAnimate, stagger } from "framer-motion"
 
 const MenuPanel = () => {
     const [scope, animate] = useAnimate()
-    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [isOpen, setIsOpen] = useState<boolean | undefined>()
     useEffect(() => {
         const sequenceIn = [
             [scope.current, { width: [55, 166] }, { duration: 0.6 }],
@@ -56,7 +56,7 @@ const MenuPanel = () => {
                 await animate(sequenceIn)
             }
             initialAnimation()
-        } else {
+        } else if (isOpen !== undefined) {
             const exitAnimation = async () => {
                 await animate(sequenceOut)
             }
@@ -67,7 +67,7 @@ const MenuPanel = () => {
     return (
         <nav
             ref={scope}
-            className={`overflow-hidden p-6y bg-storm h-full text-textWhite relative pt-[60px]`}
+            className={`overflow-hidden p-6y bg-storm h-full text-textWhite relative pt-[60px] w-[55px]`}
         >
             <div
                 id="button"
@@ -82,7 +82,7 @@ const MenuPanel = () => {
                     <Link to="/" className={`flex items-center`}>
                         <HomeIcon className="shrink-0" color={"#FFF"} />
                         <span
-                            className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase`}
+                            className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase opacity-0`}
                         >
                             Home
                         </span>
@@ -97,7 +97,7 @@ const MenuPanel = () => {
                             height="20px"
                         />
                         <span
-                            className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase`}
+                            className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase opacity-0`}
                         >
                             Users
                         </span>
@@ -107,7 +107,7 @@ const MenuPanel = () => {
                     <Link to="/users" className={`flex items-center`}>
                         <StatisticsIcon className="shrink-0" color={"#FFF"} />
                         <span
-                            className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase`}
+                            className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase opacity-0`}
                         >
                             Statistics
                         </span>

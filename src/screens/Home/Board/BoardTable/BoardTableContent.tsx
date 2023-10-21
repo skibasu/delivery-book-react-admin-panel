@@ -1,6 +1,6 @@
 import { OrderStatus } from "@/features/orders/types"
 import { useAppSelector } from "@/hooks/useStore"
-import React from "react"
+import React, { useEffect, useState } from "react"
 import ColumnAdress from "../BoardColumns/ColumnAdress"
 import ColumnProducts from "../BoardColumns/ColumnProducts"
 import ColumnPhoneNumber from "../BoardColumns/ColumnPhoneNumber"
@@ -10,6 +10,7 @@ import ColumnActions from "../BoardColumns/ColumnActions"
 import { tableHeaders } from "../labels/headers"
 import ColumnUser from "../BoardColumns/ColumnUser"
 import ColumnDefault from "../BoardColumns/ColumnDefault"
+import { AnimationSequence, stagger, useAnimate } from "framer-motion"
 
 interface IBoardTableContent {
     boardType: OrderStatus
@@ -17,9 +18,48 @@ interface IBoardTableContent {
 
 const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
     const { filteredData } = useAppSelector((state) => state.orders)
+    const [scope, animate] = useAnimate()
+    const [isMounted, setIsMounted] = useState<boolean>(false)
 
+    useEffect(() => {
+        if (isMounted && filteredData[boardType].length > 0) {
+            const scp = scope.current as HTMLElement
+            const h = scp.clientHeight
+            console.log("H : ", h)
+            const sequenceIn = [
+                [
+                    ".row",
+                    { y: [-20, 0], opacity: [0, 1] },
+
+                    { duration: 0.3, delay: stagger(0.2), at: "-0.3" },
+                ],
+            ] as AnimationSequence
+            // const sequenceOut = [
+            //     [
+            //         ".row",
+            //         { y: [0, -20], opacity: [1, 0] },
+
+            //         { duration: 0.3, delay: stagger(0.2) },
+            //     ],
+            // ] as AnimationSequence
+
+            const initialAnimation = async () => {
+                const scp = scope.current as HTMLElement
+
+                await animate(sequenceIn)
+                const b = scp.querySelectorAll(".row")
+                b.forEach((elem) => elem.classList.remove("row"))
+            }
+            initialAnimation()
+        }
+        //eslint-disable-next-line
+    }, [filteredData[boardType], isMounted])
+
+    useEffect(() => {
+        !isMounted && setIsMounted(true)
+    }, [isMounted])
     return (
-        <div>
+        <div ref={scope} className="flex flex-col justify-end">
             {filteredData[boardType].length > 0 &&
                 filteredData[boardType].map((element) => {
                     const {
@@ -35,8 +75,7 @@ const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
                     return (
                         <div
                             key={id}
-                            className="flex w-full transition-shadow ease-in-out border border-customGray rounded-sm shadow-md mb-5x hover:shadow-xl [&>*:first-child]:border-l-0"
-                            style={{ transitionDuration: "500ms" }}
+                            className="row flex w-full  ease-in-out border border-customGray rounded-sm shadow-md mb-5x hover:shadow-xl [&>*:first-child]:border-l-0 opacity-0 translate-y-[-20px]"
                         >
                             {tableHeaders.map(({ key, width }, i) => {
                                 const borderAndWidth = `border-l border-customGray${
