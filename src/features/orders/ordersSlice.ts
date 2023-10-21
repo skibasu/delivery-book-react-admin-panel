@@ -15,7 +15,7 @@ const ordersSlice = createSlice({
     reducers: {
         addOrder(state, { payload }) {
             state.data.push(payload)
-            state.filteredData[payload.status as OrderStatus].push(payload)
+            state.filteredData[payload.status as OrderStatus].unshift(payload)
         },
         updateOrder(state, { payload }) {
             // Update state of all Orders
