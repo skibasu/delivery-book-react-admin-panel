@@ -24,14 +24,21 @@ const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
     useEffect(() => {
         if (isMounted && filteredData[boardType].length > 0) {
             const scp = scope.current as HTMLElement
-            const h = scp.clientHeight
-            console.log("H : ", h)
+            const lastElem = scp.querySelector(".row")
+            const h = lastElem?.clientHeight || 0
+
             const sequenceIn = [
+                [".hold", { y: [-h, 0] }, { duration: 0.3 }],
+
                 [
                     ".row",
                     { y: [-20, 0], opacity: [0, 1] },
 
-                    { duration: 0.3, delay: stagger(0.2), at: "-0.3" },
+                    {
+                        duration: 0.45,
+                        opacity: { duration: 0.55 },
+                        delay: stagger(0.2),
+                    },
                 ],
             ] as AnimationSequence
             // const sequenceOut = [
@@ -48,7 +55,10 @@ const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
 
                 await animate(sequenceIn)
                 const b = scp.querySelectorAll(".row")
-                b.forEach((elem) => elem.classList.remove("row"))
+                b.forEach((elem) => {
+                    elem.classList.remove("row")
+                    elem.classList.add("hold")
+                })
             }
             initialAnimation()
         }
@@ -59,7 +69,7 @@ const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
         !isMounted && setIsMounted(true)
     }, [isMounted])
     return (
-        <div ref={scope} className="flex flex-col justify-end">
+        <div ref={scope} className="h-full">
             {filteredData[boardType].length > 0 &&
                 filteredData[boardType].map((element) => {
                     const {

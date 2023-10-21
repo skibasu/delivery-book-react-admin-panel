@@ -7,9 +7,12 @@ import { OrderStatus } from "@/features/orders/types"
 
 const BoardTabs = () => {
     return (
-        <section className="w-full">
-            <Tabs defaultValue={OrderStatus.OPEN} className="w-full">
-                <TabsList className="w-full font-payton">
+        <div className="w-full">
+            <Tabs
+                defaultValue={OrderStatus.OPEN}
+                className="w-full h-full flex flex-col"
+            >
+                <TabsList className="w-full font-payton grow-0">
                     {arrOfStatuses.map((status) => (
                         <TabsTrigger
                             key={status}
@@ -21,12 +24,12 @@ const BoardTabs = () => {
                     ))}
                 </TabsList>
                 {arrOfStatuses.map((status) => (
-                    <TabsContent value={status} key={status}>
+                    <TabsContent value={status} key={status} className="grow">
                         <BoardTable headers={tableHeaders} type={status} />
                     </TabsContent>
                 ))}
             </Tabs>
-        </section>
+        </div>
     )
 }
 
