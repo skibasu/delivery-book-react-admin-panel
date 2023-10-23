@@ -11,7 +11,11 @@ const MenuPanel = () => {
     const [isOpen, setIsOpen] = useState<boolean | undefined>()
     useEffect(() => {
         const sequenceIn = [
-            [scope.current, { width: [55, 166] }, { duration: 0.6 }],
+            [
+                [scope.current, "#fixedNav"],
+                { width: [55, 166] },
+                { duration: 0.6 },
+            ],
             [
                 "#button",
                 { rotate: ["0deg", "180deg"] },
@@ -41,7 +45,7 @@ const MenuPanel = () => {
                 },
             ],
             [
-                scope.current,
+                [scope.current, "#fixedNav"],
                 { width: [166, 55] },
                 { duration: 0.6, at: "-0.5" },
             ],
@@ -67,53 +71,62 @@ const MenuPanel = () => {
     return (
         <nav
             ref={scope}
-            className={`overflow-hidden p-6y bg-storm h-full text-textWhite relative pt-[60px] w-[55px]`}
+            className={`overflow-hidden px-6y pb-6y bg-storm h-full text-textWhite relative  w-[55px] pt-[60px]`}
         >
             <div
-                id="button"
-                className="cursor-pointer absolute top-[15px] right-[15px]"
-                onClick={() => setIsOpen(!isOpen)}
+                id="fixedNav"
+                className="fixed w-[55px] pt-[60px] top-0 left-0 bottom-0 overflow-hidden px-6y pb-6y bg-storm text-textWhite w-[55px] pt-[120px]"
+                style={{ height: "calc(100% + 60 + 38)" }}
             >
-                <ToggleIcon className="rotate-180" />
-            </div>
+                <div
+                    id="button"
+                    className="cursor-pointer absolute top-[75px] right-[15px]"
+                    onClick={() => setIsOpen(!isOpen)}
+                >
+                    <ToggleIcon className="rotate-180" />
+                </div>
 
-            <ul>
-                <li className="mb-7x">
-                    <Link to="/" className={`flex items-center`}>
-                        <HomeIcon className="shrink-0" color={"#FFF"} />
-                        <span
-                            className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase opacity-0`}
-                        >
-                            Home
-                        </span>
-                    </Link>
-                </li>
-                <li className="mb-7x">
-                    <Link to="/users" className={`flex items-center`}>
-                        <UsersIcon
-                            className="shrink-0"
-                            color={"#FFF"}
-                            width="20px"
-                            height="20px"
-                        />
-                        <span
-                            className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase opacity-0`}
-                        >
-                            Users
-                        </span>
-                    </Link>
-                </li>
-                <li>
-                    <Link to="/users" className={`flex items-center`}>
-                        <StatisticsIcon className="shrink-0" color={"#FFF"} />
-                        <span
-                            className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase opacity-0`}
-                        >
-                            Statistics
-                        </span>
-                    </Link>
-                </li>
-            </ul>
+                <ul>
+                    <li className="mb-7x">
+                        <Link to="/" className={`flex items-center`}>
+                            <HomeIcon className="shrink-0" color={"#FFF"} />
+                            <span
+                                className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase opacity-0`}
+                            >
+                                Home
+                            </span>
+                        </Link>
+                    </li>
+                    <li className="mb-7x">
+                        <Link to="/users" className={`flex items-center`}>
+                            <UsersIcon
+                                className="shrink-0"
+                                color={"#FFF"}
+                                width="20px"
+                                height="20px"
+                            />
+                            <span
+                                className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase opacity-0`}
+                            >
+                                Users
+                            </span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/users" className={`flex items-center`}>
+                            <StatisticsIcon
+                                className="shrink-0"
+                                color={"#FFF"}
+                            />
+                            <span
+                                className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase opacity-0`}
+                            >
+                                Statistics
+                            </span>
+                        </Link>
+                    </li>
+                </ul>
+            </div>
         </nav>
     )
 }

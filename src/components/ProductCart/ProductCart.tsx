@@ -29,7 +29,7 @@ const ProductCart: React.FC<IProductCart> = ({
     const dispatch = useDispatch()
     return (
         <div
-            className="border border-storm rounded-sm flex items-stretch mb-4x py-2x transition duration-300 hover:shadow-md cursor-pointer hover:scale-[1.01] bg-textWhite"
+            className="cart border border-storm rounded-sm flex items-stretch mb-4x py-2x transition duration-300 hover:shadow-md cursor-pointer hover:scale-[1.01] bg-textWhite"
             onClick={() =>
                 addButton
                     ? dispatch(

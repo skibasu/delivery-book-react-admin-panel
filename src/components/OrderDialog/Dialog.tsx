@@ -1,23 +1,18 @@
 import React, { useEffect, useMemo } from "react"
 import { usePresence, useAnimate, AnimationSequence } from "framer-motion"
-import {
-    EDialogType,
-    EStatus,
-    useDialogContext,
-} from "@/contexts/DialogProvider"
+import { EDialogType, useDialogContext } from "@/contexts/DialogProvider"
 import { OrderStatus, PaymentType } from "@/features/orders/types"
-import BasketDialog from "../BasketDialog/BasketDialog"
 import CloseButton from "../CloseButton/CloseButton"
 import Form from "./Form/Form"
 import { BasketProduct } from "@/features/basket/types"
 import { IAddOrderForm } from "./types"
+import useLockedBody from "@/hooks/useLockedBody"
 
 const Dialog = () => {
-    const { dialogAddProductsStatus, close, formType, orderForUpdate } =
-        useDialogContext()
+    const { close, formType, orderForUpdate } = useDialogContext()
     const [isPresent, safeToRemove] = usePresence()
     const [scope, animate] = useAnimate()
-
+    const { setLocked } = useLockedBody()
     const emptyValues: IAddOrderForm = useMemo(
         () => ({
             title: "",
@@ -70,6 +65,7 @@ const Dialog = () => {
             ["#bg", { opacity: [1, 0] }, { duration: 0.3, at: "-0.1" }],
         ] as AnimationSequence
         if (isPresent) {
+            setLocked(true)
             const initialAnimation = async () => {
                 await animate(sequenceIn)
             }
@@ -77,7 +73,8 @@ const Dialog = () => {
         } else {
             const exitAnimation = async () => {
                 await animate(sequenceOut)
-                safeToRemove!()
+                safeToRemove()
+                setLocked(false)
             }
             exitAnimation()
         }
@@ -121,9 +118,6 @@ const Dialog = () => {
                         />
                     ) : null}
                 </div>
-                {dialogAddProductsStatus === EStatus.CLOSE ? (
-                    <BasketDialog />
-                ) : null}
             </div>
         </div>
     )

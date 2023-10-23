@@ -10,6 +10,8 @@ import { getOrders } from "@/api/ordersApi"
 import { getUsers } from "@/api/usersApi"
 
 import OrderDialog from "@/components/OrderDialog/OrderDialog"
+import AddProductsDialog from "@/components/OrderDialog/AddProductsDialog/AddProductsDialog"
+import BasketDialog from "@/components/OrderDialog/BasketDialog/BasketDialog"
 
 const ProtectedLayout: React.FC = () => {
     const dispatch = useAppDispatch()
@@ -26,12 +28,12 @@ const ProtectedLayout: React.FC = () => {
     return (
         <>
             <Header />
-            <main className="grow">
-                <div className="h-full flex">
+            <main className="grow pt-[60px]">
+                <div className="h-full flex items-stretch">
                     <div className="h-full shrink-0">
                         <MenuPanel />
                     </div>
-                    <div className="grow">
+                    <div className="grow flex flex-col">
                         <SectionHeader title="Home" />
                         <Outlet />
                     </div>
@@ -39,6 +41,8 @@ const ProtectedLayout: React.FC = () => {
             </main>
             <Footer />
             <OrderDialog />
+            <AddProductsDialog />
+            <BasketDialog />
         </>
     )
 }

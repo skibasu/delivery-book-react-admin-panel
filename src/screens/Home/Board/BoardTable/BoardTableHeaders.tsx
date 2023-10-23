@@ -8,7 +8,7 @@ interface IBoardTableHeaders {
 }
 const BoardTableHeaders: React.FC<IBoardTableHeaders> = ({ boardType }) => {
     return (
-        <div className="w-full flex bg-customGrayLight rounded-sm mt-8x mb-7x [&>*:first-child]:border-l-0">
+        <div className="w-full flex bg-customGrayLight rounded-sm mt-8x mb-7x [&>*:first-child]:border-l-0 shrink-0">
             {tableHeaders.map(({ label, sort, key, width }, i) => {
                 if (
                     key === "selectedBy" &&

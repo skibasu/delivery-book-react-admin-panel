@@ -11,13 +11,15 @@ import { tableHeaders } from "../labels/headers"
 import ColumnUser from "../BoardColumns/ColumnUser"
 import ColumnDefault from "../BoardColumns/ColumnDefault"
 import { AnimationSequence, stagger, useAnimate } from "framer-motion"
+import { ReactComponent as SpinnerIcon } from "@/assets/svg/icon-spinner-storm.svg"
 
 interface IBoardTableContent {
     boardType: OrderStatus
 }
 
 const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
-    const { filteredData } = useAppSelector((state) => state.orders)
+    const { filteredData, loading } = useAppSelector((state) => state.orders)
+
     const [scope, animate] = useAnimate()
     const [isMounted, setIsMounted] = useState<boolean>(false)
 
@@ -41,14 +43,6 @@ const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
                     },
                 ],
             ] as AnimationSequence
-            // const sequenceOut = [
-            //     [
-            //         ".row",
-            //         { y: [0, -20], opacity: [1, 0] },
-
-            //         { duration: 0.3, delay: stagger(0.2) },
-            //     ],
-            // ] as AnimationSequence
 
             const initialAnimation = async () => {
                 const scp = scope.current as HTMLElement
@@ -69,7 +63,14 @@ const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
         !isMounted && setIsMounted(true)
     }, [isMounted])
     return (
-        <div ref={scope} className="h-full">
+        <div ref={scope}>
+            {loading === "pending" ? (
+                <SpinnerIcon
+                    width="24px"
+                    height="24px"
+                    className="mx-auto my-9x"
+                />
+            ) : null}
             {filteredData[boardType].length > 0 &&
                 filteredData[boardType].map((element) => {
                     const {
