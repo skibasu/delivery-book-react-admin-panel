@@ -75,7 +75,7 @@ const MenuPanel = () => {
         >
             <div
                 id="fixedNav"
-                className="fixed w-[55px] pt-[60px] top-0 left-0 bottom-0 overflow-hidden px-6y pb-6y bg-storm text-textWhite w-[55px] pt-[120px]"
+                className="fixed w-[55px] pt-[120px] top-0 left-0 bottom-0 overflow-hidden px-6y pb-6y bg-storm text-textWhite w-[55px] pt-[120px]"
                 style={{ height: "calc(100% + 60 + 38)" }}
             >
                 <div
