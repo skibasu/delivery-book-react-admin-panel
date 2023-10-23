@@ -15,7 +15,6 @@ import {
 } from "@/features/orders/ordersSlice"
 import { removeAllProducts, updateBasket } from "@/features/basket/basketSlice"
 import AddProductsButton from "../AddProductsButton/AddProductsButton"
-import CustomAddProductsDialog from "../AddProductsDialog/CustomAddProductsDialog"
 import AddOrderButton from "../SaveOrderButton/SaveOrderButton"
 import AddOrderFormMessage from "../AddOrderForm/AddOrderFormMessage"
 
@@ -287,7 +286,6 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
             </div>
 
             <AddProductsButton />
-            <CustomAddProductsDialog />
 
             <div className="flex wrap w-full justify-between">
                 <Controller

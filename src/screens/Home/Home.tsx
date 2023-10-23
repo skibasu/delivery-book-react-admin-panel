@@ -48,7 +48,7 @@ const Home: React.FC = () => {
         //eslint-disable-next-line
     }, [])
     return (
-        <section className="pt-[113px] lg:max-w-[1200px] w-full mx-auto px-7x">
+        <section className="pt-[113px] lg:max-w-[1200px] w-full mx-auto px-7x grow">
             <Board />
         </section>
     )
