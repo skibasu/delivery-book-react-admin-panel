@@ -8,7 +8,7 @@ import React, {
 } from "react"
 import { io, Socket } from "socket.io-client"
 
-const URL = "http://localhost:3000/orders"
+const URL = `${process.env.REACT_APP_URL}/orders`
 interface IProps {
     socket: Socket | undefined
 }
