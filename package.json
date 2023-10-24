@@ -29,6 +29,7 @@
         "body-scroll-lock": "^4.0.0-beta.0",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.0.0",
+        "env-cmd": "^10.1.0",
         "framer-motion": "^10.16.4",
         "gh-pages": "^6.0.0",
         "lucide-react": "^0.276.0",
@@ -48,12 +49,12 @@
         "yup": "^1.2.0"
     },
     "scripts": {
-        "start": "craco start",
-        "build": "craco build",
-        "test": "craco test",
-        "eject": "craco eject",
-        "predeploy": "npm run build",
-        "deploy": "gh-pages -d build"
+        "start": "env-cmd -f .env.staging craco start",
+        "build": "env-cmd -f .env.staging craco build",
+        "test": "env-cmd -f .env.staging craco test",
+        "eject": "env-cmd -f .env.staging craco eject",
+        "predeploy": "env-cmd -f .env.staging npm run build",
+        "deploy": "env-cmd -f .env.staging gh-pages -d build"
     },
     "eslintConfig": {
         "extends": [

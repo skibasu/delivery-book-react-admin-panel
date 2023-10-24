@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from "axios"
 
 const instance: AxiosInstance = axios.create({
-    baseURL: "http://localhost:3000",
+    baseURL: process.env.REACT_APP_URL,
 })
 
 export default instance
