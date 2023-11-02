@@ -11,7 +11,7 @@ interface IPaymentsItems {
     items: PaymentsItem[]
 }
 
-const StatusesItems: React.FC<IPaymentsItems> = ({ items: payments }) => {
+const PaymentItems: React.FC<IPaymentsItems> = ({ items: payments }) => {
     return (
         <>
             {payments.map(({ payment, isHidden }) => {
@@ -21,15 +21,21 @@ const StatusesItems: React.FC<IPaymentsItems> = ({ items: payments }) => {
                         className={
                             isHidden
                                 ? "hidden"
-                                : "px-0y relative z-10 bg-textWhite py-4x border-b border-b-customGrayLight translate-y-0 transition-all duration-0 hover:duration-150 hover:bg-navy hover:shadow-md hover:z-20 hover:rounded-sm hover:translate-y-[-2px]"
+                                : "relative z-10 bg-textWhite py-4x border-b border-b-customGrayLight "
                         }
                     >
                         <SelectItem
                             value={payment as string}
                             key={payment}
-                            className="cursor-pointer"
+                            className="cursor-pointer  flex flex-col items-start"
                         >
-                            <PaymentBadge variant="small" label={payment} />
+                            <div className="px-2x">
+                                <PaymentBadge
+                                    variant="small"
+                                    label={payment}
+                                    className="translate-y-0 transition-all duration-0 hover:duration-150 hover:shadow-md hover:z-20 hover:rounded-sm hover:translate-y-[-2px]"
+                                />
+                            </div>
                         </SelectItem>
                     </div>
                 )
@@ -38,4 +44,4 @@ const StatusesItems: React.FC<IPaymentsItems> = ({ items: payments }) => {
     )
 }
 
-export default StatusesItems
+export default PaymentItems

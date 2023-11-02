@@ -26,8 +26,8 @@ const BasketMenu = () => {
             ["#summary", { opacity: [0, 1] }, { duration: 0.3, at: "<" }],
             [
                 ".cart",
-                { opacity: [0, 1], y: [-10, 0] },
-                { duration: 0.2, delay: stagger(0.1) },
+                { opacity: [0, 1] },
+                { duration: 0.5, delay: stagger(0.1) },
             ],
         ] as AnimationSequence
         const sequenceOut = [
@@ -59,11 +59,12 @@ const BasketMenu = () => {
                 <BasketBorder className="w-full h-full" id="border" />
             </div>
 
-            <div className="w-full relative overflow-y-auto grow scrollbar  scrollbar-h-0y scrollbar-thumb-textWhite scrollbar-track-transparent scrollbar-w-[2px]">
+            <div className="w-full relative overflow-y-auto grow scrollbar scrollbar-h-0y scrollbar-thumb-textWhite scrollbar-track-transparent scrollbar-w-[2px]">
                 {Object.keys(filteredOrders).length > 0 ? (
                     <div className="px-4x pt-6x w-full">
                         {Object.keys(filteredOrders).map((type) => {
-                            return (
+                            return filteredOrders[type as MenuProductType]
+                                .length > 0 ? (
                                 <div key={type}>
                                     <h2 className="font-payton tracking-[1.2px] text-sm text-textWhite mb-4x">
                                         #{type}
@@ -78,7 +79,7 @@ const BasketMenu = () => {
                                         />
                                     ))}
                                 </div>
-                            )
+                            ) : null
                         })}
                     </div>
                 ) : null}

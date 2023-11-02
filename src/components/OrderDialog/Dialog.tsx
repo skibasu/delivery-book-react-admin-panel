@@ -7,16 +7,22 @@ import Form from "./Form/Form"
 import { BasketProduct } from "@/features/basket/types"
 import { IAddOrderForm } from "./types"
 import useLockedBody from "@/hooks/useLockedBody"
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
+import { updateSocketLoading } from "@/features/orders/ordersSlice"
 
 const Dialog = () => {
     const { close, formType, orderForUpdate } = useDialogContext()
     const [isPresent, safeToRemove] = usePresence()
     const [scope, animate] = useAnimate()
     const { setLocked } = useLockedBody()
+    const { socketLoading } = useAppSelector((state) => state.orders)
+    const dispatch = useAppDispatch()
+
     const emptyValues: IAddOrderForm = useMemo(
         () => ({
             title: "",
             phoneNumber: "",
+            prefix: "+48",
             price: "",
             paymentType: PaymentType.CASH,
             status: OrderStatus.OPEN,
@@ -34,6 +40,7 @@ const Dialog = () => {
         return {
             title: orderForUpdate?.title || "",
             phoneNumber: orderForUpdate?.phoneNumber || "",
+            prefix: "+48",
             price: "",
             paymentType: orderForUpdate?.paymentType || "",
             status: orderForUpdate?.status || "",
@@ -47,6 +54,9 @@ const Dialog = () => {
         }
     }, [orderForUpdate])
 
+    const changeLoadingToIddle = () => {
+        socketLoading === "succeeded" && dispatch(updateSocketLoading("idle"))
+    }
     useEffect(() => {
         const sequenceIn = [
             ["#bg", { opacity: [0, 1] }, { duration: 0.3 }],
@@ -74,6 +84,7 @@ const Dialog = () => {
             const exitAnimation = async () => {
                 await animate(sequenceOut)
                 safeToRemove()
+                changeLoadingToIddle()
                 setLocked(false)
             }
             exitAnimation()

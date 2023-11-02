@@ -34,13 +34,14 @@
         display: flex;
         @apply text-textBlack;
     }
-    body {
+    #body {
         display: flex;
         flex-direction: column;
         flex-grow: 1;
         line-height: 1.2;
         min-height: 100%;
-        overflow: auto;
+        overflow: auto !important;
+        margin-right: 0 !important;
     }
     #root {
         display: flex;

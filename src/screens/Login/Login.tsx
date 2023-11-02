@@ -8,7 +8,6 @@ const Home: React.FC = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log("env", process.env.REACT_APP_URL)
         token && navigate("/", { replace: true })
         //eslint-disable-next-line
     }, [token])

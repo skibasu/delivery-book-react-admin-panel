@@ -1,7 +1,5 @@
 import { Dispatch, useEffect, useState } from "react"
-
 import { useIsomorphicLayoutEffect } from "./useisomorphicLayoutEffect"
-
 interface UseLockedBodyOutput {
     locked: boolean
     setLocked: Dispatch<boolean>
@@ -12,9 +10,15 @@ export function useLockedBody(
     rootId = "root" // Default to `___gatsby` to not introduce breaking change
 ): UseLockedBodyOutput {
     const [locked, setLocked] = useState<boolean>(initialLocked)
+    const [wh, setWh] = useState<number>(window.innerHeight)
 
     // Do the side effect before render
+    const onResize = () => {
+        setWh(window.innerHeight)
+    }
     useIsomorphicLayoutEffect(() => {
+        window.addEventListener("resize", onResize)
+
         if (!locked) {
             return
         }
@@ -22,14 +26,16 @@ export function useLockedBody(
         // HTML and BODY elements
         const html = document.querySelector("html") as HTMLElement
         const body = document.body
-        const windowHeight = window.innerHeight
-        const scrollTop = window.scrollY
+        const main = document.querySelector("main") as HTMLElement
 
+        const windowHeight = wh
+        const scrollTop = window.scrollY
         const updatedOverflow =
             html.scrollHeight > window.innerHeight
                 ? "scroll"
                 : html.style.overflow
 
+        const originalMainOverflow = main.style.overflow
         // Initial styles for BODY & HTML
         const originalStyleOfHTML = {
             width: html.style.width,
@@ -40,9 +46,8 @@ export function useLockedBody(
 
         const originalStyleOfBODY = {
             height: body.style.height,
-            overflowY: body.style.overflowY,
+            overflow: body.style.overflow,
             marginTop: body.style.marginTop,
-            position: body.style.position,
         }
 
         // Locked styles for BODY & HTML
@@ -55,19 +60,20 @@ export function useLockedBody(
 
         const lockedStyleOfBODY = {
             height: `${windowHeight + scrollTop}px`,
-            overflowY: "hidden",
+            overflow: "hidden !important",
             marginTop: `-${scrollTop}px`,
         }
 
         // Lock screen
+        main.style.overflow = "hidden"
+        body.style.height = lockedStyleOfBODY.height
+        body.style.overflow = lockedStyleOfBODY.overflow
+        body.style.marginTop = lockedStyleOfBODY.marginTop
+
         html.style.width = lockedStyleOfHTML.width
         html.style.height = lockedStyleOfHTML.height
         html.style.overflowY = lockedStyleOfHTML.overflowY
         html.style.position = lockedStyleOfHTML.position
-
-        body.style.height = lockedStyleOfBODY.height
-        body.style.overflowY = lockedStyleOfBODY.overflowY
-        body.style.marginTop = lockedStyleOfBODY.marginTop
 
         return () => {
             //Unlock screen
@@ -77,11 +83,14 @@ export function useLockedBody(
             html.style.position = originalStyleOfHTML.position
 
             body.style.height = originalStyleOfBODY.height
-            body.style.overflowY = originalStyleOfBODY.overflowY
+            body.style.overflow = originalStyleOfBODY.overflow
             body.style.marginTop = originalStyleOfBODY.marginTop
+
+            main.style.overflow = originalMainOverflow
             window.scrollTo(0, scrollTop)
+            window.removeEventListener("resize", onResize)
         }
-    }, [locked])
+    }, [locked, wh])
 
     // Update state if initialValue changes
     useEffect(() => {
