@@ -28,7 +28,6 @@ const Dialog = () => {
                 },
                 { duration: 0.3 },
             ],
-            ["#bg", { opacity: [1, 0] }, { duration: 0.3, at: "-0.1" }],
         ] as AnimationSequence
         if (isPresent) {
             const initialAnimation = async () => {
@@ -49,7 +48,8 @@ const Dialog = () => {
             <div className="fixed h-full w-full bg-transparent z-[11] left-0 top-0 right-0 bottom-0"></div>
 
             <div
-                className={`fixed  z-20 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] shadow-lg z-[21] max-h-[820px] overflow-hidden`}
+                ref={scope}
+                className={`fixed z-20 left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] shadow-lg z-[21] max-h-[820px] overflow-hidden`}
                 style={{ height: "calc(100vh - 60px)" }}
             >
                 <div className="flex items-center h-full ">
@@ -57,10 +57,7 @@ const Dialog = () => {
                         className="absolute right-4x top-4x z-[51]"
                         onClick={() => close(EDialogType.PRODUCTS, true)}
                     />
-                    <div
-                        ref={scope}
-                        className="md:w-[500px] max-w-[500px] h-full px-7x pt-[34px] pb-[50px] max-h-full overflow-y-hidden max-h-full h-full  bg-textWhite rounded-lg bg-textWhite shadow-lg relative"
-                    >
+                    <div className="md:w-[500px] max-w-[500px] h-full px-7x pt-[34px] pb-[50px] max-h-full overflow-y-hidden max-h-full h-full  bg-textWhite rounded-lg bg-textWhite shadow-lg relative">
                         <AddProductsForm />
                     </div>
                 </div>

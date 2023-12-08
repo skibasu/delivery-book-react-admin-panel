@@ -9,6 +9,7 @@ import {
 import { useAppDispatch } from "@/hooks/useStore"
 import React, { useEffect } from "react"
 import Board from "./Board/Board"
+
 //import { useAppSelector } from "../../hooks/useStore"
 
 const Home: React.FC = () => {

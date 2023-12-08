@@ -3,7 +3,7 @@ import { ReactComponent as PlusIcon } from "@/assets/svg/icon-plus.svg"
 import { ReactComponent as TrashIcon } from "@/assets/svg/icon-trash.svg"
 import { ReactComponent as SortIcon } from "@/assets/svg/icon-sort.svg"
 import React from "react"
-import pizza from "@/assets/img/pizza.png"
+import LazyImage from "../LazyImage/LazyImage"
 import { useDispatch } from "react-redux"
 import {
     addProductToBasket,
@@ -48,13 +48,11 @@ const ProductCart: React.FC<IProductCart> = ({
             }
         >
             <div className="pl-2x shrink-0 grow-0 flex items-center border-r border-r-storm">
-                <div className="w-[39px] h-[39px] mr-2x rounded-full overflow-hiddden ">
-                    <img
-                        src={picture || pizza}
-                        alt={title}
-                        className="object-cover"
-                    />
-                </div>
+                <LazyImage
+                    src={picture}
+                    alt={title}
+                    className="w-[39px] h-[39px] mr-2x rounded-full"
+                />
             </div>
             <div className="px-2x grow flex items-center">
                 <div>

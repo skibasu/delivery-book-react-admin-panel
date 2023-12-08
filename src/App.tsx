@@ -1,6 +1,6 @@
 import React from "react"
 import {
-    createHashRouter,
+    createBrowserRouter,
     createRoutesFromElements,
     Route,
     RouterProvider,
@@ -9,7 +9,7 @@ import Layout from "./layouts/Layout"
 import { nav } from "./routes"
 
 function App() {
-    const router = createHashRouter(
+    const router = createBrowserRouter(
         createRoutesFromElements(
             <Route path="/" element={<Layout />}>
                 {nav.map(({ element, key, path }) => (

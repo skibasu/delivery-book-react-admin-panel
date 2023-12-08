@@ -30,15 +30,13 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 )}
                 <textarea
                     className={cn(
-                        `flex h-element
+                        `flex
                         w-full rounded-md 
                         border border-storm 
                         bg-textWhite 
                         px-5x py-4x 
-                     
                         placeholder:text-placeholder 
                         focus-visible:outline-none 
-                     
                         autofill:bg-yellow-200 
                         focus:border-sweetGrass
                         caret-sweetGrass

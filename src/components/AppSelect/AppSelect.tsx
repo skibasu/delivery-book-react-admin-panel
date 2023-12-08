@@ -58,6 +58,7 @@ const AppSelect: React.FC<IAppSelect> = ({
                 onValueChange={onValueChange}
                 name={name}
                 defaultValue={inputValue}
+                value={inputValue}
             >
                 <SelectTrigger
                     className={cn(className, error ? "!border-hellFire" : "")}
@@ -73,7 +74,7 @@ const AppSelect: React.FC<IAppSelect> = ({
                             }))}
                         />
                     ) : null}
-                    {dataType === EDataType.STATUSES ? (
+                    {inputValue && dataType === EDataType.STATUSES ? (
                         <StatusesItems
                             items={statuses.map((status) => ({
                                 status,

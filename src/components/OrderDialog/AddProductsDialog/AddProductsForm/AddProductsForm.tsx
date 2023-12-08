@@ -1,23 +1,18 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 
 import { MenuProductType } from "@/features/basket/types"
 import AppSelect from "../../../AppSelect/AppSelect"
 import { EDataType } from "../../../AppSelect/types"
 import ProductCart from "@/components/ProductCart/ProductCart"
-import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
-import { getMenu } from "@/api/menuApi/getMenu"
+import { useAppSelector } from "@/hooks/useStore"
+import { ReactComponent as SpinnerIcon } from "@/assets/svg/icon-spinner-storm.svg"
 
 const AddProductsForm = () => {
-    const { token } = useAppSelector((state) => state.auth)
-    const { filteredMenu } = useAppSelector((state) => state.menu)
-    const dispatch = useAppDispatch()
+    const { filteredMenu, loading } = useAppSelector((state) => state.menu)
     const [category, setCategory] = useState<MenuProductType>(
         MenuProductType.PIZZA
     )
-    useEffect(() => {
-        dispatch(getMenu(token || ""))
-        //eslint-disable-next-line
-    }, [])
+
     return (
         <div className="flex flex-col max-h-full">
             <AppSelect
@@ -34,17 +29,26 @@ const AddProductsForm = () => {
                 onFocus={() => {}}
             />
 
-            <div className="grow overflow-y-auto px-7x -mx-7x pb-6x">
-                {filteredMenu[category].map((props) => {
-                    return (
-                        <ProductCart
-                            key={props._id}
-                            addButton={true}
-                            {...props}
-                            counter={1}
-                        />
-                    )
-                })}
+            <div className="grow overflow-y-auto px-7x -mx-7x pb-6x scrollbar srollbar-h-1y scrollbar-thumb-storm scrollbar-track-textWhite scrollbar-w-[2px]">
+                {loading === "pending" ? (
+                    <SpinnerIcon
+                        width="24px"
+                        height="24px"
+                        className="mx-auto my-auto"
+                    />
+                ) : null}
+                {filteredMenu[category].length > 0
+                    ? filteredMenu[category].map((props) => {
+                          return (
+                              <ProductCart
+                                  key={props._id}
+                                  addButton={true}
+                                  {...props}
+                                  counter={1}
+                              />
+                          )
+                      })
+                    : null}
             </div>
         </div>
     )
