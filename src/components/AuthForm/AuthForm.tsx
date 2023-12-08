@@ -34,7 +34,11 @@ const AuthForm: React.FC = () => {
             <figure className="flex w-full justify-center mb-8x">
                 <img src={logo} alt="Delivery Book" />
             </figure>
-            <form className="" onSubmit={handleSubmit(onSubmit)}>
+            <form
+                className=""
+                onSubmit={handleSubmit(onSubmit)}
+                id="login-form"
+            >
                 <Controller
                     name="email"
                     control={control}

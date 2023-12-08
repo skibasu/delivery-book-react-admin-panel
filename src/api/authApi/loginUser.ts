@@ -24,7 +24,7 @@ export const loginUserSuccess = (state: AuthState, action: AnyAction) => {
     if (action.payload.error) {
         state.error = action.payload
     } else {
-        state.token = action.payload.token
+        state.token = action.payload.token.accessToken
         state._id = action.payload._id
         state.error = null
     }
