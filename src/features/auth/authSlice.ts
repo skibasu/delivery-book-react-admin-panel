@@ -13,9 +13,12 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         logOutUser(state) {
-            state.token = null
             state._id = null
+            state.token = null
         },
+        //   refreshUser(state, { payload }) {
+        //       state._id = payload._id
+        //   },
     },
     extraReducers: (builder) => {
         builder

@@ -16,7 +16,7 @@ interface IProps {
 const SocketContext = createContext<IProps>({} as IProps)
 
 const SocketProvider: React.FC<PropsWithChildren> = ({ children }) => {
-    const { token } = useAppSelector((state) => state.auth)
+    const { _id, token } = useAppSelector((state) => state.auth)
     const [socket, setSocket] = useState<Socket | undefined>()
 
     useEffect(() => {

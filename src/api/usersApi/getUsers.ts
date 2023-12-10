@@ -4,7 +4,7 @@ import axios from "../../axios"
 
 export const getUsers = createAsyncThunk(
     "users/getUsers",
-    async (token: string) => {
+    async (token: string | null) => {
         try {
             const req = await axios.get("/users", {
                 headers: { Authorization: `Bearer ${token}` },

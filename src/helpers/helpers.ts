@@ -21,3 +21,16 @@ export const filterMenu = (menu: BasketProduct[]): FilteredMenu => {
 
     return data as FilteredMenu
 }
+
+export const setIDCookie = (v: string) => {
+    const d = new Date()
+    d.setTime(d.getTime() + 43200)
+
+    document.cookie = `_id=${v};expires=${d.toUTCString()};`
+}
+export const getIDCookie = () => {
+    const arrOfCookies = document.cookie.split(";")
+    const idWithPrefix = arrOfCookies.find((c) => c.match(/^_id=.*$/))
+
+    return idWithPrefix?.replace("_id=", "") || ""
+}

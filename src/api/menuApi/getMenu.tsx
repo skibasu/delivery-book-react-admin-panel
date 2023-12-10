@@ -5,7 +5,7 @@ import { filterMenu } from "@/helpers/helpers"
 
 export const getMenu = createAsyncThunk(
     "menu/getMenu",
-    async (token: string) => {
+    async (token: string | null) => {
         try {
             const req = await axios.get("/products", {
                 headers: { Authorization: `Bearer ${token}` },

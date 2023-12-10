@@ -1,16 +1,17 @@
-import { useAppSelector } from "@/hooks/useStore"
-import React, { useEffect } from "react"
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
+import React, { useLayoutEffect, useState } from "react"
 import AuthForm from "../../components/AuthForm/AuthForm"
 import { useNavigate } from "react-router-dom"
 
-const Home: React.FC = () => {
-    const { token } = useAppSelector((state) => state.auth)
+const Login: React.FC = () => {
+    const { _id } = useAppSelector((state) => state.auth)
+
     const navigate = useNavigate()
 
-    useEffect(() => {
-        token && navigate("/", { replace: true })
+    useLayoutEffect(() => {
+        _id && navigate("/", { replace: true })
         //eslint-disable-next-line
-    }, [token])
+    }, [_id])
     return (
         <section className="grow flex flex-column justify-center items-center bg-storm">
             <AuthForm />
@@ -18,4 +19,4 @@ const Home: React.FC = () => {
     )
 }
 
-export default Home
+export default Login

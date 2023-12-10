@@ -13,7 +13,6 @@ import Board from "./Board/Board"
 //import { useAppSelector } from "../../hooks/useStore"
 
 const Home: React.FC = () => {
-    // const { token } = useAppSelector((state) => state.auth)
     const dispatch = useAppDispatch()
     const { socket } = useSocketContext()
     useEffect(() => {

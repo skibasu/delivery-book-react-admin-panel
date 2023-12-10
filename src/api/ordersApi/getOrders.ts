@@ -5,7 +5,8 @@ import axios from "../../axios"
 
 export const getOrders = createAsyncThunk(
     "orders/getOrders",
-    async (token: string) => {
+    async (token: string | null) => {
+        console.log("getOreders")
         try {
             const req = await axios.get("/orders", {
                 headers: { Authorization: `Bearer ${token}` },
