@@ -1,8 +1,8 @@
 import { AuthState } from "./types"
-
+console.log(document)
 export const initialState: AuthState = {
     _id: null,
-    token: null,
+    token: document.cookie.replace("_id=", ""),
     loading: "idle",
     error: null,
 }

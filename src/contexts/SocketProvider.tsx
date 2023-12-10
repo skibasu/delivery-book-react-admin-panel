@@ -25,6 +25,7 @@ const SocketProvider: React.FC<PropsWithChildren> = ({ children }) => {
                 extraHeaders: {
                     token: token || "",
                 },
+                withCredentials: true,
             })
             setSocket(newSocket)
         } catch (e: any) {
