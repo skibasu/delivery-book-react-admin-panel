@@ -16,15 +16,15 @@ import { getMenu } from "@/api/menuApi/getMenu"
 
 const ProtectedLayout: React.FC = () => {
     const dispatch = useAppDispatch()
-    const { token } = useAppSelector((state) => state.auth)
+    const { _id } = useAppSelector((state) => state.auth)
 
     useLayoutEffect(() => {
-        token && dispatch(getOrders(token))
-        token && dispatch(getUsers(token))
-        token && dispatch(getMenu(token))
+        _id && dispatch(getOrders())
+        _id && dispatch(getUsers())
+        _id && dispatch(getMenu())
 
         //eslint-disable-next-line
-    }, [token])
+    }, [_id])
 
     return (
         <>

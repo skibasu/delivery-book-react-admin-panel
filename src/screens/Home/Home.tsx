@@ -10,12 +10,10 @@ import { useAppDispatch } from "@/hooks/useStore"
 import React, { useEffect } from "react"
 import Board from "./Board/Board"
 
-//import { useAppSelector } from "../../hooks/useStore"
-
 const Home: React.FC = () => {
-    // const { token } = useAppSelector((state) => state.auth)
     const dispatch = useAppDispatch()
     const { socket } = useSocketContext()
+
     useEffect(() => {
         socket?.on("joinRoom", (value) => {
             console.log(value) // true
@@ -47,7 +45,7 @@ const Home: React.FC = () => {
             socket?.off("joinRoom")
         }
         //eslint-disable-next-line
-    }, [])
+    }, [socket])
     return (
         <section className="pt-[113px] lg:max-w-[1200px] w-full mx-auto px-7x grow">
             <Board />

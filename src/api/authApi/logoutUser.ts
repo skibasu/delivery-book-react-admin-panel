@@ -1,32 +1,31 @@
-import { UsersState } from "@/features/users/types"
 import { createAsyncThunk, AnyAction } from "@reduxjs/toolkit"
 import axios from "../../axios"
+import { AuthState } from "../../features/auth/types"
 
-export const getUsers = createAsyncThunk("users/getUsers", async () => {
+export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {
     try {
-        const req = await axios.get("/users")
+        const req = await axios.post("/auth/logout")
         return req.data
     } catch (error: any) {
-        console.log("ERROR", error.response.data)
         return error.response.data
     }
 })
 
-export const getUsersPending = (state: UsersState) => {
+export const logoutUserPending = (state: AuthState) => {
     state.loading = "pending"
     state.error = null
 }
-export const getUsersSuccess = (state: UsersState, action: AnyAction) => {
+export const logoutUserSuccess = (state: AuthState, action: AnyAction) => {
     state.loading = "succeeded"
 
     if (action.payload.error) {
         state.error = action.payload
     } else {
-        state.data = action.payload
+        state._id = null
         state.error = null
     }
 }
-export const getUsersRejected = (state: UsersState) => {
+export const logoutUserRejected = (state: AuthState) => {
     state.loading = "idle"
     state.error = {
         message: "Rejected",
