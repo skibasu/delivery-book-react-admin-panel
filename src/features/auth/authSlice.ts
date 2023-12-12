@@ -9,6 +9,10 @@ import {
     logoutUserPending,
     logoutUserRejected,
     logoutUserSuccess,
+    refreshUser,
+    refreshUserPending,
+    refreshUserRejected,
+    refreshUserSuccess,
 } from "../../api/authApi"
 import { initialState } from "./initialState"
 
@@ -16,9 +20,9 @@ const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        //   logOutUser(state) {
-        //       state._id = null
-        //   },
+        logoutUserLocaly(state) {
+            state._id = null
+        },
     },
     extraReducers: (builder) => {
         builder
@@ -29,8 +33,12 @@ const authSlice = createSlice({
             .addCase(logoutUser.pending, logoutUserPending)
             .addCase(logoutUser.fulfilled, logoutUserSuccess)
             .addCase(logoutUser.rejected, logoutUserRejected)
+
+            .addCase(refreshUser.pending, refreshUserPending)
+            .addCase(refreshUser.fulfilled, refreshUserSuccess)
+            .addCase(refreshUser.rejected, refreshUserRejected)
     },
 })
 
-//export const { logOutUser } = authSlice.actions
+export const { logoutUserLocaly } = authSlice.actions
 export default authSlice.reducer

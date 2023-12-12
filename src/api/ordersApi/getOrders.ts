@@ -4,13 +4,8 @@ import { createAsyncThunk, AnyAction } from "@reduxjs/toolkit"
 import axios from "../../axios"
 
 export const getOrders = createAsyncThunk("orders/getOrders", async () => {
-    try {
-        const req = await axios.get("/orders")
-        return req.data
-    } catch (error: any) {
-        console.log("ERROR", error.response.data)
-        return error.response.data
-    }
+    const req = await axios.get("/orders")
+    return req.data
 })
 
 export const getOrdersPending = (state: OrdersState) => {

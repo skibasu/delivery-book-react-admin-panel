@@ -1,6 +1,7 @@
 import { createAsyncThunk, AnyAction } from "@reduxjs/toolkit"
-import axios from "../../axios"
+import { instancePublic as axios } from "../../axios"
 import { AuthState, Credentials } from "../../features/auth/types"
+import { getCookie } from "@/helpers/helpers"
 
 export const logInUser = createAsyncThunk(
     "auth/logInUser",
@@ -24,7 +25,9 @@ export const loginUserSuccess = (state: AuthState, action: AnyAction) => {
     if (action.payload.error) {
         state.error = action.payload
     } else {
-        state._id = document.cookie.replace("_id=", "") || null
+        state._id = getCookie("_id")
+        state.timeOut.token = Number(getCookie("token")) || 0
+        state.timeOut.refresh = Number(getCookie("refresh")) || 0
         state.error = null
     }
 }
