@@ -52,17 +52,17 @@ const ProtectedLayout: React.FC = () => {
         //eslint-disable-next-line
     }, [_id, timeOut.token])
     //  useEffect(() => {
-    //      console.log("Token time changed")
     //      const currentDate = new Date().getTime()
     //      const tm = timeOut.token - currentDate
-    //      console.log(tm)
+    //      console.log("tm ", tm)
+
     //      const timer = setTimeout(() => {
-    //          console.log("Access Token Expired - refreshing ....")
+    //          console.log("Refresh timner ....")
     //          dispatch(refreshUser())
     //      }, tm)
     //      return () => clearTimeout(timer)
     //      //eslint-disable-next-line
-    //  }, [timeOut])
+    //  }, [timeOut.token])
 
     useEffect(() => {
         //eslint-disable-next-line

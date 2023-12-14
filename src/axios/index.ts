@@ -1,11 +1,8 @@
 import axios, { AxiosInstance } from "axios"
 
-const controller = new AbortController()
-
 export const instancePublic: AxiosInstance = axios.create({
     baseURL: process.env.REACT_APP_URL,
     withCredentials: true,
-    signal: controller.signal,
 })
 
 const instancePrivate: AxiosInstance = axios.create({
