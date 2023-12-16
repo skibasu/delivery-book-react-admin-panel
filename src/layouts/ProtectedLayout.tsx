@@ -21,7 +21,7 @@ import { getProfile } from "@/api/profileApi"
 
 const ProtectedLayout: React.FC = () => {
     const dispatch = useAppDispatch()
-    const { _id, timeOut } = useAppSelector((state) => state.auth)
+    const { _id } = useAppSelector((state) => state.auth)
     const eraseCookies = () => {
         eraseCookie("_id")
         eraseCookie("refresh")
@@ -58,11 +58,7 @@ const ProtectedLayout: React.FC = () => {
                     </div>
                     <div className="grow flex flex-col">
                         <SectionHeader title="Home" />
-
                         <Outlet />
-                        <div className="bg-black p-8x text-textWhite">
-                            {timeOut.token}
-                        </div>
                     </div>
                 </div>
             </main>
