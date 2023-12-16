@@ -27,11 +27,15 @@ export interface Actions {
     editable: boolean
     deletable: boolean
 }
+export interface PhoneNumber {
+    number: string
+    prefix: string
+}
 export interface Order {
     _id: string
     title: string
     adress: OrderAdress
-    phoneNumber: string
+    phoneNumber: PhoneNumber
     products: BasketProduct[]
     price: string
     paymentType: PaymentType

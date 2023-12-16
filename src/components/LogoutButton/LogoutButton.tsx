@@ -1,16 +1,16 @@
 import { logoutUser } from "@/api/authApi"
 import { useAppDispatch } from "@/hooks/useStore"
-import React from "react"
+import { ReactComponent as LogoutIcon } from "@/assets/svg/icon-logout.svg"
 
 export const LogoutButton = () => {
     const dispatch = useAppDispatch()
 
     return (
         <button
-            className="text-textWhite p-2y bg-sweetGrass"
+            className="bg-transparent ml-6x"
             onClick={() => dispatch(logoutUser())}
         >
-            LogOut
+            <LogoutIcon />
         </button>
     )
 }

@@ -1,4 +1,5 @@
-import { useAppSelector } from "@/hooks/useStore"
+import { refreshUser } from "@/api/authApi"
+import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import React, {
     createContext,
     PropsWithChildren,
@@ -16,7 +17,7 @@ interface IProps {
 const SocketContext = createContext<IProps>({} as IProps)
 
 const SocketProvider: React.FC<PropsWithChildren> = ({ children }) => {
-    const { _id } = useAppSelector((state) => state.auth)
+    const { timeOut } = useAppSelector((state) => state.auth)
     const [socket, setSocket] = useState<Socket | undefined>()
 
     useEffect(() => {
@@ -32,7 +33,7 @@ const SocketProvider: React.FC<PropsWithChildren> = ({ children }) => {
             if (socket) socket.close()
         }
         // eslint-disable-next-line
-    }, [_id])
+    }, [timeOut.token])
 
     return (
         <SocketContext.Provider value={{ socket }}>

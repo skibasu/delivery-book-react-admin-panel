@@ -10,7 +10,7 @@ export const tableHeaders: ITableHeaders[] = [
     {
         width: "flex-[1_1_212px] min-w-[212px]",
         label: "Adress",
-        sort: true,
+        sort: false,
         key: "adress",
     },
     {
@@ -22,7 +22,7 @@ export const tableHeaders: ITableHeaders[] = [
     {
         width: "flex-[1_1_154px] min-w-[154px]",
         label: "Phone number",
-        sort: true,
+        sort: false,
         key: "phoneNumber",
     },
     {

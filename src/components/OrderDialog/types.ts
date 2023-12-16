@@ -1,5 +1,5 @@
 import { BasketProduct } from "@/features/basket/types"
-import { OrderAdress } from "@/features/orders/types"
+import { OrderAdress, PhoneNumber } from "@/features/orders/types"
 
 export interface IAddOrderForm extends OrderAdress {
     title: string

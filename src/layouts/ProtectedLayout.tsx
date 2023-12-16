@@ -2,8 +2,8 @@ import Footer from "@/components/Footer/Footer"
 import Header from "@/components/Header/Header"
 import MenuPanel from "@/components/MenuPanel/MenuPanel"
 import SectionHeader from "@/components/SectionHeader/SectionHeader"
-import React, { useEffect, useLayoutEffect } from "react"
-import { Outlet, useNavigate } from "react-router-dom"
+import React, { useLayoutEffect } from "react"
+import { Outlet } from "react-router-dom"
 
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { getOrders } from "@/api/ordersApi"
@@ -14,59 +14,40 @@ import AddProductsDialog from "@/components/OrderDialog/AddProductsDialog/AddPro
 import BasketDialog from "@/components/OrderDialog/BasketDialog/BasketDialog"
 import { getMenu } from "@/api/menuApi/getMenu"
 import { refreshUser } from "@/api/authApi/refreshUser"
-import { axiosReqInterceptor } from "@/axios"
+import { axiosResInterceptor } from "@/axios"
 import { eraseCookie, getCookie } from "@/helpers/helpers"
 import { logoutUserLocaly } from "@/features/auth/authSlice"
+import { getProfile } from "@/api/profileApi"
 
 const ProtectedLayout: React.FC = () => {
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
     const { _id, timeOut } = useAppSelector((state) => state.auth)
-
+    const eraseCookies = () => {
+        eraseCookie("_id")
+        eraseCookie("refresh")
+        eraseCookie("token")
+    }
     useLayoutEffect(() => {
-        axiosReqInterceptor(
-            () => {
-                const refreshToken = Number(getCookie("refresh")) || 0
-                const accessToken = Number(getCookie("token")) || 0
-                const timeStamp = new Date().getTime()
-
-                if (refreshToken <= timeStamp) {
-                    eraseCookie("_id")
-                    eraseCookie("refresh")
-                    eraseCookie("token")
-                    dispatch(logoutUserLocaly())
-                    // navigate("/login")
-                } else if (accessToken <= timeStamp) {
-                    dispatch(refreshUser())
-                }
-            },
-            () => {
-                navigate("/login")
+        axiosResInterceptor(async () => {
+            const refreshToken = Number(getCookie("refresh")) || 0
+            const timeStamp = new Date().getTime()
+            if (refreshToken <= timeStamp) {
+                eraseCookies()
+                dispatch(logoutUserLocaly())
+                return false
+            } else {
+                await dispatch(refreshUser())
+                return true
             }
-        )
-
+        })
+        _id && dispatch(getProfile())
         _id && dispatch(getOrders())
         _id && dispatch(getUsers())
         _id && dispatch(getMenu())
 
         //eslint-disable-next-line
-    }, [_id, timeOut.token])
-    //  useEffect(() => {
-    //      const currentDate = new Date().getTime()
-    //      const tm = timeOut.token - currentDate
-    //      console.log("tm ", tm)
-
-    //      const timer = setTimeout(() => {
-    //          console.log("Refresh timner ....")
-    //          dispatch(refreshUser())
-    //      }, tm)
-    //      return () => clearTimeout(timer)
-    //      //eslint-disable-next-line
-    //  }, [timeOut.token])
-
-    useEffect(() => {
-        //eslint-disable-next-line
     }, [])
+
     return (
         <>
             <Header />

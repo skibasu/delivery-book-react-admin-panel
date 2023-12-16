@@ -49,7 +49,7 @@ const ColumnAdress: React.FC<IColumnAdress> = ({
                 ) : null}
             </div>
             {!!adress.note ? (
-                <div className="border-t border-t-customGray pt-4x text-orange mt-1y">
+                <div className="border-t border-t-customGray pt-4x text-orange mt-1y overflow-hidden">
                     {adress.note}
                 </div>
             ) : null}

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom"
 import logo from "../../assets/img/logo_1x.png"
 import UserMinimalInfo from "../UserMinimalInfo/UserMinimalInfo"
 import AddOrderButton from "../OrderDialog/AddOrderButton/AddOrderButton"
+import { LogoutButton } from "../LogoutButton/LogoutButton"
 
 const Header: React.FC = () => {
     return (
@@ -16,6 +17,7 @@ const Header: React.FC = () => {
             <AddOrderButton />
 
             <UserMinimalInfo />
+            <LogoutButton />
         </header>
     )
 }

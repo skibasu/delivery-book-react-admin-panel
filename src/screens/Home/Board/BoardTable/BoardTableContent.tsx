@@ -127,7 +127,10 @@ const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
                                         <ColumnPhoneNumber
                                             key={key}
                                             className={borderAndWidth}
-                                            phoneNumber={phoneNumber}
+                                            phoneNumber={
+                                                phoneNumber.prefix +
+                                                phoneNumber.number
+                                            }
                                         />
                                     )
                                 }

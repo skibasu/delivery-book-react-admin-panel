@@ -8,6 +8,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { initialState } from "./initialState"
 import { OrderStatus } from "./types"
 import { filterOrders } from "@/helpers/helpers"
+import { sortByKey } from "@/helpers/helpers"
 
 const ordersSlice = createSlice({
     name: "orders",
@@ -32,6 +33,12 @@ const ordersSlice = createSlice({
                     (order) => order._id !== payload._id
                 )
         },
+        sortOrderByKey(state, { payload }) {
+            const filteredData =
+                state.filteredData[payload.boardType as OrderStatus]
+            const sortedData = sortByKey(payload.key, filteredData, payload.asc)
+            state.filteredData[payload.boardType as OrderStatus] = sortedData
+        },
         updateSocketLoading(state, { payload }) {
             state.socketLoading = payload
         },
@@ -53,5 +60,6 @@ export const {
     updateSocketLoading,
     updateSocketError,
     deleteOrder,
+    sortOrderByKey,
 } = ordersSlice.actions
 export default ordersSlice.reducer

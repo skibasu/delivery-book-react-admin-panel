@@ -1,5 +1,5 @@
 import { createAsyncThunk, AnyAction } from "@reduxjs/toolkit"
-import { instancePublic as axios } from "../../axios"
+import axios from "../../axios"
 import { AuthState } from "../../features/auth/types"
 
 export const logoutUser = createAsyncThunk("auth/logoutUser", async () => {

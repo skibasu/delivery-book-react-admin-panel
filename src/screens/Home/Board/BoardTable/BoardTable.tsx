@@ -9,23 +9,6 @@ interface IBoardTable {
     type: OrderStatus
 }
 
-// const sortByKey = (
-//     key: keyof ITableContent,
-//     array: ITableContent[],
-//     asc?: true
-// ) => {
-//     return [
-//         ...array.sort((a, b) => {
-//             if (a[key] > b[key]) {
-//                 return asc ? 1 : -1
-//             } else if (a[key] < b[key]) {
-//                 return asc ? -1 : 1
-//             } else {
-//                 return 0
-//             }
-//         }),
-//     ]
-// }
 const BoardTable: React.FC<IBoardTable> = ({ type: boardType }) => {
     return (
         <div>
