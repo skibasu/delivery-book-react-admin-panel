@@ -14,17 +14,28 @@ const ordersSlice = createSlice({
     name: "orders",
     initialState,
     reducers: {
-        addOrder(state, { payload }) {
+        addOrder(state, { payload: { data: payload, asc, activeKey } }) {
             state.data.push(payload)
             state.filteredData[payload.status as OrderStatus].unshift(payload)
+            state.filteredData[payload.status as OrderStatus] = sortByKey(
+                activeKey,
+                state.filteredData[payload.status as OrderStatus],
+                asc
+            )
         },
-        updateOrder(state, { payload }) {
+        updateOrder(state, { payload: { data: payload, asc, activeKey } }) {
             // Update state of all Orders
             const updatedState = state.data.map((order) =>
                 order._id !== payload._id ? order : { ...order, ...payload }
             )
             state.data = updatedState
             state.filteredData = filterOrders(updatedState)
+            console.log("Update keys", activeKey, asc)
+            state.filteredData[payload.status as OrderStatus] = sortByKey(
+                activeKey,
+                state.filteredData[payload.status as OrderStatus],
+                asc
+            )
         },
         deleteOrder(state, { payload }) {
             state.data = state.data.filter((order) => order._id !== payload._id)

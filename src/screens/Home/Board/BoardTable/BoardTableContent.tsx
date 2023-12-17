@@ -110,6 +110,7 @@ const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
                                             boardType={boardType}
                                             adress={adress}
                                             className={borderAndWidth}
+                                            orderId={id}
                                         />
                                     )
                                 }

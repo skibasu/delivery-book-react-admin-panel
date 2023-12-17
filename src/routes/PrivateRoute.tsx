@@ -1,6 +1,7 @@
 import React from "react"
 import { Navigate } from "react-router-dom"
 import { useAppSelector } from "../hooks/useStore"
+import { TableSettingsProvider } from "@/contexts/TableSettingsProvider"
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
     const { _id } = useAppSelector((state) => state.auth)
@@ -9,7 +10,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children }) => {
         return <Navigate to="/login" replace />
     }
 
-    return <>{children}</>
+    return <TableSettingsProvider>{children} </TableSettingsProvider>
 }
 
 export default PrivateRoute

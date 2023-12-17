@@ -10,11 +10,20 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import React, { useEffect } from "react"
 import Board from "./Board/Board"
 import { refreshUser } from "@/api/authApi"
+import {
+    ISortState,
+    useTableSettingsContext,
+} from "@/contexts/TableSettingsProvider"
 
 const Home: React.FC = () => {
     const dispatch = useAppDispatch()
     const { timeOut } = useAppSelector((state) => state.auth)
     const { socket } = useSocketContext()
+    const {
+        getSortSettings,
+
+        getActiveKey,
+    } = useTableSettingsContext()
 
     useEffect(() => {
         socket?.on("joinRoom", (value) => {
@@ -25,12 +34,20 @@ const Home: React.FC = () => {
             dispatch(updateSocketLoading("failed"))
         })
         socket?.on("createOrder", (value: any) => {
-            dispatch(addOrder(value))
+            const activeKey = getActiveKey(value.status)
+            const asc = getSortSettings(value.status)[
+                activeKey as keyof ISortState
+            ]
+            dispatch(addOrder({ data: value, activeKey, asc }))
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))
         })
         socket?.on("updateOrder", (value: any) => {
-            dispatch(updateOrder(value))
+            const activeKey = getActiveKey(value.status)
+            const asc = getSortSettings(value.status)[
+                activeKey as keyof ISortState
+            ]
+            dispatch(updateOrder({ data: value, activeKey, asc }))
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))
         })

@@ -10,8 +10,10 @@ export const filteredDataInitial = {
 
 export const initialState: OrdersState = {
     loading: "idle",
-    socketLoading: "idle",
-    socketError: null,
+    socketOrderFormLoading: "idle",
+    socketOrderFormError: null,
+    socketuserFormLoading: "idle",
+    socketUserFormError: null,
     error: null,
     data: [],
     filteredData: filteredDataInitial,
