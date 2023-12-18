@@ -39,8 +39,8 @@ const Dialog = () => {
     const currentOrder = useMemo(() => {
         return {
             title: orderForUpdate?.title || "",
-            phoneNumber: orderForUpdate?.phoneNumber || "",
-            prefix: "+48",
+            phoneNumber: orderForUpdate?.phoneNumber.number || "",
+            prefix: orderForUpdate?.phoneNumber.prefix || "",
             price: "",
             paymentType: orderForUpdate?.paymentType || "",
             status: orderForUpdate?.status || "",

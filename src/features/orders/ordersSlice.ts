@@ -8,22 +8,34 @@ import { createSlice } from "@reduxjs/toolkit"
 import { initialState } from "./initialState"
 import { OrderStatus } from "./types"
 import { filterOrders } from "@/helpers/helpers"
+import { sortByKey } from "@/helpers/helpers"
 
 const ordersSlice = createSlice({
     name: "orders",
     initialState,
     reducers: {
-        addOrder(state, { payload }) {
+        addOrder(state, { payload: { data: payload, asc, activeKey } }) {
             state.data.push(payload)
             state.filteredData[payload.status as OrderStatus].unshift(payload)
+            state.filteredData[payload.status as OrderStatus] = sortByKey(
+                activeKey,
+                state.filteredData[payload.status as OrderStatus],
+                asc
+            )
         },
-        updateOrder(state, { payload }) {
+        updateOrder(state, { payload: { data: payload, asc, activeKey } }) {
             // Update state of all Orders
             const updatedState = state.data.map((order) =>
                 order._id !== payload._id ? order : { ...order, ...payload }
             )
             state.data = updatedState
             state.filteredData = filterOrders(updatedState)
+            console.log("Update keys", activeKey, asc)
+            state.filteredData[payload.status as OrderStatus] = sortByKey(
+                activeKey,
+                state.filteredData[payload.status as OrderStatus],
+                asc
+            )
         },
         deleteOrder(state, { payload }) {
             state.data = state.data.filter((order) => order._id !== payload._id)
@@ -31,6 +43,12 @@ const ordersSlice = createSlice({
                 state.filteredData[payload.status as OrderStatus].filter(
                     (order) => order._id !== payload._id
                 )
+        },
+        sortOrderByKey(state, { payload }) {
+            const filteredData =
+                state.filteredData[payload.boardType as OrderStatus]
+            const sortedData = sortByKey(payload.key, filteredData, payload.asc)
+            state.filteredData[payload.boardType as OrderStatus] = sortedData
         },
         updateSocketLoading(state, { payload }) {
             state.socketLoading = payload
@@ -53,5 +71,6 @@ export const {
     updateSocketLoading,
     updateSocketError,
     deleteOrder,
+    sortOrderByKey,
 } = ordersSlice.actions
 export default ordersSlice.reducer

@@ -1,6 +1,30 @@
-import React from "react"
+import { PaymentType } from "@/features/orders/types"
+import { ordersSummary } from "@/helpers/helpers"
+import { useAppSelector } from "@/hooks/useStore"
+import React, { useEffect, useState } from "react"
 
 const Raport = () => {
+    const { data: orders } = useAppSelector((state) => state.orders)
+    const [summaryAll, setSummaryAll] = useState<number>(0)
+    const [summaryOnline, setSummaryOnline] = useState<number>(0)
+    const [summaryCash, setSummaryCash] = useState<number>(0)
+    const [summaryCard, setSummaryCard] = useState<number>(0)
+    const [summaryPaid, setSummaryPaid] = useState<number>(0)
+
+    useEffect(() => {
+        if (orders.length > 0) {
+            const all = ordersSummary(orders)
+            setSummaryAll(all)
+            const online = ordersSummary(orders, PaymentType.ONLINE)
+            setSummaryOnline(online)
+            const cash = ordersSummary(orders, PaymentType.CASH)
+            setSummaryCash(cash)
+            const card = ordersSummary(orders, PaymentType.CARD)
+            setSummaryCard(card)
+            const paid = ordersSummary(orders, PaymentType.PAYED)
+            setSummaryPaid(paid)
+        }
+    }, [orders])
     return (
         <div className="flex justify-between px-7x w-full">
             <div className="flex flex-col px-6x py-2y bg-all rounded-lg min-w-[147px] shrink-0">
@@ -9,7 +33,7 @@ const Raport = () => {
                 </div>
                 <div className="pt-2y w-full flex justify-end">
                     <p className="font-payton text-xl tracing-[2px]">
-                        1083 <span>zł</span>
+                        {`${summaryAll}`} <span>zł</span>
                     </p>
                 </div>
             </div>
@@ -21,7 +45,7 @@ const Raport = () => {
                     </div>
                     <div className="pt-2y w-full flex justify-end">
                         <p className="font-payton text-xl tracing-[2px]">
-                            25 <span>zł</span>
+                            {`${summaryOnline}`} <span>zł</span>
                         </p>
                     </div>
                 </div>
@@ -31,7 +55,8 @@ const Raport = () => {
                     </div>
                     <div className="pt-2y w-full flex justify-end">
                         <p className="font-payton text-xl tracing-[2px]">
-                            86 <span>zł</span>
+                            {`${summaryCash}`}
+                            <span>zł</span>
                         </p>
                     </div>
                 </div>
@@ -42,7 +67,7 @@ const Raport = () => {
                     </div>
                     <div className="pt-2y w-full flex justify-end">
                         <p className="font-payton text-xl tracing-[2px]">
-                            786 <span>zł</span>
+                            {`${summaryCard}`} <span>zł</span>
                         </p>
                     </div>
                 </div>
@@ -53,7 +78,7 @@ const Raport = () => {
                     </div>
                     <div className="pt-2y w-full flex justify-end">
                         <p className="font-payton text-xl tracing-[2px]">
-                            186 <span>zł</span>
+                            {`${summaryPaid}`} <span>zł</span>
                         </p>
                     </div>
                 </div>

@@ -5,8 +5,8 @@ import PublicLayout from "./PublicLayout"
 import { SocketProvider } from "@/contexts/SocketProvider"
 
 const Layout: React.FC = () => {
-    const { token } = useAppSelector((state) => state.auth)
-    return !!token ? (
+    const { _id } = useAppSelector((state) => state.auth)
+    return !!_id ? (
         <SocketProvider>
             <ProtectedLayout />
         </SocketProvider>

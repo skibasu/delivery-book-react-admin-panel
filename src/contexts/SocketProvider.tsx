@@ -16,15 +16,13 @@ interface IProps {
 const SocketContext = createContext<IProps>({} as IProps)
 
 const SocketProvider: React.FC<PropsWithChildren> = ({ children }) => {
-    const { token } = useAppSelector((state) => state.auth)
+    const { timeOut } = useAppSelector((state) => state.auth)
     const [socket, setSocket] = useState<Socket | undefined>()
 
     useEffect(() => {
         try {
             const newSocket = io(URL, {
-                extraHeaders: {
-                    token: token || "",
-                },
+                withCredentials: true,
             })
             setSocket(newSocket)
         } catch (e: any) {
@@ -34,7 +32,7 @@ const SocketProvider: React.FC<PropsWithChildren> = ({ children }) => {
             if (socket) socket.close()
         }
         // eslint-disable-next-line
-    }, [token])
+    }, [timeOut.token])
 
     return (
         <SocketContext.Provider value={{ socket }}>

@@ -14,7 +14,7 @@ const ColumnCreatedAt: React.FC<IColumnCreatedAt> = ({
                 className ? className + " " : ""
             }flex justify-center items-center px-6y py-7.1x`}
         >
-            <p>{`${moment.unix(createdAt).format("HH : mm")}`}</p>
+            <p>{`${new Date(createdAt).toLocaleString()}`}</p>
         </div>
     )
 }

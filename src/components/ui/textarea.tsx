@@ -47,6 +47,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                         className
                     )}
                     ref={ref}
+                    value={value}
+                    name={name}
                     {...props}
                 />
                 <span className="block h-inputSpacer"></span>

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { Input, Textarea } from "@/components/ui"
 import AppSelect from "../../AppSelect/AppSelect"
@@ -49,7 +49,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
         mode: "onTouched",
         defaultValues,
     })
-
+    const [prevValues, setPrevValues] = useState<IAddOrderForm>(defaultValues)
     const onSubmit = async (data: IAddOrderForm) => {
         const {
             city,
@@ -69,7 +69,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
         const formatedData = {
             ...rest,
             price: +data.price || 0,
-            phoneNumber: `${prefix}${phoneNumber}`,
+            phoneNumber: { prefix, number: phoneNumber },
             products: basket,
             adress: { city, flatNumber, streetName, houseNumber, note },
         }
@@ -81,6 +81,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                 socket?.emit("createOrder", formatedData)
             }
             if (formType === "update") {
+                setPrevValues(data)
                 socket?.emit("updateOrder", { id: orderId, ...formatedData })
             }
         } catch (e: any) {
@@ -126,13 +127,21 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
 
     useEffect(() => {
         if (socketLoading === "succeeded") {
-            reset(defaultValues)
-            setCurrentCountry(countries[0])
-            dispatch(removeAllProducts())
+            reset(prevValues)
+            formType !== "update" && dispatch(removeAllProducts())
         }
         //eslint-disable-next-line
     }, [socketLoading])
-
+    useEffect(() => {
+        if (formType === "update" && defaultValues.prefix) {
+            const country = countries.find(
+                (c) => c.prefix === defaultValues.prefix
+            )
+            country && setCurrentCountry(country)
+        }
+        return () => setCurrentCountry(countries[0])
+        //eslint-disable-next-line
+    }, [])
     useEffect(() => {
         formType === "update" && dispatch(updateBasket(defaultValues.products))
         //eslint-disable-next-line
@@ -144,6 +153,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
             shouldDirty: false,
             shouldTouch: false,
         })
+
         //eslint-disable-next-line
     }, [prefix])
     return (
@@ -247,7 +257,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                         placeholder="City"
                         label="City"
                         name="city"
-                        value={value || "Wrocław"}
+                        value={value}
                         className={inputCss}
                         onChange={(value) => onChange(value)}
                         onBlur={onBlur}
@@ -265,7 +275,6 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                         label="Note"
                         name="note"
                         value={value}
-                        defaultValue={value}
                         className="w-full h-[45px]"
                         onChange={(value) => onChange(value)}
                         onBlur={onBlur}

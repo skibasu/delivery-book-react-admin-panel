@@ -1,10 +1,10 @@
-import { UsersState } from "@/features/users/types"
 import { createAsyncThunk, AnyAction } from "@reduxjs/toolkit"
 import axios from "../../axios"
+import { ProfileState } from "@/features/profile/types"
 
-export const getUsers = createAsyncThunk("users/getUsers", async () => {
+export const getProfile = createAsyncThunk("profile/getProfile", async () => {
     try {
-        const req = await axios.get("/users")
+        const req = await axios.get("/users/profile")
         return req.data
     } catch (error: any) {
         console.log("ERROR", error.response.data)
@@ -12,21 +12,21 @@ export const getUsers = createAsyncThunk("users/getUsers", async () => {
     }
 })
 
-export const getUsersPending = (state: UsersState) => {
+export const getProfilePending = (state: ProfileState) => {
     state.loading = "pending"
     state.error = null
 }
-export const getUsersSuccess = (state: UsersState, action: AnyAction) => {
+export const getProfileSuccess = (state: ProfileState, action: AnyAction) => {
     state.loading = "succeeded"
 
     if (action.payload.error) {
         state.error = action.payload
     } else {
-        state.data = action.payload
+        state.profile = action.payload
         state.error = null
     }
 }
-export const getUsersRejected = (state: UsersState) => {
+export const getProfileRejected = (state: ProfileState) => {
     state.loading = "idle"
     state.error = {
         message: "Rejected",

@@ -1,7 +1,11 @@
 import React from "react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { useAppSelector } from "@/hooks/useStore"
 
 const UserMinimalInfo = () => {
+    const { firstName, lastName, role } = useAppSelector(
+        (state) => state.profile.profile
+    )
     return (
         <div className="flex items-center">
             <Avatar>
@@ -9,8 +13,10 @@ const UserMinimalInfo = () => {
                 <AvatarFallback>CN</AvatarFallback>
             </Avatar>
             <div className="text-textWhite text-sm pl-4x">
-                <p className="m0">Kasia Kowalska</p>
-                <p className="m0">Admin</p>
+                <p className="m0 capitalize">{`${firstName} ${lastName}`}</p>
+                <p className="m0 capitalize">{`${String(
+                    role
+                ).toLowerCase()}`}</p>
             </div>
         </div>
     )

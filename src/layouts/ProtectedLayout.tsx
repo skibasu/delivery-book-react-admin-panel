@@ -13,18 +13,40 @@ import OrderDialog from "@/components/OrderDialog/OrderDialog"
 import AddProductsDialog from "@/components/OrderDialog/AddProductsDialog/AddProductsDialog"
 import BasketDialog from "@/components/OrderDialog/BasketDialog/BasketDialog"
 import { getMenu } from "@/api/menuApi/getMenu"
+import { refreshUser } from "@/api/authApi/refreshUser"
+import { axiosResInterceptor } from "@/axios"
+import { eraseCookie, getCookie } from "@/helpers/helpers"
+import { logoutUserLocaly } from "@/features/auth/authSlice"
+import { getProfile } from "@/api/profileApi"
 
 const ProtectedLayout: React.FC = () => {
     const dispatch = useAppDispatch()
-    const { token } = useAppSelector((state) => state.auth)
-
+    const { _id } = useAppSelector((state) => state.auth)
+    const eraseCookies = () => {
+        eraseCookie("_id")
+        eraseCookie("refresh")
+        eraseCookie("token")
+    }
     useLayoutEffect(() => {
-        token && dispatch(getOrders(token))
-        token && dispatch(getUsers(token))
-        token && dispatch(getMenu(token))
+        axiosResInterceptor(async () => {
+            const refreshToken = Number(getCookie("refresh")) || 0
+            const timeStamp = new Date().getTime()
+            if (refreshToken <= timeStamp) {
+                eraseCookies()
+                dispatch(logoutUserLocaly())
+                return false
+            } else {
+                await dispatch(refreshUser())
+                return true
+            }
+        })
+        _id && dispatch(getProfile())
+        _id && dispatch(getOrders())
+        _id && dispatch(getUsers())
+        _id && dispatch(getMenu())
 
         //eslint-disable-next-line
-    }, [token])
+    }, [])
 
     return (
         <>
@@ -40,6 +62,7 @@ const ProtectedLayout: React.FC = () => {
                     </div>
                 </div>
             </main>
+
             <Footer />
             <OrderDialog />
             <AddProductsDialog />

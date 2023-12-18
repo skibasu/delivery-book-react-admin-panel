@@ -26,7 +26,7 @@ const SelectTrigger = React.forwardRef<
                         placeholder:text-placeholder 
                         focus-visible:outline-none 
                         autofill:bg-yellow-200 
-                        focus:border-sweetGrass
+                        focus:border-storm
                         caret-sweetGrass
                         disabled:cursor-not-allowed 
                         disabled:opacity-50 

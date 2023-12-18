@@ -1,25 +1,19 @@
 import { createAsyncThunk, AnyAction } from "@reduxjs/toolkit"
 import { instancePublic as axios } from "../../axios"
-import { AuthState, Credentials } from "../../features/auth/types"
+import { AuthState } from "../../features/auth/types"
 import { getCookie } from "@/helpers/helpers"
 
-export const logInUser = createAsyncThunk(
-    "auth/logInUser",
-    async (credentials: Credentials) => {
-        try {
-            const req = await axios.post("/auth/signin", credentials)
-            return req.data
-        } catch (error: any) {
-            return error.response.data
-        }
-    }
-)
+export const refreshUser = createAsyncThunk("auth/refreshUser", async () => {
+    const req = await axios.get("/auth/refresh")
 
-export const loginUserPending = (state: AuthState) => {
+    return req.data
+})
+
+export const refreshUserPending = (state: AuthState) => {
     state.loading = "pending"
     state.error = null
 }
-export const loginUserSuccess = (state: AuthState, action: AnyAction) => {
+export const refreshUserSuccess = (state: AuthState, action: AnyAction) => {
     state.loading = "succeeded"
 
     if (action.payload.error) {
@@ -31,7 +25,7 @@ export const loginUserSuccess = (state: AuthState, action: AnyAction) => {
         state.error = null
     }
 }
-export const logInUserRejected = (state: AuthState) => {
+export const refreshUserRejected = (state: AuthState) => {
     state.loading = "idle"
     state.error = {
         message: "Rejected",

@@ -1,18 +1,22 @@
+import { AddUserForm } from "@/components/AddUserForm/AddUserForm"
 import { OrderAdress, OrderStatus } from "@/features/orders/types"
-import { ReactComponent as AddUserIcon } from "@/assets/svg/icon-add-user.svg"
+
 import { cn } from "@/lib/utils"
 
 import React from "react"
+
 interface IColumnAdress {
     boardType: OrderStatus
     className?: string
     adress: OrderAdress
+    orderId: string
 }
 
 const ColumnAdress: React.FC<IColumnAdress> = ({
     boardType,
     className,
     adress,
+    orderId,
 }) => {
     const isUserIconVisible = () =>
         boardType === OrderStatus.OPEN || boardType === OrderStatus.DRAFT
@@ -44,12 +48,12 @@ const ColumnAdress: React.FC<IColumnAdress> = ({
                             cssClassesBasedOnType()[1]
                         )}
                     >
-                        <AddUserIcon />
+                        <AddUserForm orderId={orderId} />
                     </div>
                 ) : null}
             </div>
             {!!adress.note ? (
-                <div className="border-t border-t-customGray pt-4x text-orange mt-1y">
+                <div className="border-t border-t-customGray pt-4x text-orange mt-1y overflow-hidden">
                     {adress.note}
                 </div>
             ) : null}

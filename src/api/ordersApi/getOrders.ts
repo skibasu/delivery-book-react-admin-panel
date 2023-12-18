@@ -3,20 +3,10 @@ import { filterOrders } from "@/helpers/helpers"
 import { createAsyncThunk, AnyAction } from "@reduxjs/toolkit"
 import axios from "../../axios"
 
-export const getOrders = createAsyncThunk(
-    "orders/getOrders",
-    async (token: string) => {
-        try {
-            const req = await axios.get("/orders", {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            return req.data
-        } catch (error: any) {
-            console.log("ERROR", error.response.data)
-            return error.response.data
-        }
-    }
-)
+export const getOrders = createAsyncThunk("orders/getOrders", async () => {
+    const req = await axios.get("/orders")
+    return req.data
+})
 
 export const getOrdersPending = (state: OrdersState) => {
     state.loading = "pending"

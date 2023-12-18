@@ -3,20 +3,15 @@ import axios from "../../axios"
 import { MenuState } from "@/features/menu/types"
 import { filterMenu } from "@/helpers/helpers"
 
-export const getMenu = createAsyncThunk(
-    "menu/getMenu",
-    async (token: string) => {
-        try {
-            const req = await axios.get("/products", {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            return req.data
-        } catch (error: any) {
-            console.log("ERROR", error.response.data)
-            return error.response.data
-        }
+export const getMenu = createAsyncThunk("menu/getMenu", async () => {
+    try {
+        const req = await axios.get("/products")
+        return req.data
+    } catch (error: any) {
+        console.log("ERROR", error.response.data)
+        return error.response.data
     }
-)
+})
 
 export const getMenuPending = (state: MenuState) => {
     state.loading = "pending"

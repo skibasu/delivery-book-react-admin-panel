@@ -19,6 +19,8 @@ interface IAppSelect {
     className?: string
     wrapperClasses?: string
     label?: string
+    placeholder?: string
+    labelClassName?: string
     onFocus: () => void
     error?: string
 }
@@ -27,6 +29,8 @@ const AppSelect: React.FC<IAppSelect> = ({
     name,
     label,
     className,
+    labelClassName,
+    placeholder,
     wrapperClasses,
     inputValue,
     dataType,
@@ -42,7 +46,7 @@ const AppSelect: React.FC<IAppSelect> = ({
                 <Label
                     className={cn(
                         "text-sm block mb-3x leading-none",
-                        className,
+                        labelClassName,
                         error ? "!text-hellFire" : ""
                     )}
                     htmlFor={name}
@@ -63,7 +67,11 @@ const AppSelect: React.FC<IAppSelect> = ({
                 <SelectTrigger
                     className={cn(className, error ? "!border-hellFire" : "")}
                 >
-                    <SelectValue placeholder={label} />
+                    <SelectValue
+                        placeholder={
+                            <span className="pl-2x">{placeholder}</span>
+                        }
+                    />
                 </SelectTrigger>
                 <SelectContent>
                     {dataType === EDataType.USERS ? (
