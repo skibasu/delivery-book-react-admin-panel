@@ -67,7 +67,11 @@ const AppSelect: React.FC<IAppSelect> = ({
                 <SelectTrigger
                     className={cn(className, error ? "!border-hellFire" : "")}
                 >
-                    <SelectValue placeholder={placeholder} />
+                    <SelectValue
+                        placeholder={
+                            <span className="pl-2x">{placeholder}</span>
+                        }
+                    />
                 </SelectTrigger>
                 <SelectContent>
                     {dataType === EDataType.USERS ? (

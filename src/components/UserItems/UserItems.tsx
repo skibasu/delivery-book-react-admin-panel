@@ -36,12 +36,12 @@ const UsersItems = ({ items }: IUsersItems) => {
                             className="cursor-pointer"
                         >
                             <div className="flex items-center">
-                                <Avatar className="!h-[24px] !w-[24px]">
+                                <Avatar className="!h-[24px] !w-[24px] ml-2x">
                                     <AvatarImage
                                         src={url}
                                         alt={`${firstName} ${lastName}`}
                                     />
-                                    <AvatarFallback>{`${firstName?.[0]?.toUpperCase()}${lastName?.[0]?.toUpperCase()}`}</AvatarFallback>
+                                    <AvatarFallback className="bg-storm text-textWhite font-[6px]">{`${firstName?.[0]?.toUpperCase()}${lastName?.[0]?.toUpperCase()}`}</AvatarFallback>
                                 </Avatar>
                                 <div className="text-sm pl-4x">
                                     <p className="m0 capitalize">{`${firstName} ${lastName}`}</p>

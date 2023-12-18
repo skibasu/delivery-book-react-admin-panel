@@ -1,5 +1,4 @@
-import { refreshUser } from "@/api/authApi"
-import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
+import { useAppSelector } from "@/hooks/useStore"
 import React, {
     createContext,
     PropsWithChildren,
