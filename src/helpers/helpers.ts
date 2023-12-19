@@ -64,3 +64,6 @@ export const sortByKey = (key: keyof Order, array: Order[], asc?: true) => {
         }),
     ]
 }
+export const formatZlotyCurrency = (price: string | number) => {
+    return `${Number(price).toFixed(2)} zł`
+}
