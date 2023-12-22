@@ -51,18 +51,16 @@ export const ordersSummary = (orders: Order[], type?: PaymentType) => {
 }
 
 export const sortByKey = (key: keyof Order, array: Order[], asc?: true) => {
-    console.log(key, array)
-    return [
-        ...array.sort((a, b) => {
-            if (a[key] > b[key]) {
-                return !asc ? 1 : -1
-            } else if (a[key] < b[key]) {
-                return !asc ? -1 : 1
-            } else {
-                return 0
-            }
-        }),
-    ]
+    console.log("Ortet Key", key)
+    return [...array].sort((a, b) => {
+        if (a[key] > b[key]) {
+            return asc ? 1 : -1
+        } else if (a[key] < b[key]) {
+            return asc ? -1 : 1
+        } else {
+            return 0
+        }
+    })
 }
 export const formatZlotyCurrency = (price: string | number) => {
     return `${Number(price).toFixed(2)} zł`

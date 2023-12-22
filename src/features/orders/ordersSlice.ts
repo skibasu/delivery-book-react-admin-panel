@@ -19,7 +19,7 @@ const ordersSlice = createSlice({
             state.filteredData[payload.status as OrderStatus].unshift(payload)
             state.filteredData[payload.status as OrderStatus] = sortByKey(
                 activeKey,
-                state.filteredData[payload.status as OrderStatus],
+                [...state.filteredData[payload.status as OrderStatus]],
                 asc
             )
         },
@@ -28,12 +28,13 @@ const ordersSlice = createSlice({
             const updatedState = state.data.map((order) =>
                 order._id !== payload._id ? order : { ...order, ...payload }
             )
+
             state.data = updatedState
             state.filteredData = filterOrders(updatedState)
-            console.log("Update keys", activeKey, asc)
+
             state.filteredData[payload.status as OrderStatus] = sortByKey(
                 activeKey,
-                state.filteredData[payload.status as OrderStatus],
+                [...state.filteredData[payload.status as OrderStatus]],
                 asc
             )
         },

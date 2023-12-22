@@ -39,6 +39,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                 )}
 
                 <input
+                    name={name}
                     value={value}
                     type={type}
                     className={cn(

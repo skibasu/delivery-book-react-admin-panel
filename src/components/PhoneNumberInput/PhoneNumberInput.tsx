@@ -13,6 +13,7 @@ interface IPhoneNumberInput {
     onChange: React.ChangeEventHandler<HTMLInputElement>
     onFocus: React.FocusEventHandler<HTMLInputElement>
     onBlur: React.FocusEventHandler<HTMLInputElement>
+    onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>
 }
 const PhoneNumberInput: React.FC<IPhoneNumberInput> = ({
     error,
@@ -23,6 +24,7 @@ const PhoneNumberInput: React.FC<IPhoneNumberInput> = ({
     onChange,
     onFocus,
     onBlur,
+    onKeyDown,
 }) => {
     const [width, setWidth] = useState<number>(0)
     const ref = useRef<HTMLInputElement | null>(null)
@@ -55,6 +57,7 @@ const PhoneNumberInput: React.FC<IPhoneNumberInput> = ({
                         width: `calc(100% - ${width}px)`,
                         paddingLeft: width,
                     }}
+                    onKeyDown={onKeyDown}
                 />
             </div>
         </div>

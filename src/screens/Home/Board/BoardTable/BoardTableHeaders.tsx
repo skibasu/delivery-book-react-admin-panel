@@ -48,12 +48,13 @@ const BoardTableHeaders: React.FC<IBoardTableHeaders> = ({ boardType }) => {
                         } ${sort ? "cursor-pointer" : "cursor-auto"}`}
                         onClick={() => {
                             if (!sort) return
+                            const asc =
+                                !getSortSettings(boardType)[
+                                    key as keyof ISortState
+                                ]
                             setSortSettingsByBoard(boardType, {
                                 ...initialSortState,
-                                [key as keyof ISortState]:
-                                    !getSortSettings(boardType)[
-                                        key as keyof ISortState
-                                    ],
+                                [key as keyof ISortState]: asc,
                             })
                             setActiveKey(boardType, key)
 
@@ -61,9 +62,7 @@ const BoardTableHeaders: React.FC<IBoardTableHeaders> = ({ boardType }) => {
                                 sortOrderByKey({
                                     boardType,
                                     key,
-                                    asc: getSortSettings(boardType)[
-                                        key as keyof ISortState
-                                    ],
+                                    asc,
                                 })
                             )
                         }}

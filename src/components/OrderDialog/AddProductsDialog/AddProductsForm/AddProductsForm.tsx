@@ -16,9 +16,7 @@ const AddProductsForm = () => {
     return (
         <div className="flex flex-col max-h-full">
             <AppSelect
-                onBlur={() => {
-                    console.log("blur")
-                }}
+                onBlur={() => {}}
                 onValueChange={(v) => setCategory(v as MenuProductType)}
                 name="category"
                 inputValue={category}
