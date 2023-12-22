@@ -15,6 +15,7 @@ const AddProductsButton = () => {
 
     return (
         <Button
+            name="basketButton"
             type="button"
             className="mb-7x mt-2x"
             size="sm"

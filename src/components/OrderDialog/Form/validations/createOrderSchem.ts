@@ -61,8 +61,8 @@ export const addOrderSchema = yup
         note: yup.string().max(500, "Note is to long."),
         products: yup
             .array()
-            .required("Basket is empty. Add products in tio basket.")
-            .min(1, "Basket is empty. Add products in tio basket."),
+            .required("Basket is empty. Add products into the basket.")
+            .min(1, "Basket is empty. Add products into the basket."),
     })
     .when((values, schema) => {
         const { status, prefix } = values[0]

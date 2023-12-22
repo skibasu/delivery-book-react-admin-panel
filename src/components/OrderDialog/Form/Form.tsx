@@ -36,6 +36,21 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
         currentCountry: { prefix },
         setCurrentCountry,
     } = usePhoneNumberContext()
+
+    const onEnterKeyHandler = (
+        e: React.KeyboardEvent<HTMLInputElement>,
+        name: keyof IAddOrderForm
+    ) => {
+        if (e.key === "Enter") {
+            onFocusInputElem(name)
+        }
+    }
+    const onFocusInputElem = (name: keyof IAddOrderForm) => {
+        const nextElem = document.querySelector(
+            `[name=${name}]`
+        ) as HTMLInputElement
+        nextElem && nextElem.focus()
+    }
     const dispatch = useAppDispatch()
     const {
         control,
@@ -95,6 +110,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
     const inputCss = `w-full sm:w-[230px]`
 
     const status = watch("status")
+
     useEffect(() => {
         if (status !== OrderStatus.SELECTED) {
             setValue("selectedBy", null, {
@@ -128,6 +144,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
     useEffect(() => {
         if (socketLoading === "succeeded") {
             reset(prevValues)
+            onFocusInputElem("title")
             formType !== "update" && dispatch(removeAllProducts())
         }
         //eslint-disable-next-line
@@ -143,6 +160,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
         //eslint-disable-next-line
     }, [])
     useEffect(() => {
+        onFocusInputElem("title")
         formType === "update" && dispatch(updateBasket(defaultValues.products))
         //eslint-disable-next-line
     }, [formType])
@@ -157,7 +175,16 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
         //eslint-disable-next-line
     }, [prefix])
     return (
-        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
+        <form
+            className="w-full"
+            onSubmit={handleSubmit(onSubmit)}
+            onKeyDown={(e) => {
+                const input = e.target as HTMLInputElement | HTMLTextAreaElement
+                if (e.code === "Enter" && input.name !== "note") {
+                    e.preventDefault()
+                }
+            }}
+        >
             <h2 className="text-h3 mb-7.1x font-medium">{title}</h2>
             <Controller
                 name="title"
@@ -173,6 +200,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                         onChange={(value) => onChange(value)}
                         onBlur={onBlur}
                         onFocus={changeLoadingToIddle}
+                        onKeyDown={(e) => onEnterKeyHandler(e, "phoneNumber")}
                     />
                 )}
             />
@@ -191,6 +219,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                         name="phoneNumber"
                         onBlur={onBlur}
                         onFocus={changeLoadingToIddle}
+                        onKeyDown={(e) => onEnterKeyHandler(e, "streetName")}
                     />
                 )}
             />
@@ -210,6 +239,9 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                             onChange={(value) => onChange(value)}
                             onBlur={onBlur}
                             onFocus={changeLoadingToIddle}
+                            onKeyDown={(e) =>
+                                onEnterKeyHandler(e, "houseNumber")
+                            }
                         />
                     )}
                 />
@@ -227,6 +259,9 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                             onChange={(value) => onChange(value)}
                             onBlur={onBlur}
                             onFocus={changeLoadingToIddle}
+                            onKeyDown={(e) =>
+                                onEnterKeyHandler(e, "flatNumber")
+                            }
                         />
                     )}
                 />
@@ -244,6 +279,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                             onChange={(value) => onChange(value)}
                             onBlur={onBlur}
                             onFocus={changeLoadingToIddle}
+                            onKeyDown={(e) => onEnterKeyHandler(e, "city")}
                         />
                     )}
                 />
@@ -262,6 +298,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                         onChange={(value) => onChange(value)}
                         onBlur={onBlur}
                         onFocus={changeLoadingToIddle}
+                        onKeyDown={(e) => onEnterKeyHandler(e, "note")}
                     />
                 )}
             />
@@ -288,9 +325,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                     control={control}
                     render={({ field: { onChange, onBlur, value } }) => (
                         <AppSelect
-                            onValueChange={(v) => {
-                                onChange(v)
-                            }}
+                            onValueChange={(v) => onChange(v)}
                             name="status"
                             inputValue={value}
                             label="Status"

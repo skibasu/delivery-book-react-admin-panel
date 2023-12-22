@@ -38,6 +38,7 @@ const Home: React.FC = () => {
             const asc = getSortSettings(value.status)[
                 activeKey as keyof ISortState
             ]
+
             dispatch(addOrder({ data: value, activeKey, asc }))
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))
@@ -47,6 +48,7 @@ const Home: React.FC = () => {
             const asc = getSortSettings(value.status)[
                 activeKey as keyof ISortState
             ]
+
             dispatch(updateOrder({ data: value, activeKey, asc }))
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))
