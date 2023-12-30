@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { ReactComponent as EditIcon } from "@/assets/svg/icon-edit.svg"
 import { ReactComponent as DeleteIcon } from "@/assets/svg/icon-trash.svg"
 import { EStatus, useDialogContext } from "@/contexts/DialogProvider"
@@ -26,6 +26,13 @@ const ColumnActions: React.FC<IColumnActions> = ({
     const dispatch = useAppDispatch()
     const { setOrderForUpdate, setFormType, setDialogAddOrderStatus } =
         useDialogContext()
+
+    useEffect(() => {
+        return () => {
+            dispatch(updateSocketLoading("idle"))
+        }
+        //eslint-disable-next-line
+    }, [])
     return (
         <div
             className={`${

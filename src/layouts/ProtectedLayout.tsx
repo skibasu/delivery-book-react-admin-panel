@@ -4,7 +4,7 @@ import MenuPanel from "@/components/MenuPanel/MenuPanel"
 import SectionHeader from "@/components/SectionHeader/SectionHeader"
 import React, { useLayoutEffect } from "react"
 import { Outlet } from "react-router-dom"
-
+import { Toaster } from "@/components/ui/toaster"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
 import { getOrders } from "@/api/ordersApi"
 import { getUsers } from "@/api/usersApi"
@@ -62,7 +62,7 @@ const ProtectedLayout: React.FC = () => {
                     </div>
                 </div>
             </main>
-
+            <Toaster />
             <Footer />
             <OrderDialog />
             <AddProductsDialog />

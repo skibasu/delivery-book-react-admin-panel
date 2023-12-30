@@ -55,15 +55,19 @@ const Dialog = () => {
                 <div className="flex items-center h-full ">
                     <CloseButton
                         className="absolute right-4x top-4x z-[51]"
-                        onClick={() => close(EDialogType.PRODUCTS, true)}
+                        onClick={() => close(EDialogType.PRODUCTS)}
                     />
                     <div className="md:w-[500px] max-w-[500px] h-full px-7x pt-[34px] pb-[50px] max-h-full overflow-y-hidden max-h-full h-full  bg-textWhite rounded-lg bg-textWhite shadow-lg relative">
                         <AddProductsForm />
                     </div>
                 </div>
                 <div className="flex justify-between aitems-center absolute left-7x bottom-4x right-7x pt-4x bg-textWhite border-t border-t-storm">
-                    <Button onClick={() => close(EDialogType.PRODUCTS)}>
-                        Save
+                    <Button
+                        onClick={() => close(EDialogType.PRODUCTS)}
+                        size="sm"
+                        className="uppercase font-bold"
+                    >
+                        Close
                     </Button>
                 </div>
             </div>

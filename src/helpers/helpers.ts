@@ -51,7 +51,6 @@ export const ordersSummary = (orders: Order[], type?: PaymentType) => {
 }
 
 export const sortByKey = (key: keyof Order, array: Order[], asc?: true) => {
-    console.log("Ortet Key", key)
     return [...array].sort((a, b) => {
         if (a[key] > b[key]) {
             return asc ? 1 : -1

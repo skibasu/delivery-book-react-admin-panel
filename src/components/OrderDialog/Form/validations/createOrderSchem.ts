@@ -3,6 +3,7 @@ import * as yup from "yup"
 import {
     decimalNumberRegex,
     localNumberMobilePlRegex,
+    minimum3Characters,
     nunberWithOptionalLetterOnTheEnd,
     otherNumbersRegex,
     phoneNumberMobilePlRegex,
@@ -23,7 +24,6 @@ export const addOrderSchema = yup
                 otherNumbersRegex,
                 "Phone number shoul be in range 4-12 digits"
             ),
-        // .matches(phoneNumberMobilePlRegex, "Is not valid phone number."),
 
         prefix: yup.string().required("Prefix is required"),
         price: yup
@@ -55,10 +55,13 @@ export const addOrderSchema = yup
             ),
         city: yup
             .string()
-            .required("City is required")
-            .min(2, "City is to short.")
-            .max(9, "City is to long."),
-        note: yup.string().max(500, "Note is to long."),
+            .required("City name is required")
+            .min(2, "City name is to short.")
+            .max(9, "City name is to long."),
+        note: yup.string().matches(minimum3Characters, {
+            message: "Note is to short",
+            excludeEmptyString: true,
+        }),
         products: yup
             .array()
             .required("Basket is empty. Add products into the basket.")

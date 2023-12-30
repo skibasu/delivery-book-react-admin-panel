@@ -14,8 +14,10 @@ import {
     ISortState,
     useTableSettingsContext,
 } from "@/contexts/TableSettingsProvider"
+import { useShowToast } from "@/hooks/useShowToast"
 
 const Home: React.FC = () => {
+    const { setToast } = useShowToast()
     const dispatch = useAppDispatch()
     const { timeOut } = useAppSelector((state) => state.auth)
     const { socket } = useSocketContext()
@@ -42,6 +44,7 @@ const Home: React.FC = () => {
             dispatch(addOrder({ data: value, activeKey, asc }))
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))
+            setToast(`Order "${value.title}" created.`)
         })
         socket?.on("updateOrder", (value: any) => {
             const activeKey = getActiveKey(value.status)
@@ -52,11 +55,13 @@ const Home: React.FC = () => {
             dispatch(updateOrder({ data: value, activeKey, asc }))
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))
+            setToast(`Order "${value.title}" updated.`)
         })
         socket?.on("deleteOrder", (value) => {
             dispatch(deleteOrder(value))
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))
+            setToast(`Order ${value.title} deleted.`)
         })
         socket?.on("connect", () => {
             console.log("Socket connected")

@@ -53,20 +53,17 @@ export const AddUserForm: React.FC<IAddOrderForm> = ({ orderId }) => {
         }
     }
     useEffect(() => {
-        return () => {}
+        return () => {
+            dispatch(updateSocketLoading("idle"))
+            reset({ selectedBy: "" })
+        }
+
         //eslint-disable-next-line
-    }, [socketLoading])
+    }, [])
+
     return (
-        <Popover
-            modal={true}
-            onOpenChange={(open) => {
-                if (!open) {
-                    dispatch(updateSocketLoading("idle"))
-                    reset({ selectedBy: "" })
-                }
-            }}
-        >
-            <PopoverTrigger asChild>
+        <Popover modal={true}>
+            <PopoverTrigger>
                 <AddUserIcon />
             </PopoverTrigger>
             <PopoverContent>
