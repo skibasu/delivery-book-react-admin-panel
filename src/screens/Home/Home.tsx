@@ -44,7 +44,11 @@ const Home: React.FC = () => {
             dispatch(addOrder({ data: value, activeKey, asc }))
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))
-            setToast(`Order "${value.title}" created.`)
+            setToast(
+                `Order "${value.title}" created.`,
+                "You can add next one ...",
+                "added"
+            )
         })
         socket?.on("updateOrder", (value: any) => {
             const activeKey = getActiveKey(value.status)
@@ -55,13 +59,13 @@ const Home: React.FC = () => {
             dispatch(updateOrder({ data: value, activeKey, asc }))
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))
-            setToast(`Order "${value.title}" updated.`)
+            setToast(`Order "${value.title}" updated.`, undefined, "updated")
         })
         socket?.on("deleteOrder", (value) => {
             dispatch(deleteOrder(value))
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))
-            setToast(`Order ${value.title} deleted.`)
+            setToast(`Order ${value.title} deleted.`, undefined, "deleted")
         })
         socket?.on("connect", () => {
             console.log("Socket connected")
