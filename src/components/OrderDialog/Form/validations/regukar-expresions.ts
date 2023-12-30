@@ -1,4 +1,5 @@
 export const phoneNumberMobilePlRegex = /(^[4-7][0-9]\d{7}$)/
+export const minimum3Characters = /^.{3,}$/
 export const localNumberMobilePlRegex =
     /\b(^[1][2-9]|[2-8][0-9]|[9][0-1])\d{7}$\b/
 

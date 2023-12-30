@@ -9,6 +9,7 @@ interface IColumnAdress {
     boardType: OrderStatus
     className?: string
     adress: OrderAdress
+    title: string
     orderId: string
 }
 
@@ -16,6 +17,7 @@ const ColumnAdress: React.FC<IColumnAdress> = ({
     boardType,
     className,
     adress,
+    title,
     orderId,
 }) => {
     const isUserIconVisible = () =>
@@ -34,11 +36,16 @@ const ColumnAdress: React.FC<IColumnAdress> = ({
         >
             <div className={`flex items-center justify-between`}>
                 <div className={cssClassesBasedOnType()[0]}>
+                    <h3 className="text-sm capitalize font-medium mb-2x">
+                        {title}
+                    </h3>
                     <p className="max-w-full">
-                        ul. {adress?.streetName} {adress?.houseNumber} /{" "}
-                        {adress?.flatNumber}
+                        ul.
+                        <span className="capitalize inline-block">
+                            {` ${adress?.streetName} ${adress?.houseNumber} / ${adress?.flatNumber}`}
+                        </span>
                     </p>
-                    <p className="max-w-full">{adress?.city}</p>
+                    <p className="max-w-full capitalize">{adress?.city}</p>
                 </div>
                 {boardType === OrderStatus.OPEN ||
                 boardType === OrderStatus.DRAFT ? (

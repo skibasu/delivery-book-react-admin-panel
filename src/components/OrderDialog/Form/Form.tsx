@@ -21,6 +21,8 @@ import PhoneNumberInput from "@/components/PhoneNumberInput/PhoneNumberInput"
 import { usePhoneNumberContext } from "@/contexts/PhoneNumberProvider"
 import { countries } from "@/components/PhoneNumberInput/countries"
 
+import { EDialogType, useDialogContext } from "@/contexts/DialogProvider"
+
 interface IForm {
     defaultValues: IAddOrderForm
     formType: "update" | "create"
@@ -30,6 +32,7 @@ interface IForm {
 
 const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
     const { socket } = useSocketContext()
+    const { close } = useDialogContext()
     const { socketLoading } = useAppSelector((state) => state.orders)
     const { orders: basket } = useAppSelector((state) => state.basket)
     const {
@@ -144,8 +147,13 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
     useEffect(() => {
         if (socketLoading === "succeeded") {
             reset(prevValues)
-            onFocusInputElem("title")
-            formType !== "update" && dispatch(removeAllProducts())
+
+            if (formType === "create") {
+                dispatch(removeAllProducts())
+            } else if (formType === "update") {
+                dispatch(removeAllProducts())
+                close(EDialogType.ORDER)
+            }
         }
         //eslint-disable-next-line
     }, [socketLoading])
@@ -403,7 +411,17 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
             <AddOrderButton />
 
             <AddOrderFormMessage
-                validationMessage={errors?.products?.message}
+                validationMessages={[
+                    errors?.title?.message || "",
+                    errors.phoneNumber?.message || "",
+                    errors.streetName?.message || "",
+                    errors.houseNumber?.message || "",
+                    errors.flatNumber?.message || "",
+                    errors.city?.message || "",
+                    errors.note?.message || "",
+                    errors?.products?.message || "",
+                    errors.price?.message || "",
+                ]}
             />
         </form>
     )

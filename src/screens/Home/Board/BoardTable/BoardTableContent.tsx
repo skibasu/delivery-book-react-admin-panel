@@ -78,6 +78,7 @@ const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
                         adress,
                         phoneNumber,
                         createdAt,
+                        title,
                         actions: { editable, deletable },
                         selectedBy,
                         products,
@@ -108,6 +109,7 @@ const BoardTableContent: React.FC<IBoardTableContent> = ({ boardType }) => {
                                         <ColumnAdress
                                             key={key}
                                             boardType={boardType}
+                                            title={title}
                                             adress={adress}
                                             className={borderAndWidth}
                                             orderId={id}
