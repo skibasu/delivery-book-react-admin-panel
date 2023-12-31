@@ -24,6 +24,7 @@ import { countries } from "@/components/PhoneNumberInput/countries"
 import { EDialogType, useDialogContext } from "@/contexts/DialogProvider"
 import { useShowToast } from "@/hooks/useShowToast"
 import {
+    decimalRegex,
     firstSpaceRegex,
     lastSpaceRegex,
     noDoubleSpacesRegex,
@@ -132,6 +133,20 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                 shouldTouch: true,
             }
         )
+    }
+    const trimPriceOnChange = (value: string) => {
+        let trimedValue = value.replace(decimalRegex, "")
+        const dotIndex = trimedValue.indexOf(".")
+        if (dotIndex !== -1) {
+            const decimalPlaces = trimedValue.length - dotIndex - 1
+            if (decimalPlaces > 2) {
+                trimedValue = trimedValue.substring(0, dotIndex + 3)
+            }
+            if (dotIndex === 0) {
+                trimedValue = `0${trimedValue}`
+            }
+        }
+        return trimedValue
     }
     const changeLoadingToIddle = () => {
         socketLoading === "succeeded" && dispatch(updateSocketLoading("idle"))
@@ -447,9 +462,11 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                             value={value}
                             className="w-[107px]"
                             wrapperClasses="grow max-w-[303px]"
-                            onChange={(e) =>
-                                onChange(e.target.value.replace(/[^0-9]/g, ""))
-                            }
+                            onChange={(e) => {
+                                const value = trimPriceOnChange(e.target.value)
+                                console.log(value)
+                                onChange(value)
+                            }}
                             onFocus={changeLoadingToIddle}
                         />
                     )}

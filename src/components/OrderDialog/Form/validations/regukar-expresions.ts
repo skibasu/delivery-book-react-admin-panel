@@ -8,6 +8,7 @@ export const nunberWithOptionalLetterOnTheEnd = /(^[0-9]{1,7}[A-Za-z]?$)/
 export const decimalNumberRegex =
     /(?=.*?\d)^\$?(([1-9]\d{0,2}(,\d{3})*)|\d+)?(\.\d{1,2})?$/
 
+export const decimalRegex = /[^0-9.]/g
 export const noDoubleSpacesRegex = /\s\s+/g
 export const firstSpaceRegex = /^\s/
 export const lastSpaceRegex = /\s$/
