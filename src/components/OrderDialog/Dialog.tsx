@@ -41,7 +41,12 @@ const Dialog = () => {
             title: orderForUpdate?.title || "",
             phoneNumber: orderForUpdate?.phoneNumber.number || "",
             prefix: orderForUpdate?.phoneNumber.prefix || "",
-            price: "",
+            price: String(
+                orderForUpdate?.products.reduce(
+                    (a, v) => a + v.price * v.counter,
+                    0
+                )
+            ),
             paymentType: orderForUpdate?.paymentType || "",
             status: orderForUpdate?.status || "",
             selectedBy: orderForUpdate?.selectedBy?._id || null,

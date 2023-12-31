@@ -22,6 +22,7 @@ import { usePhoneNumberContext } from "@/contexts/PhoneNumberProvider"
 import { countries } from "@/components/PhoneNumberInput/countries"
 
 import { EDialogType, useDialogContext } from "@/contexts/DialogProvider"
+import { useShowToast } from "@/hooks/useShowToast"
 
 interface IForm {
     defaultValues: IAddOrderForm
@@ -31,6 +32,7 @@ interface IForm {
 }
 
 const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
+    const { setToast } = useShowToast()
     const { socket } = useSocketContext()
     const { close } = useDialogContext()
     const { socketLoading } = useAppSelector((state) => state.orders)
@@ -69,6 +71,12 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
     })
     const [prevValues, setPrevValues] = useState<IAddOrderForm>(defaultValues)
     const onSubmit = async (data: IAddOrderForm) => {
+        const currentData = JSON.stringify(data)
+        const prevData = JSON.stringify(defaultValues)
+        if (formType === "update" && currentData === prevData) {
+            setToast("Nothing has changed", undefined, "rejected")
+            return
+        }
         const {
             city,
             flatNumber,
