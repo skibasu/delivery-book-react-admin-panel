@@ -23,6 +23,11 @@ import { countries } from "@/components/PhoneNumberInput/countries"
 
 import { EDialogType, useDialogContext } from "@/contexts/DialogProvider"
 import { useShowToast } from "@/hooks/useShowToast"
+import {
+    firstSpaceRegex,
+    lastSpaceRegex,
+    noDoubleSpacesRegex,
+} from "./validations/regukar-expresions"
 
 interface IForm {
     defaultValues: IAddOrderForm
@@ -114,7 +119,20 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
             console.log(e.message)
         }
     }
-
+    const trimValuesOnBlur = (key: keyof IAddOrderForm, value: string) => {
+        setValue(
+            key,
+            value
+                .replace(noDoubleSpacesRegex, " ")
+                .replace(firstSpaceRegex, "")
+                .replace(lastSpaceRegex, ""),
+            {
+                shouldValidate: true,
+                shouldDirty: true,
+                shouldTouch: true,
+            }
+        )
+    }
     const changeLoadingToIddle = () => {
         socketLoading === "succeeded" && dispatch(updateSocketLoading("idle"))
     }
@@ -177,7 +195,9 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
     }, [])
     useEffect(() => {
         onFocusInputElem("title")
-        formType === "update" && dispatch(updateBasket(defaultValues.products))
+        formType === "update" &&
+            basket.length === 0 &&
+            dispatch(updateBasket(defaultValues.products))
         //eslint-disable-next-line
     }, [formType])
 
@@ -213,8 +233,11 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                         name="title"
                         value={value}
                         className={inputCss}
-                        onChange={(value) => onChange(value)}
-                        onBlur={onBlur}
+                        onChange={onChange}
+                        onBlur={() => {
+                            trimValuesOnBlur("title", value)
+                            onBlur()
+                        }}
                         onFocus={changeLoadingToIddle}
                         onKeyDown={(e) => onEnterKeyHandler(e, "phoneNumber")}
                     />
@@ -252,8 +275,11 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                             name="streetName"
                             value={value}
                             className={inputCss}
-                            onChange={(value) => onChange(value)}
-                            onBlur={onBlur}
+                            onChange={onChange}
+                            onBlur={() => {
+                                trimValuesOnBlur("streetName", value)
+                                onBlur()
+                            }}
                             onFocus={changeLoadingToIddle}
                             onKeyDown={(e) =>
                                 onEnterKeyHandler(e, "houseNumber")
@@ -272,8 +298,11 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                             name="houseNumber"
                             value={value.toUpperCase()}
                             className="w-[92px]"
-                            onChange={(value) => onChange(value)}
-                            onBlur={onBlur}
+                            onChange={onChange}
+                            onBlur={() => {
+                                trimValuesOnBlur("houseNumber", value)
+                                onBlur()
+                            }}
                             onFocus={changeLoadingToIddle}
                             onKeyDown={(e) =>
                                 onEnterKeyHandler(e, "flatNumber")
@@ -292,8 +321,11 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                             name="flatNumber"
                             value={value.toUpperCase()}
                             className="w-[80px]"
-                            onChange={(value) => onChange(value)}
-                            onBlur={onBlur}
+                            onChange={onChange}
+                            onBlur={() => {
+                                trimValuesOnBlur("flatNumber", value)
+                                onBlur()
+                            }}
                             onFocus={changeLoadingToIddle}
                             onKeyDown={(e) => onEnterKeyHandler(e, "city")}
                         />
@@ -311,8 +343,11 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                         name="city"
                         value={value}
                         className={inputCss}
-                        onChange={(value) => onChange(value)}
-                        onBlur={onBlur}
+                        onChange={onChange}
+                        onBlur={() => {
+                            trimValuesOnBlur("city", value)
+                            onBlur()
+                        }}
                         onFocus={changeLoadingToIddle}
                         onKeyDown={(e) => onEnterKeyHandler(e, "note")}
                     />
@@ -329,8 +364,11 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                         name="note"
                         value={value}
                         className="w-full h-[45px]"
-                        onChange={(value) => onChange(value)}
-                        onBlur={onBlur}
+                        onChange={onChange}
+                        onBlur={() => {
+                            trimValuesOnBlur("note", value || "")
+                            onBlur()
+                        }}
                         onFocus={changeLoadingToIddle}
                     />
                 )}
@@ -409,7 +447,9 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                             value={value}
                             className="w-[107px]"
                             wrapperClasses="grow max-w-[303px]"
-                            onChange={(value) => onChange(value)}
+                            onChange={(e) =>
+                                onChange(e.target.value.replace(/[^0-9]/g, ""))
+                            }
                             onFocus={changeLoadingToIddle}
                         />
                     )}
