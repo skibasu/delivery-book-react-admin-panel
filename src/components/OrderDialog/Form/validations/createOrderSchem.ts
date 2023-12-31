@@ -57,7 +57,7 @@ export const addOrderSchema = yup
             .string()
             .required("City name is required")
             .min(2, "City name is to short.")
-            .max(9, "City name is to long."),
+            .max(85, "City name is to long."),
         note: yup.string().matches(minimum3Characters, {
             message: "Note is to short",
             excludeEmptyString: true,
