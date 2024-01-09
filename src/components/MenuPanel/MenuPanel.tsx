@@ -3,6 +3,7 @@ import { ReactComponent as HomeIcon } from "@/assets/svg/icon-home.svg"
 import { ReactComponent as ToggleIcon } from "@/assets/svg/icon-toggle-menu.svg"
 import { ReactComponent as UsersIcon } from "@/assets/svg/icon-users.svg"
 import { ReactComponent as StatisticsIcon } from "@/assets/svg/icon-statistics.svg"
+import { ReactComponent as ShiftIcon } from "@/assets/svg/icon-shift.svg"
 import { Link } from "react-router-dom"
 import { AnimationSequence, useAnimate, stagger } from "framer-motion"
 
@@ -86,7 +87,17 @@ const MenuPanel = () => {
                     <ToggleIcon className="rotate-180" />
                 </div>
 
-                <ul>
+                <ul className="pt-7x">
+                    <li className="mb-7x">
+                        <Link to="/shift" className={`flex items-center`}>
+                            <ShiftIcon className="shrink-0" color={"#FFF"} />
+                            <span
+                                className={`span-text ml-7x shrink-0 font-payton font-lg tracking-[1.8px] uppercase opacity-0`}
+                            >
+                                Shift
+                            </span>
+                        </Link>
+                    </li>
                     <li className="mb-7x">
                         <Link to="/" className={`flex items-center`}>
                             <HomeIcon className="shrink-0" color={"#FFF"} />
