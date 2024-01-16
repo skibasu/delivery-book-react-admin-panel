@@ -20,6 +20,7 @@ const Home: React.FC = () => {
     const { setToast } = useShowToast()
     const dispatch = useAppDispatch()
     const { timeOut } = useAppSelector((state) => state.auth)
+
     const { socket } = useSocketContext()
     const {
         getSortSettings,

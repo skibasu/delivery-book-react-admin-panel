@@ -464,7 +464,6 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
                             wrapperClasses="grow max-w-[303px]"
                             onChange={(e) => {
                                 const value = trimPriceOnChange(e.target.value)
-                                console.log(value)
                                 onChange(value)
                             }}
                             onFocus={changeLoadingToIddle}

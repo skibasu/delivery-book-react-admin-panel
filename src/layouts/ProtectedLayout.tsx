@@ -2,11 +2,11 @@ import Footer from "@/components/Footer/Footer"
 import Header from "@/components/Header/Header"
 import MenuPanel from "@/components/MenuPanel/MenuPanel"
 import SectionHeader from "@/components/SectionHeader/SectionHeader"
-import React, { useLayoutEffect } from "react"
+import React, { useEffect, useLayoutEffect } from "react"
 import { Outlet } from "react-router-dom"
 import { Toaster } from "@/components/ui/toaster"
 import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
-import { getOrders } from "@/api/ordersApi"
+
 import { getUsers } from "@/api/usersApi"
 
 import OrderDialog from "@/components/OrderDialog/OrderDialog"
@@ -18,10 +18,19 @@ import { axiosResInterceptor } from "@/axios"
 import { eraseCookie, getCookie } from "@/helpers/helpers"
 import { logoutUserLocaly } from "@/features/auth/authSlice"
 import { getProfile } from "@/api/profileApi"
+import { getShift } from "@/api/shiftApi"
+import { addShiftOrders } from "@/features/orders/ordersSlice"
 
 const ProtectedLayout: React.FC = () => {
     const dispatch = useAppDispatch()
     const { _id } = useAppSelector((state) => state.auth)
+    const { data } = useAppSelector((state) => state.shift)
+
+    useEffect(() => {
+        data.orders?.length > 0 && dispatch(addShiftOrders(data.orders))
+        //eslint-disable-next-line
+    }, [data])
+
     const eraseCookies = () => {
         eraseCookie("_id")
         eraseCookie("refresh")
@@ -40,8 +49,9 @@ const ProtectedLayout: React.FC = () => {
                 return true
             }
         })
+
         _id && dispatch(getProfile())
-        _id && dispatch(getOrders())
+        _id && dispatch(getShift())
         _id && dispatch(getUsers())
         _id && dispatch(getMenu())
 

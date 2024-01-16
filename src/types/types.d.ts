@@ -3,3 +3,6 @@ interface ApiError {
     error: string
     statusCode: number
 }
+
+type FilteredData = { [key in keyof typeof OrderStatus]: Order[] }
+type Loading = "idle" | "pending" | "succeeded" | "failed"

@@ -14,6 +14,10 @@ const ordersSlice = createSlice({
     name: "orders",
     initialState,
     reducers: {
+        addShiftOrders(state, { payload }) {
+            state.data = payload
+            state.filteredData = filterOrders(payload)
+        },
         addOrder(state, { payload: { data: payload, asc, activeKey } }) {
             state.data.push(payload)
             state.filteredData[payload.status as OrderStatus].unshift(payload)
@@ -67,6 +71,7 @@ const ordersSlice = createSlice({
 })
 
 export const {
+    addShiftOrders,
     addOrder,
     updateOrder,
     updateSocketLoading,

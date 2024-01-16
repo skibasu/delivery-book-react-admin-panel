@@ -2,7 +2,7 @@ import { BasketProduct } from "@/features/basket/types"
 import { filteredMenuInitial } from "@/features/menu/initialState"
 import { FilteredMenu } from "@/features/menu/types"
 import { filteredDataInitial } from "@/features/orders/initialState"
-import { FilteredData, Order, PaymentType } from "@/features/orders/types"
+import { Order, PaymentType } from "@/features/orders/types"
 
 export const filterOrders = (orders: Order[]): FilteredData => {
     const data: any = {}

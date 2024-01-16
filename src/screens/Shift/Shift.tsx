@@ -1,4 +1,3 @@
-import React from "react"
 import CurrentShiftTitle from "@/components/CurrentShiftTitle/CurrentShiftTitle"
 
 const Shift = () => {

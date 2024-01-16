@@ -46,9 +46,6 @@ export interface Order {
     actions: Actions
 }
 
-export type FilteredData = { [key in keyof typeof OrderStatus]: Order[] }
-export type Loading = "idle" | "pending" | "succeeded" | "failed"
-
 export interface OrdersState {
     loading: Loading
     error: ApiError | null
