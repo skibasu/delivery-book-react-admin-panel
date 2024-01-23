@@ -4,7 +4,7 @@ import { ShiftState } from "@/features/shift/types"
 
 export const getShift = createAsyncThunk("shift/getShift", async () => {
     const req = await axios.get("/shifts/active")
-
+    console.log("REQUEST DATA", req.data)
     return req.data
 })
 

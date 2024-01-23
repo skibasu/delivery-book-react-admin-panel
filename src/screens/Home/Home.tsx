@@ -41,7 +41,7 @@ const Home: React.FC = () => {
             const asc = getSortSettings(value.status)[
                 activeKey as keyof ISortState
             ]
-
+            console.log("ASC", asc)
             dispatch(addOrder({ data: value, activeKey, asc }))
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("succeeded"))

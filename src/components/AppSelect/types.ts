@@ -5,6 +5,7 @@ export enum EDataType {
     STATUSES = "STATUSES",
     PAYMENTS = "PAYMENTS",
     CATEGORY = "CATEGORY",
+    SHIFTS = "SHIFTS",
 }
 
 export type BasicStatuses =

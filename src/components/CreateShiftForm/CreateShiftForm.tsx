@@ -3,7 +3,7 @@ import { Button, Input } from "../ui"
 
 import { Controller, useForm } from "react-hook-form"
 
-//import { useAppDispatch, useAppSelector } from "@/hooks/useStore"
+import { useAppDispatch } from "@/hooks/useStore"
 // import {
 //     updateSocketError,
 //     updateSocketLoading,
@@ -13,19 +13,19 @@ import { Controller, useForm } from "react-hook-form"
 //import { ReactComponent as Spinner } from "@/assets/svg/icon-spinner.svg"
 import { shiftSchema } from "./validation"
 import { yupResolver } from "@hookform/resolvers/yup"
+import { postShift } from "@/api/shiftApi/postShift"
+import moment from "moment"
 
 interface IForm {
     title: string
 }
-interface IAddOrderForm {
-    orderId: string
-}
+
 const defaultValues: IForm = {
-    title: String(new Date()),
+    title: String(moment().format("D-MM-YYYY")),
 }
-export const AddUserForm: React.FC<IAddOrderForm> = ({ orderId }) => {
+const CreateShiftForm = () => {
     //  const { socketLoading } = useAppSelector((state) => state.orders)
-    //  const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch()
     //  const { socket } = useSocketContext()
 
     const {
@@ -42,10 +42,7 @@ export const AddUserForm: React.FC<IAddOrderForm> = ({ orderId }) => {
     const onSubmit = async (data: IForm) => {
         try {
             console.log(data)
-            // dispatch(updateSocketError(null))
-            //dispatch(updateSocketLoading("pending"))
-
-            //socket?.emit("updateOrder", { id: orderId, ...formatedData })
+            dispatch(postShift(data))
         } catch (e: any) {
             console.log(e.message)
         }
@@ -60,7 +57,8 @@ export const AddUserForm: React.FC<IAddOrderForm> = ({ orderId }) => {
     }, [])
 
     return (
-        <form>
+        <form className="mb-7x">
+            <h2 className="text-h5 mb-4x">Start New Shift:</h2>
             <Controller
                 name="title"
                 control={control}
@@ -72,6 +70,7 @@ export const AddUserForm: React.FC<IAddOrderForm> = ({ orderId }) => {
                         name="title"
                         value={value}
                         onChange={onChange}
+                        className="max-w-[303px]"
                     />
                 )}
             />
@@ -89,3 +88,4 @@ export const AddUserForm: React.FC<IAddOrderForm> = ({ orderId }) => {
         </form>
     )
 }
+export default CreateShiftForm

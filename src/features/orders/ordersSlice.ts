@@ -20,10 +20,10 @@ const ordersSlice = createSlice({
         },
         addOrder(state, { payload: { data: payload, asc, activeKey } }) {
             state.data.push(payload)
-            state.filteredData[payload.status as OrderStatus].unshift(payload)
+
             state.filteredData[payload.status as OrderStatus] = sortByKey(
                 activeKey,
-                [...state.filteredData[payload.status as OrderStatus]],
+                [...state.filteredData[payload.status as OrderStatus], payload],
                 asc
             )
         },

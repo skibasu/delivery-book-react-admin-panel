@@ -43,6 +43,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
     const { close } = useDialogContext()
     const { socketLoading } = useAppSelector((state) => state.orders)
     const { orders: basket } = useAppSelector((state) => state.basket)
+    const { _id: shiftId } = useAppSelector((state) => state.shift.data)
     const {
         currentCountry: { prefix },
         setCurrentCountry,
@@ -110,7 +111,7 @@ const Form: React.FC<IForm> = ({ defaultValues, formType, orderId, title }) => {
             dispatch(updateSocketError(null))
             dispatch(updateSocketLoading("pending"))
             if (formType === "create") {
-                socket?.emit("createOrder", formatedData)
+                socket?.emit("createOrder", { ...formatedData, shiftId })
             }
             if (formType === "update") {
                 setPrevValues(data)

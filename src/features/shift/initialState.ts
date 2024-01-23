@@ -6,8 +6,10 @@ export const initialState: ShiftState = {
     socketError: null,
     error: null,
     data: {
+        _id: "",
         title: null,
         createdBy: null,
+        updatedAt: 0,
         isActive: false,
         createdAt: 0,
         orders: [] as Order[],

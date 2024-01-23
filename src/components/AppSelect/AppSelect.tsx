@@ -9,6 +9,7 @@ import { EDataType } from "./types"
 import { categories, payments, statuses } from "./selectData"
 import PaymentsItems from "../PaymentsItems/PaymentsItems"
 import CategoriesItems from "../CategoriesItems/CategoriesItems"
+import ShiftItems from "../ShiftItems/ShiftItems"
 
 interface IAppSelect {
     onValueChange: (value: string) => void
@@ -39,6 +40,7 @@ const AppSelect: React.FC<IAppSelect> = ({
     error,
 }) => {
     const { data: users } = useAppSelector((state) => state.users)
+    const { data: shifts } = useAppSelector((state) => state.shifts)
 
     return (
         <div className={wrapperClasses}>
@@ -103,6 +105,14 @@ const AppSelect: React.FC<IAppSelect> = ({
                             items={categories.map((category) => ({
                                 category,
                                 isHidden: category === inputValue,
+                            }))}
+                        />
+                    ) : null}
+                    {dataType === EDataType.SHIFTS ? (
+                        <ShiftItems
+                            items={shifts.map((item) => ({
+                                ...item,
+                                isHidden: item._id === inputValue,
                             }))}
                         />
                     ) : null}

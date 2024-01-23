@@ -27,7 +27,9 @@ const ProtectedLayout: React.FC = () => {
     const { data } = useAppSelector((state) => state.shift)
 
     useEffect(() => {
-        data.orders?.length > 0 && dispatch(addShiftOrders(data.orders))
+        if (data.orders?.length > 0) {
+            dispatch(addShiftOrders(data.orders))
+        }
         //eslint-disable-next-line
     }, [data])
 

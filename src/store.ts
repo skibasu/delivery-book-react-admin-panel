@@ -6,11 +6,13 @@ import basketReducer from "./features/basket/basketSlice"
 import menuReducer from "./features/menu/menuSlice"
 import profileReducer from "./features/profile/profileSlice"
 import shiftReducer from "./features/shift/shiftSlice"
+import shiftsReducer from "./features/shifts/shiftsSlice"
 
 export const store = configureStore({
     reducer: {
         auth: authReducer,
         shift: shiftReducer,
+        shifts: shiftsReducer,
         orders: ordrersReducer,
         users: usersReducer,
         profile: profileReducer,
