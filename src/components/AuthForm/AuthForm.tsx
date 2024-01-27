@@ -22,7 +22,7 @@ const AuthForm: React.FC = () => {
         formState: { errors },
     } = useForm<ILoginFormData>({
         resolver: yupResolver(authSchema),
-        mode: "onTouched",
+        mode: "all",
         defaultValues,
     })
     const onSubmit = async (data: ILoginFormData) => {
@@ -38,6 +38,7 @@ const AuthForm: React.FC = () => {
                 className=""
                 onSubmit={handleSubmit(onSubmit)}
                 id="login-form"
+                data-cy="login-form"
             >
                 <Controller
                     name="email"
@@ -51,6 +52,8 @@ const AuthForm: React.FC = () => {
                             value={value}
                             className="w-full"
                             onChange={(value) => onChange(value)}
+                            data-cy="login-form-email"
+                            dataCyParrent="login-form-email-parrent"
                         />
                     )}
                 />
@@ -68,6 +71,8 @@ const AuthForm: React.FC = () => {
                             value={value}
                             className="w-full"
                             onChange={(value) => onChange(value)}
+                            data-cy="login-form-password"
+                            dataCyParrent="login-form-password-parrent"
                         />
                     )}
                 />
@@ -76,15 +81,22 @@ const AuthForm: React.FC = () => {
                     className="mt-6x relative disabled:opacity-1"
                     onClick={handleSubmit(onSubmit)}
                     disabled={loading === "pending"}
+                    dataCy="login-form-submit"
                 >
                     Login
                     {loading === "pending" ? (
-                        <Spinner className="absolute right-7x inset-y-2/4 -translate-y-1/2 w-[20px] h-[20px]" />
+                        <Spinner
+                            className="absolute right-7x inset-y-2/4 -translate-y-1/2 w-[20px] h-[20px]"
+                            data-cy="login-form-spinner"
+                        />
                     ) : null}
                 </Button>
 
                 {error ? (
-                    <div className="flex w-full items-center h-errorSpacer">
+                    <div
+                        className="flex w-full items-center h-errorSpacer"
+                        data-cy="login-form-error"
+                    >
                         <ErrorIcon className="mr-2x w-[14px] h-[14px]" />
                         <p className="text-2sm text-hellFire">
                             {error.message || "Server error"}

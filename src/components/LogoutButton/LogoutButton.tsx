@@ -7,6 +7,7 @@ export const LogoutButton = () => {
 
     return (
         <button
+            data-cy="logout"
             className="bg-transparent ml-6x"
             onClick={() => dispatch(logoutUser())}
         >

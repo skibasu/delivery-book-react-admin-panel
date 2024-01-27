@@ -6,6 +6,7 @@ export interface InputProps
     extends React.InputHTMLAttributes<HTMLInputElement> {
     label?: string
     wrapperClasses?: string
+    dataCyParrent?: string
     error?: string
 }
 
@@ -19,6 +20,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             label,
             wrapperClasses,
             error,
+            dataCyParrent,
             ...props
         },
         ref
@@ -26,7 +28,10 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         const errorInputClasses = error ? "!border-hellFire" : ""
         const errorLabelClasses = error ? "!text-hellFire" : ""
         return (
-            <div className={`${wrapperClasses ? " " + wrapperClasses : ""}`}>
+            <div
+                className={`${wrapperClasses ? " " + wrapperClasses : ""}`}
+                data-cy={dataCyParrent}
+            >
                 {!!label && (
                     <Label
                         className={`block mb-3x leading-none${
