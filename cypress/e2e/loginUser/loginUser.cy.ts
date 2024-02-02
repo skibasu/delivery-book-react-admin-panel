@@ -58,14 +58,9 @@ describe("Login Form", () => {
                     inputPasswordClass[1]
                 )
                 //Click Log In
-                if (logged === true || logged === false) {
-                    cy.intercept(
-                        "POST",
-                        "http://localhost:3000/auth/signin"
-                    ).as("loginApiCall")
-                }
                 if (logged) {
                     cy.loginSuccess()
+                    cy.logOut()
                 } else if (logged === false) {
                     cy.loginFailed()
                 } else {

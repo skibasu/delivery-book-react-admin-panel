@@ -19,8 +19,6 @@ Cypress.Commands.add("loginSuccess", () => {
     cy.wait("@loginApiCall").its("response.statusCode").should("eq", 200)
 
     cy.location("pathname").should("eq", "/")
-    cy.getByID("logout").click()
-    cy.location("pathname").should("eq", "/login")
 })
 
 Cypress.Commands.add("loginFailed", () => {
@@ -43,7 +41,15 @@ Cypress.Commands.add("loginNotAvailable", () => {
     cy.getByID("login-form-error").should("not.exist")
     cy.location("pathname").should("eq", "/login")
 })
+Cypress.Commands.add("logOut", () => {
+    cy.intercept("POST", "http://localhost:3000/auth/logout").as(
+        "logoutApiCall"
+    )
 
+    cy.getByID("logout").click()
+    cy.wait("@logoutApiCall").its("response.statusCode").should("eq", 200)
+    cy.location("pathname").should("eq", "/login")
+})
 Cypress.Commands.add("getByID", (id: string) => {
     return cy.get(`[data-cy="${id}"]`)
 })

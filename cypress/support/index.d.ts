@@ -17,6 +17,6 @@ declare namespace Cypress {
         loginSuccess(): Chainable<void>
         loginFailed(): Chainable<void>
         loginNotAvailable(): Chainable<void>
-        logout(): Chainable<void>
+        logOut(): Chainable<void>
     }
 }

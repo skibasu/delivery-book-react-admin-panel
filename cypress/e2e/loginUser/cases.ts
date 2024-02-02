@@ -50,7 +50,7 @@ export const cases: IData[] = [
             inputEmailClass: ["not.have.class", "!border-hellFire"],
             labelPasswordClass: ["not.have.class", "!text-hellFire"],
             inputPasswordClass: ["not.have.class", "!border-hellFire"],
-            isSubmitDisabled: "not.not.be.disabled",
+            isSubmitDisabled: "not.be.disabled",
             logged: false,
         },
     }, //Bledny login - Bad Credentials
