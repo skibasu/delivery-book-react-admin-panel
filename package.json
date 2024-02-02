@@ -31,6 +31,7 @@
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.0.0",
         "cmdk": "^0.2.0",
+        "cypress": "^13.6.3",
         "env-cmd": "^10.1.0",
         "flag-icons": "^6.11.2",
         "framer-motion": "^10.16.4",
@@ -57,7 +58,8 @@
         "test": "env-cmd -f .env.staging craco test",
         "eject": "env-cmd -f .env.staging craco eject",
         "predeploy": "env-cmd -f .env.staging npm run build",
-        "deploy": "env-cmd -f .env.staging gh-pages -d build"
+        "deploy": "env-cmd -f .env.staging gh-pages -d build",
+        "cypress:start": "cypress open"
     },
     "eslintConfig": {
         "extends": [
@@ -79,6 +81,7 @@
     },
     "devDependencies": {
         "autoprefixer": "^10.4.15",
+        "cypress-wait-until": "^3.0.1",
         "postcss": "^8.4.29",
         "tailwind-scrollbar": "^3.0.5",
         "tailwindcss": "^3.3.3"
